@@ -1,0 +1,121 @@
+[
+  {
+    "model": "main.comunidadautonoma",
+    "pk": 1,
+    "fields": {
+      "nombre": "Andalucía"
+    }
+  },
+  {
+    "model": "main.comunidadautonoma",
+    "pk": 2,
+    "fields": {
+      "nombre": "Aragón"
+    }
+  },
+  {
+    "model": "main.comunidadautonoma",
+    "pk": 3,
+    "fields": {
+      "nombre": "Principado de Asturias"
+    }
+  },
+  {
+    "model": "main.comunidadautonoma",
+    "pk": 4,
+    "fields": {
+      "nombre": "Islas Baleares"
+    }
+  },
+  {
+    "model": "main.comunidadautonoma",
+    "pk": 5,
+    "fields": {
+      "nombre": "Canarias"
+    }
+  },
+  {
+    "model": "main.comunidadautonoma",
+    "pk": 6,
+    "fields": {
+      "nombre": "Cantabria"
+    }
+  },
+  {
+    "model": "main.comunidadautonoma",
+    "pk": 7,
+    "fields": {
+      "nombre": "Castilla y León"
+    }
+  },
+  {
+    "model": "main.comunidadautonoma",
+    "pk": 8,
+    "fields": {
+      "nombre": "Castilla-La Mancha"
+    }
+  },
+  {
+    "model": "main.comunidadautonoma",
+    "pk": 9,
+    "fields": {
+      "nombre": "Cataluña"
+    }
+  },
+  {
+    "model": "main.comunidadautonoma",
+    "pk": 10,
+    "fields": {
+      "nombre": "Comunitat Valenciana"
+    }
+  },
+  {
+    "model": "main.comunidadautonoma",
+    "pk": 11,
+    "fields": {
+      "nombre": "Extremadura"
+    }
+  },
+  {
+    "model": "main.comunidadautonoma",
+    "pk": 12,
+    "fields": {
+      "nombre": "Galicia"
+    }
+  },
+  {
+    "model": "main.comunidadautonoma",
+    "pk": 13,
+    "fields": {
+      "nombre": "Comunidad de Madrid"
+    }
+  },
+  {
+    "model": "main.comunidadautonoma",
+    "pk": 14,
+    "fields": {
+      "nombre": "Región de Murcia"
+    }
+  },
+  {
+    "model": "main.comunidadautonoma",
+    "pk": 15,
+    "fields": {
+      "nombre": "Comunidad Foral de Navarra"
+    }
+  },
+  {
+    "model": "main.comunidadautonoma",
+    "pk": 16,
+    "fields": {
+      "nombre": "País Vasco"
+    }
+  },
+  {
+    "model": "main.comunidadautonoma",
+    "pk": 17,
+    "fields": {
+      "nombre": "La Rioja"
+    }
+  }
+]

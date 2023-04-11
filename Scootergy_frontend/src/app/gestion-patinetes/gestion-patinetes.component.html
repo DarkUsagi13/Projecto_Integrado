@@ -1,0 +1,31 @@
+<app-template>
+  <div class="container">
+    <form  [formGroup]="formulario" (ngSubmit)="postPatinete()">
+      <div class="row row py-2 g-3 align-items-center">
+        <div class="col-auto">
+          <label class="col-form-label">Marca: </label>
+        </div>
+        <div class="col-auto">
+          <input class="form-control" formControlName="marca" type="text">
+        </div>
+      </div>
+      <div class="row row py-2 g-3 align-items-center">
+        <div class="col-auto">
+          <label class="col-form-label">Modelo: </label>
+        </div>
+        <div class="col-auto">
+          <input class="form-control" formControlName="modelo" type="text">
+        </div>
+      </div>
+      <div class="row row py-2 g-3 align-items-center">
+        <div class="col-auto">
+          <label class="col-form-label">Consumo: </label>
+        </div>
+        <div class="col-auto">
+          <input class="form-control" formControlName="consumo" type="text">
+        </div>
+      </div>
+      <button class="btn btn-primary" [disabled]="formulario.invalid">Registrar patinete</button>
+    </form>
+  </div>
+</app-template>

@@ -41,6 +41,10 @@ testem.log
 .DS_Store
 Thumbs.db
 
+#Cache
+cache/
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

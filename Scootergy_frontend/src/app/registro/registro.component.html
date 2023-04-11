@@ -1,0 +1,31 @@
+<app-template>
+  <div class="card-body">
+    <form  [formGroup]="formulario" (ngSubmit)="nuevoUsuario(formulario.value)">
+      <div class="row row py-2 g-3 align-items-center">
+        <div class="col-auto">
+          <label class="col-form-label">Nombre de usuario: </label>
+        </div>
+        <div class="col-auto">
+          <input class="form-control" formControlName="username" type="text">
+        </div>
+      </div>
+      <div class="row row py-2 g-3 align-items-center">
+        <div class="col-auto">
+          <label class="col-form-label">Correo: </label>
+        </div>
+        <div class="col-auto">
+          <input class="form-control" formControlName="email" type="text">
+        </div>
+      </div>
+      <div class="row row py-2 g-3 align-items-center">
+        <div class="col-auto">
+          <label class="col-form-label">Contraseña: </label>
+        </div>
+        <div class="col-auto">
+          <input class="form-control" formControlName="password" type="text">
+        </div>
+      </div>
+      <button class="btn btn-primary" [disabled]="formulario.invalid">Nuevo usuario</button>
+    </form>
+  </div>
+</app-template>

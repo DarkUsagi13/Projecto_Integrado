@@ -1,0 +1,17 @@
+<app-template>
+  <div class="container row">
+    <div class="col">
+      <h3>Mi perfil</h3>
+      <nav class="nav flex-column">
+        <ul>
+          <li class="nav-link">Nombre de usuario: {{perfilUsuario.username}}</li>
+          <li class="nav-link">Correo: {{perfilUsuario.email}}</li>
+        </ul>
+        <a [routerLink]="['editar_perfil']">Editar datos</a>
+      </nav>
+    </div>
+    <div class="col">
+      <h3>Resumen de uso</h3>
+    </div>
+  </div>
+</app-template>

@@ -1,0 +1,38 @@
+[
+{
+  "model": "main.estacion",
+  "pk": 1,
+  "fields": {
+    "nombre": "León XII",
+    "direccion": "León XII",
+    "provincia": 8
+  }
+},
+{
+  "model": "main.estacion",
+  "pk": 2,
+  "fields": {
+    "nombre": "Polígono Sur",
+    "direccion": "C. Esclava del Señor",
+    "provincia": 8
+  }
+},
+{
+  "model": "main.estacion",
+  "pk": 3,
+  "fields": {
+    "nombre": "Santa Justa",
+    "direccion": "C. Joaquin Morales y Torres",
+    "provincia": 8
+  }
+},
+{
+  "model": "main.estacion",
+  "pk": 4,
+  "fields": {
+    "nombre": "Prado de San Sebastián",
+    "direccion": "Avenida Carlos V",
+    "provincia": 8
+  }
+}
+]

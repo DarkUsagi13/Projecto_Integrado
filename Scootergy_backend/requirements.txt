@@ -1,0 +1,19 @@
+django~=4.1.7
+djangorestframework==3.14.0
+
+
+# Django environment variables
+# https://django-environ.readthedocs.io/
+django-environ
+
+#Postgres Requirement
+# sudo apt install python3-dev libpq-dev
+#development
+psycopg2-binary
+#production ready
+# psycopg2
+djangorestframework-simplejwt
+django-cors-headers
+django-filter
+#paypalrestsdk
+#django-paypal
