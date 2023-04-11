@@ -1,9 +1,11 @@
 from django.conf import settings
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models import RESTRICT
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.shortcuts import redirect
 from rest_framework.authtoken.models import Token
 
 
@@ -31,6 +33,30 @@ class Usuario(AbstractUser):
     def create_auth_token(sender, instance=None, created=False, **kwargs):
         if created:
             Token.objects.create(user=instance)
+
+    def regenerar_token(self):
+        Token.objects.filter(user=self).delete()
+        Token.objects.create(user=self)
+
+    def cambiar_contraseña(request):
+        # Obtener el usuario actual
+        usuario = request.user
+
+        # Obtener la nueva contraseña
+        nueva_contraseña = request.POST.get('nueva_contraseña')
+
+        # Encriptar la nueva contraseña
+        nueva_contraseña_encriptada = make_password(nueva_contraseña)
+
+        # Cambiar la contraseña del usuario
+        usuario.password = nueva_contraseña_encriptada
+        usuario.save()
+
+        # Regenerar el token de autenticación del usuario
+        usuario.regenerar_token()
+
+        # Redirigir a la página de inicio de sesión
+        return redirect('login')
 
     def __str__(self):
         return self.username
