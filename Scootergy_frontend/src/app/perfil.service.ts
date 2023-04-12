@@ -11,7 +11,10 @@ export class PerfilService {
 
   getLoggedInUser() {
     const usuario = JSON.parse(localStorage.getItem('userData')!);
-    return usuario.id;
+    if (usuario) {
+      return usuario.id
+    }
+    return 'Usuario no encontrado';
   }
 
   perfil(userId: string|null): Observable<any> {

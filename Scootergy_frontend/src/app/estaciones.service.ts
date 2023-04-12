@@ -17,4 +17,8 @@ export class EstacionesService {
   getPuestos(idEstacion: string|null): Observable<any> {
     return  this.http.get(`http://127.0.0.1:8000/puesto/?idEstacion=${idEstacion}`);
   }
+
+  putPuesto(idPuesto: string|null, puesto: any): Observable<any> {
+    return this.http.put(`http://127.0.0.1:8000/puesto/${idPuesto}/`, puesto);
+  }
 }

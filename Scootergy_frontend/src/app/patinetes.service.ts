@@ -8,10 +8,21 @@ import {Patinete} from "./patinete";
 })
 export class PatinetesService {
 
+  patineteSeleccionado: any;
+
   constructor(private http: HttpClient) { }
 
   setUsuario(id: string) {
     return `https://127.0.0.1:8000/usuario/${id}/`
+  }
+
+  setPatineteSeleccionado(patinete: any) {
+    console.log(patinete)
+    return this.patineteSeleccionado = patinete;
+  }
+
+  getPatineteSeleccionado() {
+    return this.patineteSeleccionado;
   }
 
   patinetes(userId: string|null): Observable<any> {

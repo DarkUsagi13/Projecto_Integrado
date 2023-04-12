@@ -15,7 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { GestionPatinetesComponent } from './gestion-patinetes/gestion-patinetes.component';
 import { DatosPerfilComponent } from './datos-perfil/datos-perfil.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
-import { ModalComponent } from './modal/modal.component';
+import { ConexionesModalComponent } from './conexiones-modal/conexiones-modal.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +27,7 @@ import { ModalComponent } from './modal/modal.component';
     HomeComponent,
     GestionPatinetesComponent,
     DatosPerfilComponent,
-    ModalComponent,
+    ConexionesModalComponent,
   ],
     imports: [
         BrowserModule,

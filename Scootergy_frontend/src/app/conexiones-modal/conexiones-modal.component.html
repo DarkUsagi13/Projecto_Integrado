@@ -1,0 +1,27 @@
+<div class="container-fluid">
+  <div class="modal-header">
+    <h4 class="modal-title">Puesto {{puesto.id}}</h4>
+    <button type="button" class="close btn btn-danger" aria-label="Close" (click)="activeModal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p *ngIf="!puesto.disponible">Puesto no disponible</p>
+    <div *ngIf="puesto.disponible">
+      <form [formGroup]="formulario">
+        <div class="form-group">
+          <label for="patinetesList">Seleccione el patinete que quiere cargar:</label>
+          <select id="patinetesList" formControlName="patinetesList" class="form-control mt-3">
+            <option *ngFor="let patinete of patinetesList" [value]="patinete.id">{{ patinete.marca }}, {{patinete.modelo}} </option>
+          </select>
+        </div>
+      </form>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button *ngIf="puesto.disponible" type="button" class="btn btn-success" (click)="setConexion()" [disabled]="formulario.invalid">Conectar</button>
+<!--    <button *ngIf="!puesto.disponible" type="button" class="btn btn-danger" (click)="desconectar()">Desconectar</button>-->
+    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Cancelar</button>
+  </div>
+</div>

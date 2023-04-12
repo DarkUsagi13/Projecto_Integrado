@@ -1,9 +1,11 @@
 export class Conexion{
 
   constructor(
-    public idPuesto: number,
-    public idPatinete: number,
-    public precio: number,
+    public idPuesto: any,
+    public idPatinete: any,
+    public idUsuario: any,
+    public horaDesconexion: any,
+    public precio: any,
   ) {}
 
 }

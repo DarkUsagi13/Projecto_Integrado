@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import { Router } from '@angular/router';
 import {Patinete} from "../patinete";
 import {PatinetesService} from "../patinetes.service";
 import {PerfilService} from "../perfil.service";
@@ -19,6 +20,7 @@ export class GestionPatinetesComponent {
     private fb: FormBuilder,
     private patineteService: PatinetesService,
     private perfilUsuarios: PerfilService,
+    private  router: Router,
   ) {
   }
 
@@ -35,6 +37,7 @@ export class GestionPatinetesComponent {
   postPatinete() {
     this.patineteService.postPatinete(this.formulario.value).subscribe(data => {
     });
+    this.router.navigate(['']);
   }
 
 }

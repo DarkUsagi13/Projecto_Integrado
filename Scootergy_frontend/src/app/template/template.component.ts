@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
 })
 export class TemplateComponent {
 
-  public id: string = "";
+  public usuario: any = {};
 
   constructor(
     private perfilService: PerfilService,
@@ -17,12 +17,18 @@ export class TemplateComponent {
   ) {}
 
   ngOnInit() {
-    this.id = this.perfilService.getLoggedInUser()
+    const id = this.perfilService.getLoggedInUser();
+    this.perfilService.perfil(id).subscribe(usuario => {
+      if (usuario.username) {
+        this.usuario = usuario;
+      } else {
+      }
+    })
   }
 
   logOut(): void {
     localStorage.removeItem("userData");
-    this.router.navigateByUrl("/login")
+    this.router.navigateByUrl("/login").then(r => {})
   }
 
 }

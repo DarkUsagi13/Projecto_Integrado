@@ -25,6 +25,7 @@ export class RegistroComponent {
   }
 
   nuevoUsuario(formData: any) {
+    console.log(formData)
     this.autenticarService.nuevoUsuario(this.formulario.value).subscribe(data => {
       this.autenticarService.logInUser(formData);
     });

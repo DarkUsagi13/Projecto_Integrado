@@ -8,7 +8,8 @@ import {PerfilService} from '../perfil.service';
 import {Puesto} from '../puesto';
 import {PatinetesService} from "../patinetes.service";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalComponent } from "../modal/modal.component";
+import { ConexionesModalComponent } from "../conexiones-modal/conexiones-modal.component";
+import {ConexionesService} from "../conexiones.service";
 
 
 @Component({
@@ -22,13 +23,16 @@ export class HomeComponent implements OnInit {
   puestos: Puesto[] = [];
   idEstacion!: any;
   estacionSeleccionada!: any;
+  patineteSeleccionado!: any;
   formulario!: FormGroup;
   mostrarDatos = false;
+  conexiones: any;
 
   constructor(
     private perfilService: PerfilService,
     private patinetesService: PatinetesService,
     private estacionesService: EstacionesService,
+    private conexionesService: ConexionesService,
     private router: Router,
     private fb: FormBuilder,
     private modalService: NgbModal,
@@ -42,18 +46,23 @@ export class HomeComponent implements OnInit {
       this.mostrarEstaciones()
     });
     this.formulario = this.fb.group({
-      registro: ['Seleccione...', Validators.required],
+      estaciones: ['Seleccione...', Validators.required],
     });
+
+    this.conexionesService.getConexiones(id).subscribe(conexiones => {
+      this.conexiones = conexiones;
+    })
   }
 
   mostrarPuestos(): void {
-    this.idEstacion = this.formulario.get('registro')!.value;
+    this.idEstacion = this.formulario.get('estaciones')!.value;
     this.estacionSeleccionada = this.estaciones.find(estacion => estacion.id == this.idEstacion);
-    this.estacionSeleccionada = this.estacionSeleccionada ? this.estacionSeleccionada.nombre : null;
+    const estacionActual = this.estacionSeleccionada ? this.estacionSeleccionada.nombre : null;
 
-    if (this.estacionSeleccionada != null) {
+    if (estacionActual != null) {
       this.estacionesService.getPuestos(this.idEstacion).subscribe((data: Puesto[]) => {
         this.puestos = data;
+        console.log(this.patinetesService.getPatineteSeleccionado())
       });
     }
   }
@@ -69,8 +78,10 @@ export class HomeComponent implements OnInit {
   }
 
   open(puesto: any) {
-    const modalRef = this.modalService.open(ModalComponent);
+    const modalRef = this.modalService.open(ConexionesModalComponent);
     modalRef.componentInstance.puesto = puesto;
+    modalRef.componentInstance.patinetesList = this.patinetes;
+    modalRef.componentInstance.estacion = this.estacionSeleccionada;
   }
 
 }
