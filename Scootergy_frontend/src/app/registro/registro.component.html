@@ -1,31 +1,45 @@
-<app-template>
-  <div class="card-body">
-    <form  [formGroup]="formulario" (ngSubmit)="nuevoUsuario(formulario.value)">
-      <div class="row row py-2 g-3 align-items-center">
-        <div class="col-auto">
-          <label class="col-form-label">Nombre de usuario: </label>
-        </div>
-        <div class="col-auto">
-          <input class="form-control" formControlName="username" type="text">
-        </div>
-      </div>
-      <div class="row row py-2 g-3 align-items-center">
-        <div class="col-auto">
-          <label class="col-form-label">Correo: </label>
-        </div>
-        <div class="col-auto">
-          <input class="form-control" formControlName="email" type="text">
-        </div>
-      </div>
-      <div class="row row py-2 g-3 align-items-center">
-        <div class="col-auto">
-          <label class="col-form-label">Contraseña: </label>
-        </div>
-        <div class="col-auto">
-          <input class="form-control" formControlName="password" type="text">
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Registro</title>
+</head>
+<body class="">
+<div class="container-fluid">
+  <div class="col-12 m-5 d-flex align-items-center justify-content-center">
+    <img class="rounded-5" ngSrc="https://drive.google.com/uc?id=11-izdfnefOOhwMiD9HMN7b0SO8UBJCEk" width="100" height="100" alt="" style="width: 600px; height: 250px;">
+  </div>
+  <div class="row">
+    <form class="text-center py-4" [formGroup]="formulario" (ngSubmit)="nuevoUsuario(formulario.value)">
+      <div class="">
+        <div class="col-4">
+          <input class="form-control border-0 border-bottom m-4 rounded-0" formControlName="username" type="text" placeholder="Nombre de  usuario">
         </div>
       </div>
-      <button class="btn btn-primary" [disabled]="formulario.invalid">Nuevo usuario</button>
+      <div class="">
+        <div class="col-4">
+          <input class="form-control border-0 border-bottom m-4 rounded-0" formControlName="email" type="text" placeholder="Correo">
+        </div>
+      </div>
+      <div class="">
+        <div class="col-4">
+          <input class="form-control border-0 border-bottom m-4 rounded-0" formControlName="password" type="text" placeholder="Contraseña">
+        </div>
+      </div>
+      <button class="btn btn-primary mt-3" [disabled]="formulario.invalid">Registrarse</button>
+      <div>
+        <a [routerLink]="['/login']">Ya tienes una cuenta?</a>
+      </div>
     </form>
   </div>
-</app-template>
+  <footer class="footer d-flex justify-content-center">
+    <div class="">
+      <span class="text-muted">Scootergy, todos los derechos reservados.</span>
+    </div>
+  </footer>
+</div>
+</body>
+</html>

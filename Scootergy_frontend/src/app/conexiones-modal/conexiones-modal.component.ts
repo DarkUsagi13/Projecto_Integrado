@@ -52,9 +52,9 @@ export class ConexionesModalComponent {
       null,
       121
     )
-    // this.conexionService.postConexion(this.conexion).subscribe();
+    this.conexionService.postConexion(this.conexion).subscribe();
     this.puesto.disponible = false;
-    // this.estacionService.putPuesto(this.puesto.id, this.puesto).subscribe();
+    this.estacionService.putPuesto(this.puesto.id, this.puesto).subscribe();
     this.patineteService.setPatineteSeleccionado(this.patinete)
   }
 

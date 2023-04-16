@@ -8,10 +8,10 @@
   <link rel="preconnect" href="https://picsum.photos">
   <title>Iniciar sesión</title>
 </head>
-<body>
+<body class="bg-black">
 <div class="container-fluid">
-  <div>
-    <img ngSrc="https://picsum.photos/id/237/400/400" width="400" height="400" alt="" priority>
+  <div class="d-flex justify-content-center m-5 py-5">
+    <img ngSrc="https://picsum.photos/id/237/200/200" width="500" height="300" alt="" priority>
   </div>
   <div class="container">
     <form [formGroup]="logInForm" (ngSubmit)="onSubmit(logInForm.value)">
