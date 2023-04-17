@@ -58,9 +58,10 @@ export class ConexionesModalComponent {
     this.patineteService.setPatineteSeleccionado(this.patinete)
   }
 
-  // desconectar() {
-  //   this.puesto.disponible = true;
-  //   this.estacionService.putPuesto(this.puesto.id, this.puesto)
-  // }
+  desconectar() {
+    this.puesto.disponible = true;
+    console.log(this.conexion)
+    this.estacionService.putPuesto(this.puesto.id, this.puesto)
+  }
 
 }
