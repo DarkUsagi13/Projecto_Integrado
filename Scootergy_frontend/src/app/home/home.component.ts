@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
   puestos: Puesto[] = [];
   idEstacion!: any;
   estacionSeleccionada!: any;
-  patineteSeleccionado!: any;
+  // patineteSeleccionado!: any;
   formulario!: FormGroup;
   mostrarDatos = false;
   conexiones: any;

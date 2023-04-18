@@ -1,0 +1,11 @@
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/bootstrap";
+
+
+$turquesa: #00CC99;
+
+.btn-primary {
+  background-color: $turquesa;
+  border-color: $turquesa;
+}
+

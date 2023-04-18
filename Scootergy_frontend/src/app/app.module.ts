@@ -16,6 +16,7 @@ import { GestionPatinetesComponent } from './gestion-patinetes/gestion-patinetes
 import { DatosPerfilComponent } from './datos-perfil/datos-perfil.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { ConexionesModalComponent } from './conexiones-modal/conexiones-modal.component';
+import { PlantillaPerfilComponent } from './plantilla-perfil/plantilla-perfil.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ConexionesModalComponent } from './conexiones-modal/conexiones-modal.co
     GestionPatinetesComponent,
     DatosPerfilComponent,
     ConexionesModalComponent,
+    PlantillaPerfilComponent,
   ],
     imports: [
         BrowserModule,
