@@ -10,76 +10,43 @@
 <body>
 <div class="container-fluid row">
   <div class="d-flex justify-content-center">
-        <img class="rounded-5"
-             ngSrc="https://www.creativefabrica.com/wp-content/uploads/2021/04/12/Electric-scooter-logo-design-vector-icon-Graphics-10726103-1-1-580x387.jpg"
-             width="100"
-             height="100" alt="" style="width: 500px; height: 200px;">
+    <img class="rounded-5"
+         ngSrc="https://www.creativefabrica.com/wp-content/uploads/2021/04/12/Electric-scooter-logo-design-vector-icon-Graphics-10726103-1-1-580x387.jpg"
+         width="100"
+         height="100" alt="" style="width: 500px; height: 200px;">
   </div>
   <div class="d-flex justify-content-center">
-        <form [formGroup]="logInForm" (ngSubmit)="onSubmit(logInForm.value)">
-          <div class="row row py-2 g-3 align-items-center">
-            <div class="col-auto">
-              <input class="form-control border-0 border-bottom m-2 rounded-0" formControlName="username" type="text"
-                     placeholder="Nombre de usuario">
-            </div>
-          </div>
-          <div class="row row py-2 g-3 align-items-center">
-            <div class="col-auto form-floating">
-              <input id="password" class="form-control border-0 border-bottom rounded-0" formControlName="password" type="password"
-                     placeholder="Contraseña">
-              <label for="password">Contraseña</label>
-            </div>
-          </div>
-          <div class="m-2 mb-5">
-            <button class="btn btn-primary" [disabled]="logInForm.invalid">Iniciar sesión</button>
-          </div>
-          <div class="m-2">
-            <a [routerLink]="['/registro']">No tienes una cuenta?</a>
-          </div>
-        </form>
+    <form [formGroup]="logInForm" (ngSubmit)="onSubmit(logInForm.value)">
+      <div class="row row py-2 g-3 align-items-center">
+        <div class="col-auto form-floating">
+          <input class="form-control border-0 border-bottom m-2" formControlName="username" type="text"
+                 placeholder="Nombre de usuario">
+          <label for="password">Nombre de  usuario</label>
+        </div>
+      </div>
+      <div class="row row py-2 g-3 align-items-center">
+        <div class="col-auto form-floating">
+          <input id="password" class="form-control border-0 border-bottom m-2" formControlName="password"
+                 type="password"
+                 placeholder="Contraseña">
+          <label for="password">Contraseña</label>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center m-2 mb-5">
+        <button class="btn btn-primary" [disabled]="logInForm.invalid">Iniciar sesión</button>
+      </div>
+      <div class="d-flex justify-content-center m-2">
+        <a [routerLink]="['/registro']">No tienes una cuenta?</a>
+      </div>
+    </form>
   </div>
   <div class="d-flex justify-content-center">
-        <footer class="row footer m-5">
-          <div class="">
-            <span class="text-muted">Scootergy, todos los derechos reservados.</span>
-          </div>
-        </footer>
+    <footer class="row footer m-5">
+      <div class="">
+        <span class="text-muted">Scootergy, todos los derechos reservados.</span>
+      </div>
+    </footer>
   </div>
-  <!--  <div class="row d-flex align-items-center">-->
-<!--    <img class="rounded-5"-->
-<!--         ngSrc="https://www.creativefabrica.com/wp-content/uploads/2021/04/12/Electric-scooter-logo-design-vector-icon-Graphics-10726103-1-1-580x387.jpg"-->
-<!--         width="100"-->
-<!--         height="100" alt="" style="width: 500px; height: 200px;">-->
-<!--  </div>-->
-<!--  <div class="row d-flex justify-content-center">-->
-<!--    <form [formGroup]="logInForm" (ngSubmit)="onSubmit(logInForm.value)">-->
-<!--      <div class="row row py-2 g-3 align-items-center">-->
-<!--        <div class="col-auto">-->
-<!--          <input class="form-control border-0 border-bottom m-2 rounded-0" formControlName="username" type="text"-->
-<!--                 placeholder="Nombre de usuario">-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="row row py-2 g-3 align-items-center">-->
-<!--        <div class="col-auto">-->
-<!--          <input class="form-control border-0 border-bottom m-2 rounded-0" formControlName="password" type="password"-->
-<!--                 placeholder="Contraseña">-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="m-2 mb-5">-->
-<!--        <button class="btn btn-primary" [disabled]="logInForm.invalid">Iniciar sesión</button>-->
-<!--      </div>-->
-<!--      <div class="m-2">-->
-<!--        <a [routerLink]="['/registro']">No tienes una cuenta?</a>-->
-<!--      </div>-->
-<!--    </form>-->
-<!--  </div>-->
-<!--  <div class="row">-->
-<!--    <footer class="row footer m-5">-->
-<!--      <div class="">-->
-<!--        <span class="text-muted">Scootergy, todos los derechos reservados.</span>-->
-<!--      </div>-->
-<!--    </footer>-->
-<!--  </div>-->
 </div>
 </body>
 </html>

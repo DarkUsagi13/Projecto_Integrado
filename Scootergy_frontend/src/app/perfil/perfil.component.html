@@ -1,17 +1,76 @@
 <app-template>
-  <div class="container row">
-    <div class="col">
-      <h3>Mi perfil</h3>
-      <nav class="nav flex-column">
-        <ul>
-          <li class="nav-link">Nombre de usuario: {{perfilUsuario.username}}</li>
-          <li class="nav-link">Correo: {{perfilUsuario.email}}</li>
-        </ul>
-        <a [routerLink]="['editar_perfil']">Editar datos</a>
-      </nav>
+  <section class="h-100 gradient-custom-2">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-lg-9 col-xl-7">
+          <div class="card">
+            <div class="rounded-top text-white d-flex flex-row" style="background-color: #000; height:200px;">
+              <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
+                <img src="https://cdn.pixabay.com/photo/2017/11/10/05/48/user-2935527_640.png"
+                  alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
+                  style="width: 150px; z-index: 1">
+                <a [routerLink]="['/perfil/editar_perfil']" type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
+                  style="z-index: 1;">
+                  Editar perfil
+              </a>
+              </div>
+              <div class="ms-3" style="margin-top: 130px;">
+                <h5>{{perfilUsuario.username}}</h5>
+              </div>
+            </div>
+            <div class="p-4 text-black" style="background-color: #f8f9fa;">
+              <div class="d-flex justify-content-end text-center py-1">
+                <div>
+                  <p class="mb-1 h5">{{conexionesMes.length}}</p>
+                  <p class="small text-muted mb-0">Conexiones este mes</p>
+                </div>
+                <div class="px-3">
+                  <p class="mb-1 h5">1026</p>
+                  <p class="small text-muted mb-0">Consumido este mes</p>
+                </div>
+                <div>
+                  <p class="mb-1 h5">478</p>
+                  <p class="small text-muted mb-0">Total gastado</p>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-4 text-black">
+              <div class="mb-5">
+                <p class="lead fw-normal mb-1">Mis datos</p>
+                <div class="p-4" style="background-color: #f8f9fa;">
+                  <p class="font-italic mb-1">Nombre de usuario: {{perfilUsuario.username}}</p>
+                  <p class="font-italic mb-1">Correo: {{perfilUsuario.email}}</p>
+                  <p class="font-italic mb-1">Fecha de registro: {{perfilUsuario.date_joined | date:'dd/MM/yyyy' }}</p>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <p class="lead fw-normal mb-0">Recent photos</p>
+                <p class="mb-0"><a href="#!" class="text-muted">Show all</a></p>
+              </div>
+              <div class="row g-2">
+                <div class="col mb-2">
+                  <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
+                    alt="image 1" class="w-100 rounded-3">
+                </div>
+                <div class="col mb-2">
+                  <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
+                    alt="image 1" class="w-100 rounded-3">
+                </div>
+              </div>
+              <div class="row g-2">
+                <div class="col">
+                  <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
+                    alt="image 1" class="w-100 rounded-3">
+                </div>
+                <div class="col">
+                  <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
+                    alt="image 1" class="w-100 rounded-3">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="col">
-      <h3>Resumen de uso</h3>
-    </div>
-  </div>
+  </section>
 </app-template>

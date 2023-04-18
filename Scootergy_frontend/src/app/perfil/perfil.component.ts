@@ -12,6 +12,7 @@ export class PerfilComponent implements OnInit {
   perfilUsuario: any = {};
   conexiones: any = {};
   usuarioId: string = "";
+  conexionesMes: any = {};
 
   constructor(
     private perfilService: PerfilService,
@@ -29,6 +30,11 @@ export class PerfilComponent implements OnInit {
       this.conexiones = conexiones;
       console.log(this.conexiones)
     })
+
+    this.conexionService.getConexionesMes(this.usuarioId).subscribe(conexiones => {
+      this.conexionesMes = conexiones;
+    });
+    console.log(this.conexionesMes)
 
   }
 

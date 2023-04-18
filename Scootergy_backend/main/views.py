@@ -5,6 +5,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.db.models.functions import ExtractMonth
 
 from main.serializers import *
 
@@ -55,10 +56,21 @@ class PatineteView(viewsets.ModelViewSet):
 
 
 class ConexionView(viewsets.ModelViewSet):
-    queryset = Conexion.objects.all()
     serializer_class = ConexionSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['idUsuario']
+
+    def get_queryset(self):
+        queryset = Conexion.objects.all()
+        usuario_id = self.request.query_params.get('idUsuario')
+        mes = self.request.query_params.get('mes')
+
+        if usuario_id:
+            queryset = queryset.filter(idUsuario=usuario_id)
+
+        if mes:
+            queryset = queryset.annotate(mes=ExtractMonth('horaConexion')).filter(mes=mes)
+
+        return queryset
 
 
 class TarjetaView(viewsets.ModelViewSet):

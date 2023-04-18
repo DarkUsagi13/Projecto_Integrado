@@ -62,7 +62,6 @@ export class HomeComponent implements OnInit {
     if (estacionActual != null) {
       this.estacionesService.getPuestos(this.idEstacion).subscribe((data: Puesto[]) => {
         this.puestos = data;
-        console.log(this.patinetesService.getPatineteSeleccionado())
       });
     }
   }

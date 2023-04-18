@@ -16,6 +16,11 @@ export class ConexionesService {
     return this.http.get(`http://127.0.0.1:8000/conexion/?idUsuario=${userId}`);
   }
 
+  getConexionesMes(userId: string|null){
+    const mes = new Date().getMonth() + 1;
+    return this.http.get(`http://127.0.0.1:8000/conexion/?idUsuario=${userId}&mes=${mes}`);
+  }
+
   postConexion(conexion: any): Observable<any> {
     return this.http.post<any>(`http://127.0.0.1:8000/conexion/`, conexion);
   }

@@ -12,6 +12,7 @@ class UsuarioSerializer(serializers.HyperlinkedModelSerializer):
             'username',
             'email',
             'password',
+            'date_joined',
             'is_staff',
         ]
 
