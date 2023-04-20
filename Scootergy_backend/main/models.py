@@ -93,6 +93,7 @@ class Conexion(models.Model):
     idPuesto = models.ForeignKey(Puesto, on_delete=models.RESTRICT)
     idPatinete = models.ForeignKey(Patinete, on_delete=models.RESTRICT)
     idUsuario = models.ForeignKey(Usuario, on_delete=models.RESTRICT)
+    consumido = models.DecimalField(max_digits=10, decimal_places=2)
     horaConexion = models.DateTimeField(auto_now_add=True)
     horaDesconexion = models.DateTimeField(null=True)
     precio = models.DecimalField(max_digits=10, decimal_places=2)

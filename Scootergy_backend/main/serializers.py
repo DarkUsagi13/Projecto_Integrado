@@ -63,19 +63,24 @@ class PatineteSerializer(serializers.HyperlinkedModelSerializer):
         ]
 
 
-class ConexionSerializer(serializers.HyperlinkedModelSerializer):
+class ConexionSerializer(serializers.ModelSerializer):
+    patineteNombre = serializers.SerializerMethodField()
+
     class Meta:
         model = Conexion
         fields = [
-            'url',
             'id',
             'idPuesto',
-            'idPatinete',
             'idUsuario',
             'horaConexion',
             'horaDesconexion',
             'precio',
+            'consumido',
+            'patineteNombre',
         ]
+
+    def get_patineteNombre(self, obj):
+        return "{} {}".format(obj.idPatinete.marca, obj.idPatinete.modelo)
 
 
 class TarjetaSerializer(serializers.HyperlinkedModelSerializer):

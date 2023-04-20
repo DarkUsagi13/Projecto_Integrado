@@ -22,26 +22,31 @@
     <div class="row mt-5">
       <div>
         <table class="table text-center">
-          <caption style="caption-side: top" class="text-center fs-1">
+          <caption style="caption-side: top" class="fs-1">
             Últimas cargas
           </caption>
-          <tbody>
-          <div class="row">
-            <div class="col-3 d-flex justify-content-center align-items-center">
-              <tr class="d-block w-100">
-                <td  class="d-block w-100 btn btn-success py-5" >Disponible</td>
-                <td  class="d-block w-100 btn btn-danger py-5">No disponible</td>
+          <thead>
+            <tr>
+              <th scope="col">Patinete</th>
+              <th scope="col">Consumido</th>
+              <th scope="col">Tiempo de carga</th>
+              <th scope="col">Fecha</th>
+              <th scope="col">Importe</th>
+            </tr>
+          </thead>
+          <ng-container *ngIf="conexiones.length > 0">
+            <tbody *ngFor="let conexion of conexiones">
+              <tr>
+                <td>{{conexion.patineteNombre}}</td>
+                <td>{{conexion.id}}</td>
+                <td>{{conexion.id}}</td>
+                <td>{{conexion.id}}</td>
+                <td>{{conexion.id}}</td>
               </tr>
-            </div>
-          </div>
-          </tbody>
+            </tbody>
+          </ng-container>
         </table>
       </div>
     </div>
   </div>
-  <div class="container d-flex mt-5 justify-content-center">
-
-
-  </div>
-
 </app-plantilla-perfil>

@@ -60,8 +60,7 @@ export class ConexionesModalComponent {
 
   desconectar() {
     this.puesto.disponible = true;
-    console.log(this.conexion)
-    this.estacionService.putPuesto(this.puesto.id, this.puesto)
+    this.estacionService.putPuesto(this.puesto.id, this.puesto).subscribe()
   }
 
 }
