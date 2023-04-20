@@ -50,7 +50,8 @@ export class ConexionesModalComponent {
       `http://127.0.0.1:8000/patinete/${this.patinete}/`,
       `http://127.0.0.1:8000/usuario/${idUsuario}/`,
       null,
-      121
+      121,
+      10,
     )
     this.conexionService.postConexion(this.conexion).subscribe();
     this.puesto.disponible = false;

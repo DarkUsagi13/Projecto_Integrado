@@ -71,6 +71,7 @@ class ConexionSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'idPuesto',
+            'idPatinete',
             'idUsuario',
             'horaConexion',
             'horaDesconexion',

@@ -6,6 +6,7 @@ export class Conexion{
     public idUsuario: any,
     public horaDesconexion: any,
     public precio: any,
+    public consumido: any,
   ) {}
 
 }
