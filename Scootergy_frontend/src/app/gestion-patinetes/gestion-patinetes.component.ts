@@ -8,7 +8,7 @@ import {PerfilService} from "../perfil.service";
 @Component({
   selector: 'app-gestion-patinetes',
   templateUrl: './gestion-patinetes.component.html',
-  styleUrls: ['./gestion-patinetes.component.css']
+  styleUrls: ['./gestion-patinetes.component.scss']
 })
 export class GestionPatinetesComponent {
 

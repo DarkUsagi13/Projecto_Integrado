@@ -1,31 +1,27 @@
-<app-template>
-  <div class="container">
-    <form  [formGroup]="formulario" (ngSubmit)="postPatinete()">
-      <div class="row row py-2 g-3 align-items-center">
-        <div class="col-auto">
-          <label class="col-form-label">Marca: </label>
+<app-plantilla-perfil>
+
+  <div class="container-fluid p-5">
+    <div class="d-flex justify-content-center">
+      <h2>Agregar un patinete</h2>
+    </div>
+    <div class="d-flex justify-content-center">
+      <form class="text-center p-5" [formGroup]="formulario" (ngSubmit)="postPatinete()">
+        <div class="col-auto form-floating">
+          <input id="marca" class="form-control border-0 border-bottom mt-2 w-100" formControlName="marca" type="text" placeholder="Marca">
+          <label for="marca">Marca</label>
         </div>
-        <div class="col-auto">
-          <input class="form-control" formControlName="marca" type="text">
+        <div class="col-auto form-floating">
+          <input id="modelo" class="form-control border-0 border-bottom mt-2 w-100" formControlName="modelo" type="text" placeholder="Modelo">
+          <label for="modelo">Modelo</label>
         </div>
-      </div>
-      <div class="row row py-2 g-3 align-items-center">
-        <div class="col-auto">
-          <label class="col-form-label">Modelo: </label>
+        <div class="col-auto form-floating">
+          <input id="consumo" class="form-control border-0 border-bottom mt-2 w-100" formControlName="consumo" type="text" placeholder="Consumo">
+          <label for="consumo">Consumo</label>
         </div>
-        <div class="col-auto">
-          <input class="form-control" formControlName="modelo" type="text">
+        <div class="p-5">
+          <button class="btn btn-primary">Registrar patinete</button>
         </div>
-      </div>
-      <div class="row row py-2 g-3 align-items-center">
-        <div class="col-auto">
-          <label class="col-form-label">Consumo: </label>
-        </div>
-        <div class="col-auto">
-          <input class="form-control" formControlName="consumo" type="text">
-        </div>
-      </div>
-      <button class="btn btn-primary" [disabled]="formulario.invalid">Registrar patinete</button>
-    </form>
+      </form>
+    </div>
   </div>
-</app-template>
+</app-plantilla-perfil>

@@ -10,7 +10,7 @@ import {PatinetesService} from "../patinetes.service";
 @Component({
   selector: 'app-conexiones-modal',
   templateUrl: './conexiones-modal.component.html',
-  styleUrls: ['./conexiones-modal.component.css']
+  styleUrls: ['./conexiones-modal.component.scss']
 })
 export class ConexionesModalComponent {
 

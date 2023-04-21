@@ -5,7 +5,7 @@ import {AutenticarService} from "../autenticar.service";
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
-  styleUrls: ['./registro.component.css']
+  styleUrls: ['./registro.component.scss']
 })
 export class RegistroComponent {
   public formulario!: FormGroup;
@@ -25,10 +25,11 @@ export class RegistroComponent {
   }
 
   nuevoUsuario(formData: any) {
-    console.log(formData)
-    this.autenticarService.nuevoUsuario(this.formulario.value).subscribe(data => {
-      this.autenticarService.logInUser(formData);
-    });
+    this.autenticarService.nuevoUsuario(this.formulario.value).subscribe(
+      data => {
+        this.autenticarService.logInUser(formData);
+      }
+    );
   }
 
 }

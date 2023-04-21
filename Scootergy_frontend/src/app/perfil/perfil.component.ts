@@ -5,7 +5,7 @@ import {ConexionesService} from "../conexiones.service";
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
-  styleUrls: ['./perfil.component.css']
+  styleUrls: ['./perfil.component.scss']
 })
 
 export class PerfilComponent implements OnInit {
@@ -28,6 +28,8 @@ export class PerfilComponent implements OnInit {
 
     this.conexionService.getConexiones(this.usuarioId).subscribe(conexiones =>{
       this.conexiones = conexiones;
+      console.log(this.usuarioId)
+      console.log(this.conexiones)
     })
 
     this.conexionService.getConexionesMes(this.usuarioId).subscribe(conexiones => {

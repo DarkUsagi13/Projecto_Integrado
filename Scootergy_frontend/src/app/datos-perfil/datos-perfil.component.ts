@@ -6,7 +6,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 @Component({
   selector: 'app-datos-perfil',
   templateUrl: './datos-perfil.component.html',
-  styleUrls: ['./datos-perfil.component.css']
+  styleUrls: ['./datos-perfil.component.scss']
 })
 export class DatosPerfilComponent {
 
@@ -43,12 +43,6 @@ export class DatosPerfilComponent {
       username: this.datosPerfil.username,
       email: this.datosPerfil.email,
     })
-
-    // this.formulario.setValue({
-    //   username: this.datosPerfil.username,
-    //   email: this.datosPerfil.email,
-    //   password: this.datosPerfil.password,
-    // })
   }
 
   putPerfil() {
