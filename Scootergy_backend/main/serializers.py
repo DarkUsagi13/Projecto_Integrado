@@ -23,6 +23,11 @@ class RegistroSerializer(serializers.ModelSerializer):
         fields = ("id", "username", "email", "password")
         extra_kwargs = {"password": {"write_only": True}}
 
+    def validate_username(self, value):
+        if Usuario.objects.filter(username=value).exists():
+            raise serializers.ValidationError('Este nombre de usuario ya existe.')
+        return value
+
     def create(self, validated_data):
         return Usuario.objects.create_user(**validated_data)
 
@@ -63,12 +68,13 @@ class PatineteSerializer(serializers.HyperlinkedModelSerializer):
         ]
 
 
-class ConexionSerializer(serializers.ModelSerializer):
+class ConexionSerializer(serializers.HyperlinkedModelSerializer):
     patineteNombre = serializers.SerializerMethodField()
 
     class Meta:
         model = Conexion
         fields = [
+            'url',
             'id',
             'idPuesto',
             'idPatinete',
@@ -77,6 +83,7 @@ class ConexionSerializer(serializers.ModelSerializer):
             'horaDesconexion',
             'precio',
             'consumido',
+            'finalizada',
             'patineteNombre',
         ]
 

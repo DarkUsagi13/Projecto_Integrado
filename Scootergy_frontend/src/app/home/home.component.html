@@ -26,7 +26,7 @@
     </table>
   </div>
 
-  <div class="m-5" *ngIf="!mostrarDatos">
+  <div class="container m-5" *ngIf="!mostrarDatos">
     <h3 class="text-center">No tienes ningún patinete, ¡Agrega uno!</h3>
     <div class="container d-flex justify-content-center">
       <a [routerLink]='["/registrar_patinete"]' type="button" class="btn btn-success p-1">Agregar</a>

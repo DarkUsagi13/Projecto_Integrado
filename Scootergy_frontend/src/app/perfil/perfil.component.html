@@ -3,7 +3,7 @@
     <div class="row mt-5">
       <div class="col-6">
         <h1>Mis datos</h1>
-        <ul class="list-group list-group-flush">
+        <ul class="list-group list-group-flush rounded-3">
           <li class="list-group-item">Nombre de usuario: <h4 class="text-center">{{perfilUsuario.username}}</h4></li>
           <li class="list-group-item">Correo electrónico: <h4 class="text-center">{{perfilUsuario.email}}</h4></li>
           <li class="list-group-item">Fecha de registro: <h4
@@ -12,7 +12,7 @@
       </div>
       <div class="col-6">
         <h1>Resumen de uso</h1>
-        <ul class="list-group list-group-flush">
+        <ul class="list-group list-group-flush rounded-3">
           <li class="list-group-item">Conexiones este mes: <h4 class="text-center">{{conexionesMes.length}}</h4></li>
           <li class="list-group-item">Consumido este mes: <h4 class="text-center">100</h4></li>
           <li class="list-group-item">Gastado este mes: <h4 class="text-center">400€</h4></li>
@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="row mt-5">
-      <div>
+      <div class="bg-secondary rounded-3">
         <table class="table text-center">
           <caption style="caption-side: top" class="fs-1">
             Últimas cargas
@@ -30,18 +30,19 @@
               <th scope="col">Patinete</th>
               <th scope="col">Consumido</th>
               <th scope="col">Tiempo de carga</th>
-              <th scope="col">Fecha</th>
+              <th scope="col">Fecha y hora</th>
               <th scope="col">Importe</th>
             </tr>
           </thead>
           <ng-container *ngIf="conexiones.length > 0">
             <tbody *ngFor="let conexion of conexiones">
               <tr>
+
                 <td>{{conexion.patineteNombre}}</td>
-                <td>{{conexion.id}}</td>
-                <td>{{conexion.id}}</td>
-                <td>{{conexion.id}}</td>
-                <td>{{conexion.id}}</td>
+                <td>{{conexion.consumido}}</td>
+                <td>{{conexion}}</td>
+                <td>{{conexion.horaConexion | date: 'dd/MM/yyyy HH:mm' }}</td>
+                <td>{{conexion.precio}}</td>
               </tr>
             </tbody>
           </ng-container>

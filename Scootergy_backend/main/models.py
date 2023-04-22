@@ -97,6 +97,7 @@ class Conexion(models.Model):
     horaConexion = models.DateTimeField(auto_now_add=True)
     horaDesconexion = models.DateTimeField(null=True)
     precio = models.DecimalField(max_digits=10, decimal_places=2)
+    finalizada = models.BooleanField(default=False)
 
     def __str__(self):
         return 'Conexión: ' + str(self.id) + ', Puesto: ' + str(self.idPuesto) + ', Hora: ' + str(self.horaConexion)

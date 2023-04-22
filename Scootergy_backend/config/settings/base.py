@@ -28,8 +28,8 @@ env = environ.Env(
 SETTINGS_DIR = Path(__file__).resolve().parent
 CONFIG_BASE_DIR = Path(__file__).resolve().parent.parent
 PROJECT_ROOT_DIR = Path(__file__).resolve().parent.parent.parent
-PAYPAL_CLIENT_ID = os.environ.get('AdM5UJGw8pEiDXNNnSHUZW7Zo7v8rz0ZBY7k4Mtz2fC1EZXyKzl_OeFw0MwbFfzjzHga7hW-iTzch9Hs')
-PAYPAL_CLIENT_SECRET = os.environ.get('EIvGGgVoE2IF83Wzc9e6qoiPd3SWPxFpIYmc0kPal8ss7YCg3NIuX9kC5SfkKOF5yi8SvwI3yDcT7zbI')
+PAYPAL_CLIENT_ID = os.environ.get('ATuLX_QcwckG9Q5xwziJqZfpp5heEUlhwJvMEIuwp8Gu152nMRlanLlrakvzcnoYPb0I76ujuxj80j_d')
+PAYPAL_CLIENT_SECRET = os.environ.get('EMaLy4IYC7aGmtPcuPtBDTfH32LweokJINr3HycsP6x--g_ojo07Vy2P2pGNR_CHV-7sB2EiZxBLXtro')
 
 # Take environment variables from .env file
 environ.Env.read_env(os.path.join(SETTINGS_DIR, '.env'))
