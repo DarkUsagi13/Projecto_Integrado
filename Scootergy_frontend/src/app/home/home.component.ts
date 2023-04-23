@@ -7,8 +7,8 @@ import {Patinete} from '../patinete';
 import {PerfilService} from '../perfil.service';
 import {Puesto} from '../puesto';
 import {PatinetesService} from "../patinetes.service";
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ConexionesModalComponent } from "../conexiones-modal/conexiones-modal.component";
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ConexionesModalComponent} from "../conexiones-modal/conexiones-modal.component";
 import {ConexionesService} from "../conexiones.service";
 
 
@@ -26,7 +26,8 @@ export class HomeComponent implements OnInit {
   // patineteSeleccionado!: any;
   formulario!: FormGroup;
   mostrarDatos = false;
-  conexiones: any;
+
+  idUsuario: any;
 
   constructor(
     private perfilService: PerfilService,
@@ -40,8 +41,8 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const id = this.perfilService.getLoggedInUser();
-    this.patinetesService.patinetes(id).subscribe((data: Patinete[]) => {
+    this.idUsuario = this.perfilService.getLoggedInUser();
+    this.patinetesService.patinetes(this.idUsuario).subscribe((data: Patinete[]) => {
       this.patinetes = data;
       this.mostrarEstaciones()
     });
@@ -49,8 +50,8 @@ export class HomeComponent implements OnInit {
       estaciones: ['Seleccione...', Validators.required],
     });
 
-    this.conexionesService.getConexiones(id).subscribe(conexiones => {
-      this.conexiones = conexiones;
+    this.conexionesService.getConexiones(this.idUsuario).subscribe(conexiones => {
+      this.conexionesService.conexiones = conexiones;
     })
   }
 
@@ -81,6 +82,7 @@ export class HomeComponent implements OnInit {
     modalRef.componentInstance.puesto = puesto;
     modalRef.componentInstance.patinetesList = this.patinetes;
     modalRef.componentInstance.estacion = this.estacionSeleccionada;
+    // modalRef.componentInstance.conexionActual = conexionActual;
   }
 
 }

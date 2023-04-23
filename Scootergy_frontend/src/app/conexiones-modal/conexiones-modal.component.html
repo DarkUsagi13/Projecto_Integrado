@@ -17,11 +17,18 @@
         </div>
       </form>
     </div>
-
   </div>
-  <div class="modal-footer">
-    <button *ngIf="puesto.disponible" type="button" class="btn btn-success" (click)="setConexion()" [disabled]="formulario.invalid">Conectar</button>
-    <button *ngIf="!puesto.disponible" type="button" class="btn btn-danger" (click)="desconectar()">Desconectar</button>
-    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Cancelar</button>
+  <div class="modal-footer d-flex justify-content-center">
+    <div *ngIf="puesto.disponible">
+      <button type="button" class="btn btn-success" (click)="setConexion()" [disabled]="formulario.invalid">Conectar</button>
+    </div>
+    <div *ngIf="!puesto.disponible">
+      <button *ngIf="!showPaypalButtons" class="btn btn-primary" (click)="pay()">Pagar con paypal</button>
+      <ngx-paypal *ngIf="showPaypalButtons" [config]="payPalConfig">
+      </ngx-paypal>
+      <div class="text-center">
+        <button type="button" class="btn btn-secondary" *ngIf="showPaypalButtons" (click)="back()">Volver atrás</button>
+      </div>
+    </div>
   </div>
 </div>

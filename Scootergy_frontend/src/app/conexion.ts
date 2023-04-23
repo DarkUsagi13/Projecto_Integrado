@@ -1,4 +1,4 @@
-export class Conexion{
+export class Conexion {
 
   constructor(
     public idPuesto: any,
@@ -7,6 +7,8 @@ export class Conexion{
     public horaDesconexion: any,
     public precio: any,
     public consumido: any,
-  ) {}
+    public finalizada: any,
+  ) {
+  }
 
 }

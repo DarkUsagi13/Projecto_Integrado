@@ -18,6 +18,7 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ConexionesModalComponent} from './conexiones-modal/conexiones-modal.component';
 import {PlantillaPerfilComponent} from './plantilla-perfil/plantilla-perfil.component';
+import {NgxPayPalModule } from 'ngx-paypal';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import {PlantillaPerfilComponent} from './plantilla-perfil/plantilla-perfil.comp
     ReactiveFormsModule,
     NgOptimizedImage,
     NgbModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxPayPalModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
