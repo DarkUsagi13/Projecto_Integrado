@@ -82,7 +82,6 @@ export class HomeComponent implements OnInit {
     modalRef.componentInstance.puesto = puesto;
     modalRef.componentInstance.patinetesList = this.patinetes;
     modalRef.componentInstance.estacion = this.estacionSeleccionada;
-    // modalRef.componentInstance.conexionActual = conexionActual;
   }
 
 }

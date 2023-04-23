@@ -30,7 +30,7 @@ export class ConexionesService {
   }
 
   updateConexion(idConexion: string, conexion: any): Observable<any> {
-    return this.http.put(`http://127.0.0.1:8000/conexion/${conexion}/`, conexion);
+    return this.http.put(`http://127.0.0.1:8000/conexion/${idConexion}/`, conexion);
   }
 
   getConexionActual(idUsuario: any, puesto: any) {

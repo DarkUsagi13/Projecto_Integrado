@@ -40,7 +40,8 @@ export class ConexionesModalComponent {
     this.formulario = this.fb.group({
       patinetesList: new FormControl('', Validators.required)
     })
-    this.conexionService.getConexionActual(this.perfilService.getLoggedInUser(), this.puesto)
+    this.conexionService.getConexionActual(this.perfilService.getLoggedInUser(), this.puesto);
+    this.conexion = this.conexionService.conexionActual;
   }
 
   pay() {
@@ -85,16 +86,16 @@ export class ConexionesModalComponent {
         layout: "vertical"
       },
       onApprove: (data: any, actions: { order: { get: () => Promise<any>; }; }) => {
-        console.log(
-          "onApprove - transaction was approved, but not authorized",
-          data,
-          actions
-        );
+        // console.log(
+        //   "onApprove - transaction was approved, but not authorized",
+        //   data,
+        //   actions
+        // );
         actions.order.get().then((details: any) => {
-          console.log(
-            "onApprove - you can get full order details inside onApprove: ",
-            details
-          );
+          // console.log(
+          //   "onApprove - you can get full order details inside onApprove: ",
+          //   details
+          // );
         });
       },
       onClientAuthorization: (data: any) => {
@@ -139,16 +140,12 @@ export class ConexionesModalComponent {
       this.estacionService.updatePuesto(this.puesto.id, this.puesto).subscribe();
       this.patineteService.setPatineteSeleccionado(this.patinete);
     });
-    // console.log(this.conexion)
   }
 
   desconectar() {
-    this. conexion = this.conexionService.conexionActual
-
     this.puesto.disponible = true;
-    this.conexion.horaDesconexion = new Date();
+    this.conexion.horaDesconexion = new Date().toISOString();
     this.conexion.finalizada = true;
-    console.log(this.conexion)
     this.estacionService.updatePuesto(this.puesto.id, this.puesto).subscribe();
     this.conexionService.updateConexion(this.conexion.id, this.conexion).subscribe();
   }

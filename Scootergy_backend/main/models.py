@@ -2,7 +2,6 @@ from django.conf import settings
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.db.models import RESTRICT
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.shortcuts import redirect
@@ -38,18 +37,18 @@ class Usuario(AbstractUser):
         Token.objects.filter(user=self).delete()
         Token.objects.create(user=self)
 
-    def cambiar_contraseña(request):
+    def cambiar_contrasenia(request):
         # Obtener el usuario actual
         usuario = request.user
 
         # Obtener la nueva contraseña
-        nueva_contraseña = request.POST.get('nueva_contraseña')
+        nueva_contrasenia = request.POST.get('nueva_contrasenia')
 
         # Encriptar la nueva contraseña
-        nueva_contraseña_encriptada = make_password(nueva_contraseña)
+        nueva_contrasenia_encriptada = make_password(nueva_contrasenia)
 
         # Cambiar la contraseña del usuario
-        usuario.password = nueva_contraseña_encriptada
+        usuario.password = nueva_contrasenia_encriptada
         usuario.save()
 
         # Regenerar el token de autenticación del usuario
