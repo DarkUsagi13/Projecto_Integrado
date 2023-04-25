@@ -73,9 +73,9 @@ class ConexionView(viewsets.ModelViewSet):
         return queryset
 
 
-class TarjetaView(viewsets.ModelViewSet):
-    queryset = Tarjeta.objects.all()
-    serializer_class = TarjetaSerializer
+class PagoView(viewsets.ModelViewSet):
+    queryset = Pago.objects.all()
+    serializer_class = PagoSerializer
 
 
 class ComunidadAutonomaView(viewsets.ModelViewSet):

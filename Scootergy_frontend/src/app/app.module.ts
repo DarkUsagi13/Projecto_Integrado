@@ -19,6 +19,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ConexionesModalComponent} from './conexiones-modal/conexiones-modal.component';
 import {PlantillaPerfilComponent} from './plantilla-perfil/plantilla-perfil.component';
 import {NgxPayPalModule } from 'ngx-paypal';
+import { RouterModule } from '@angular/router';
+import { ResumenPagoComponent } from './resumen-pago/resumen-pago.component';
 
 
 @NgModule({
@@ -33,6 +35,7 @@ import {NgxPayPalModule } from 'ngx-paypal';
     DatosPerfilComponent,
     ConexionesModalComponent,
     PlantillaPerfilComponent,
+    ResumenPagoComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +47,7 @@ import {NgxPayPalModule } from 'ngx-paypal';
     NgbModule,
     BrowserAnimationsModule,
     NgxPayPalModule,
+    RouterModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},

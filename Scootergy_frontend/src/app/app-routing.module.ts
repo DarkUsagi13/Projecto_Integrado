@@ -7,6 +7,7 @@ import {RegistroComponent} from "./registro/registro.component";
 import {HomeComponent} from "./home/home.component";
 import {GestionPatinetesComponent} from "./gestion-patinetes/gestion-patinetes.component";
 import {DatosPerfilComponent} from "./datos-perfil/datos-perfil.component";
+import {ResumenPagoComponent} from "./resumen-pago/resumen-pago.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: 'perfil/editar_perfil', component: DatosPerfilComponent, canActivate: [AuthGuard]},
   {path: 'patinetes', component: GestionPatinetesComponent, canActivate: [AuthGuard]},
   {path: 'registrar_patinete', component: GestionPatinetesComponent, canActivate: [AuthGuard]},
+  {path: 'perfil/resumen_pago', component: ResumenPagoComponent}
 ];
 
 @NgModule({

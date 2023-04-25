@@ -102,12 +102,13 @@ class Conexion(models.Model):
         return 'Conexión: ' + str(self.id) + ', Puesto: ' + str(self.idPuesto) + ', Hora: ' + str(self.horaConexion)
 
 
-class Tarjeta(models.Model):
-    num_tarjeta = models.CharField(max_length=16)
-    titular = models.CharField(max_length=50)
-    cvv = models.CharField(max_length=4)
-    fecha_caducidad = models.DateField()
+class Pago(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.RESTRICT)
+    conexion = models.ForeignKey(Conexion, on_delete=models.RESTRICT)
+    monto = models.DecimalField(max_digits=10, decimal_places=2)
+    moneda = models.CharField(max_length=3)
+    fecha = models.DateTimeField(auto_now_add=True)
+    id_transaccion_paypal = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.titular + ', ' + self.num_tarjeta
+        return self.usuario + ', ' + self.conexion + ', ' + self.id_transaccion_paypal

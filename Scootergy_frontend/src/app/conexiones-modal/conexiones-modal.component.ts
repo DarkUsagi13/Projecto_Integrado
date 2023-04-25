@@ -7,6 +7,7 @@ import {EstacionesService} from "../estaciones.service";
 import {PerfilService} from "../perfil.service";
 import {PatinetesService} from "../patinetes.service";
 import {ICreateOrderRequest} from "ngx-paypal";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-conexiones-modal',
@@ -32,6 +33,7 @@ export class ConexionesModalComponent {
     private estacionService: EstacionesService,
     private perfilService: PerfilService,
     private patineteService: PatinetesService,
+    private router: Router,
   ) {
 
   }
@@ -66,9 +68,8 @@ export class ConexionesModalComponent {
               },
               items: [
                 {
-                  name: "Enterprise Subscription",
+                  name: "Conexion",
                   quantity: "1",
-                  category: "DIGITAL_GOODS",
                   unit_amount: {
                     currency_code: "EUR",
                     value: "9.99"
@@ -103,7 +104,10 @@ export class ConexionesModalComponent {
           "onClientAuthorization - you should probably inform your server about completed transaction at this point",
           data
         );
-        this.desconectar()
+        const horaDesconexion = new Date().toISOString();
+        this.desconectar(horaDesconexion)
+        this.activeModal.close()
+        this.router.navigate(['/perfil/resumen_pago']);
       },
       onCancel: (data: any, actions: any) => {
         console.log("OnCancel", data, actions);
@@ -142,9 +146,9 @@ export class ConexionesModalComponent {
     });
   }
 
-  desconectar() {
+  desconectar(horaDesconexion: any) {
     this.puesto.disponible = true;
-    this.conexion.horaDesconexion = new Date().toISOString();
+    this.conexion.horaDesconexion = horaDesconexion;
     this.conexion.finalizada = true;
     this.estacionService.updatePuesto(this.puesto.id, this.puesto).subscribe();
     this.conexionService.updateConexion(this.conexion.id, this.conexion).subscribe();

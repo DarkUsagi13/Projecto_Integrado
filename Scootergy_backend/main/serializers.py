@@ -91,17 +91,18 @@ class ConexionSerializer(serializers.HyperlinkedModelSerializer):
         return "{} {}".format(obj.idPatinete.marca, obj.idPatinete.modelo)
 
 
-class TarjetaSerializer(serializers.HyperlinkedModelSerializer):
+class PagoSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Tarjeta
+        model = Pago
         fields = [
             'url',
             'id',
-            'num_tarjeta',
-            'titular',
-            'cvv',
-            'fecha_caducidad',
             'usuario',
+            'conexion',
+            'monto',
+            'moneda',
+            'fecha',
+            'id_transaccion_paypal'
         ]
 
 

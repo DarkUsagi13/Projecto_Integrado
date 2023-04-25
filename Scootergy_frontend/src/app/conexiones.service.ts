@@ -33,6 +33,10 @@ export class ConexionesService {
     return this.http.put(`http://127.0.0.1:8000/conexion/${idConexion}/`, conexion);
   }
 
+  getConexion(idConexion: any) {
+    return this.http.get(`http://127.0.0.1:8000/conexion/${idConexion}`);
+  }
+
   getConexionActual(idUsuario: any, puesto: any) {
     if (!puesto.disponible) {
       this.conexionActual = this.conexiones.find((conexion: { idPuesto: any; }) => conexion.idPuesto == puesto.url)

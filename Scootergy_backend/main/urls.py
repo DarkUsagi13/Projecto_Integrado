@@ -11,7 +11,7 @@ router.register(r'estacion', views.EstacionView, basename="estacion")
 router.register(r'puesto', views.PuestoView, basename="puesto")
 router.register(r'patinete', views.PatineteView, basename="patinete")
 router.register(r'conexion', views.ConexionView, basename="conexion")
-router.register(r'tarjeta', views.TarjetaView, basename="tarjeta")
+router.register(r'pago', views.PagoView, basename="pago")
 router.register(r'comunidad_autonoma', views.ComunidadAutonomaView, basename="comunidadautonoma")
 router.register(r'provincia', views.ProvinciaView, basename="provincia")
 
