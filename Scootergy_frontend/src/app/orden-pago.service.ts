@@ -9,10 +9,9 @@ export class OrdenPagoService {
 
   constructor(private http: HttpClient) { }
 
-  createPayment(): Observable<any> {
-    const url = 'http://localhost:8000/api/create-payment/';
-    const data = { /* Agrega aquí los datos que necesitas para crear la orden de pago */ };
-    return this.http.post(url, data);
+  makePayment(paymentData: any, conexion: any): Observable<any> {
+    console.log(conexion)
+    return this.http.post<any>('http://localhost:8000/api/paypal/', {paymentData, conexion});
   }
 
 }

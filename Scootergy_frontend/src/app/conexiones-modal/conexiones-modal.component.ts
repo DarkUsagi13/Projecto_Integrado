@@ -8,6 +8,7 @@ import {PerfilService} from "../perfil.service";
 import {PatinetesService} from "../patinetes.service";
 import {ICreateOrderRequest} from "ngx-paypal";
 import {Router} from "@angular/router";
+import {OrdenPagoService} from "../orden-pago.service";
 
 @Component({
   selector: 'app-conexiones-modal',
@@ -33,7 +34,7 @@ export class ConexionesModalComponent {
     private estacionService: EstacionesService,
     private perfilService: PerfilService,
     private patineteService: PatinetesService,
-    private router: Router,
+    private pagoService: OrdenPagoService,
   ) {
 
   }
@@ -47,6 +48,7 @@ export class ConexionesModalComponent {
   }
 
   pay() {
+    console.log(this.conexion)
     this.showPaypalButtons = true;
     this.payPalConfig = {
       currency: "EUR",
@@ -87,16 +89,12 @@ export class ConexionesModalComponent {
         layout: "vertical"
       },
       onApprove: (data: any, actions: { order: { get: () => Promise<any>; }; }) => {
-        // console.log(
-        //   "onApprove - transaction was approved, but not authorized",
-        //   data,
-        //   actions
-        // );
+        this.pagoService.makePayment(data, this.conexionService.conexionActual).subscribe()
         actions.order.get().then((details: any) => {
-          // console.log(
-          //   "onApprove - you can get full order details inside onApprove: ",
-          //   details
-          // );
+          console.log(
+            "onApprove - you can get full order details inside onApprove: ",
+            details
+          );
         });
       },
       onClientAuthorization: (data: any) => {
@@ -104,10 +102,6 @@ export class ConexionesModalComponent {
           "onClientAuthorization - you should probably inform your server about completed transaction at this point",
           data
         );
-        const horaDesconexion = new Date().toISOString();
-        this.desconectar(horaDesconexion)
-        this.activeModal.close()
-        this.router.navigate(['/perfil/resumen_pago']);
       },
       onCancel: (data: any, actions: any) => {
         console.log("OnCancel", data, actions);

@@ -1,9 +1,11 @@
 from django_filters.rest_framework import DjangoFilterBackend
+from paypalrestsdk import Payment
 from rest_framework import viewsets, status
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.db.models.functions import ExtractMonth
 
@@ -117,4 +119,42 @@ class Registro(GenericAPIView):
         data["tokens"] = {"refresh": str(token), "access": str(token.access_token)}
         return Response(data, status=status.HTTP_201_CREATED)
 
+
+class PayPalAPIView(APIView):
+    def post(self, request):
+        payment_data = request.data['paymentData']
+        conexion = request.data['conexion']
+        print(payment_data)
+        print(conexion)
+        # Your PayPal integration code here
+        payment = Payment({
+            "intent": "sale",
+            "payer": {
+                "payment_method": "paypal"
+            },
+            "redirect_urls": {
+                "return_url": "http://localhost:8000/success",
+                "cancel_url": "http://localhost:8000/cancel"
+            },
+            "transactions": [{
+                "item_list": {
+                    "items": [{
+                        "name": "item",
+                        "sku": "item",
+                        "price": "1.00",
+                        "currency": "USD",
+                        "quantity": 1
+                    }]
+                },
+                "amount": {
+                    "total": "1.00",
+                    "currency": "USD"
+                },
+                "description": "This is the payment transaction description."
+            }]
+        })
+        if payment.create():
+            return Response({"paymentID": payment.id})
+        else:
+            return Response({"error": payment.error})
 
