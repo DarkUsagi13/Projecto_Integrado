@@ -1,3 +1,4 @@
+from _decimal import ROUND_HALF_UP
 from django.conf import settings
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractUser
@@ -6,6 +7,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.shortcuts import redirect
 from rest_framework.authtoken.models import Token
+from decimal import Decimal
 
 
 # Create your models here.
@@ -95,12 +97,24 @@ class Conexion(models.Model):
     consumido = models.DecimalField(max_digits=10, decimal_places=2)
     horaConexion = models.DateTimeField(auto_now_add=True)
     horaDesconexion = models.DateTimeField(null=True)
-    precio = models.DecimalField(max_digits=10, decimal_places=2)
+    monto = models.DecimalField(max_digits=10, decimal_places=2)
     finalizada = models.BooleanField(default=False)
 
     def __str__(self):
         return 'Conexión: ' + str(self.id) + ', Puesto: ' + str(self.idPuesto) + ', Hora: ' + str(self.horaConexion)
 
+    def calcular_monto(self):
+        consumo_por_hora = self.idPatinete.consumo  # Suponiendo que el consumo está en kWh por hora
+        print(consumo_por_hora)
+        horas_utilizadas = (self.horaDesconexion - self.horaConexion).total_seconds() / 3600
+        print(int((self.horaDesconexion - self.horaConexion).total_seconds() / 60))
+        # print(horas_utilizadas)
+        consumo_total = consumo_por_hora * Decimal(horas_utilizadas)
+        print(consumo_total)
+        costo_por_kwh = 0.15  # Suponiendo que el costo es de 0,10 USD por kWh
+        monto_total = consumo_total * Decimal(costo_por_kwh)
+        print(monto_total)
+        self.monto = monto_total.quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
 
 class Pago(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.RESTRICT)
@@ -111,4 +125,4 @@ class Pago(models.Model):
     id_transaccion_paypal = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.usuario + ', ' + self.conexion + ', ' + self.id_transaccion_paypal
+        return str(self.usuario) + ', ' + str(self.conexion) + ', ' + self.id_transaccion_paypal

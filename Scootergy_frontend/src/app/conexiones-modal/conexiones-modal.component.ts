@@ -8,7 +8,7 @@ import {PerfilService} from "../perfil.service";
 import {PatinetesService} from "../patinetes.service";
 import {ICreateOrderRequest} from "ngx-paypal";
 import {Router} from "@angular/router";
-import {OrdenPagoService} from "../orden-pago.service";
+import {PaypalService} from "../paypal.service";
 
 @Component({
   selector: 'app-conexiones-modal',
@@ -25,6 +25,9 @@ export class ConexionesModalComponent {
   @Input() estacion: any;
   public payPalConfig: any;
   public showPaypalButtons: boolean | undefined;
+  approvalUrl: any;
+  paymentId: any;
+  payerId: any;
 
 
   constructor(
@@ -34,7 +37,7 @@ export class ConexionesModalComponent {
     private estacionService: EstacionesService,
     private perfilService: PerfilService,
     private patineteService: PatinetesService,
-    private pagoService: OrdenPagoService,
+    private paypalService: PaypalService,
   ) {
 
   }
@@ -47,8 +50,32 @@ export class ConexionesModalComponent {
     this.conexion = this.conexionService.conexionActual;
   }
 
+  crearPago() {
+    this.paypalService.crearPago(this.conexion).subscribe(
+      (response: any) => {
+        console.log(this.conexion)
+        this.approvalUrl = response.approval_url;
+        window.location.href = this.approvalUrl;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+
+  capturePayment() {
+    this.paypalService.capturarPago(this.paymentId, this.payerId).subscribe(
+      (response: any) => {
+        console.log(response);
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+
+
   pay() {
-    console.log(this.conexion)
     this.showPaypalButtons = true;
     this.payPalConfig = {
       currency: "EUR",
@@ -89,7 +116,7 @@ export class ConexionesModalComponent {
         layout: "vertical"
       },
       onApprove: (data: any, actions: { order: { get: () => Promise<any>; }; }) => {
-        this.pagoService.makePayment(data, this.conexionService.conexionActual).subscribe()
+        console.log(this.conexionService.conexionActual)
         actions.order.get().then((details: any) => {
           console.log(
             "onApprove - you can get full order details inside onApprove: ",
@@ -114,7 +141,7 @@ export class ConexionesModalComponent {
       }
     };
   }
-
+  //
   back() {
     this.showPaypalButtons = false;
   }
@@ -133,19 +160,19 @@ export class ConexionesModalComponent {
       false,
     );
     this.conexionService.postConexion(this.conexion).subscribe((response: any) => {
-      // this.conexionId = response.id; // Guarda el ID de la conexión creada en una variable
       this.puesto.disponible = false;
       this.estacionService.updatePuesto(this.puesto.id, this.puesto).subscribe();
       this.patineteService.setPatineteSeleccionado(this.patinete);
     });
+    this.activeModal.close()
   }
 
-  desconectar(horaDesconexion: any) {
-    this.puesto.disponible = true;
-    this.conexion.horaDesconexion = horaDesconexion;
-    this.conexion.finalizada = true;
-    this.estacionService.updatePuesto(this.puesto.id, this.puesto).subscribe();
-    this.conexionService.updateConexion(this.conexion.id, this.conexion).subscribe();
-  }
+  // desconectar(horaDesconexion: any) {
+  //   this.puesto.disponible = true;
+  //   this.conexion.horaDesconexion = horaDesconexion;
+  //   this.conexion.finalizada = true;
+  //   this.estacionService.updatePuesto(this.puesto.id, this.puesto).subscribe();
+  //   this.conexionService.updateConexion(this.conexion.id, this.conexion).subscribe();
+  // }
 
 }

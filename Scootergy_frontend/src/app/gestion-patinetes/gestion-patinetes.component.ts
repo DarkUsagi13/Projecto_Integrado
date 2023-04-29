@@ -37,6 +37,7 @@ export class GestionPatinetesComponent {
   postPatinete() {
     this.patineteService.postPatinete(this.formulario.value).subscribe(data => {
     });
+    this.patineteService.patinetes(this.idUsuario).subscribe()
     this.router.navigate(['']);
   }
 

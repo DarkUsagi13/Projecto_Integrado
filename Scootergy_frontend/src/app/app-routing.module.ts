@@ -16,7 +16,7 @@ const routes: Routes = [
   {path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard]},
   {path: 'perfil/editar_perfil', component: DatosPerfilComponent, canActivate: [AuthGuard]},
   {path: 'patinetes', component: GestionPatinetesComponent, canActivate: [AuthGuard]},
-  {path: 'registrar_patinete', component: GestionPatinetesComponent, canActivate: [AuthGuard]},
+  {path: 'perfil/registrar_patinete', component: GestionPatinetesComponent, canActivate: [AuthGuard]},
   {path: 'perfil/resumen_pago', component: ResumenPagoComponent}
 ];
 

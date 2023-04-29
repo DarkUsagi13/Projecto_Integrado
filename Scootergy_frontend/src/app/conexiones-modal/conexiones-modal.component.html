@@ -23,7 +23,7 @@
       <button type="button" class="btn btn-success" (click)="setConexion()" [disabled]="formulario.invalid">Conectar</button>
     </div>
     <div *ngIf="!puesto.disponible">
-      <button *ngIf="!showPaypalButtons" class="btn btn-primary" (click)="pay()">Pagar con paypal</button>
+      <button *ngIf="!showPaypalButtons" class="btn btn-primary" (click)="crearPago()">Pagar con paypal</button>
       <ngx-paypal *ngIf="showPaypalButtons" [config]="payPalConfig">
       </ngx-paypal>
       <div class="text-center">

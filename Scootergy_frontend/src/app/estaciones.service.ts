@@ -1,24 +1,26 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {Estacion} from "./estacion";
+import {url} from "./utils";
 
 @Injectable({
   providedIn: 'root'
 })
 export class EstacionesService {
 
+  url: any = url()
+
   constructor(private http: HttpClient) { }
 
   getEstaciones(): Observable<any> {
-    return this.http.get(`http://127.0.0.1:8000/estacion`);
+    return this.http.get(this.url+`estacion`);
   }
 
   getPuestos(idEstacion: string|null): Observable<any> {
-    return  this.http.get(`http://127.0.0.1:8000/puesto/?idEstacion=${idEstacion}`);
+    return  this.http.get(this.url+`puesto/?idEstacion=${idEstacion}`);
   }
 
   updatePuesto(idPuesto: string|null, puesto: any): Observable<any> {
-    return this.http.put(`http://127.0.0.1:8000/puesto/${idPuesto}/`, puesto);
+    return this.http.put(this.url+`puesto/${idPuesto}/`, puesto);
   }
 }

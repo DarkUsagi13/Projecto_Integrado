@@ -15,6 +15,7 @@ class UsuarioSerializer(serializers.HyperlinkedModelSerializer):
             'date_joined',
             'is_staff',
         ]
+        ordering = ['id']
 
 
 class RegistroSerializer(serializers.ModelSerializer):
@@ -81,7 +82,7 @@ class ConexionSerializer(serializers.HyperlinkedModelSerializer):
             'idUsuario',
             'horaConexion',
             'horaDesconexion',
-            'precio',
+            'monto',
             'consumido',
             'finalizada',
             'patineteNombre',

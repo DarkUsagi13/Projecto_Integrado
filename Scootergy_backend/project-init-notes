@@ -9,6 +9,12 @@ Al final del archivo
 export COMPOSE_FILE="local.yml"
 export DJANGO_SETTINGS_MODULE="config.settings.local"
 
+WINDOWS:
+
+setx PATH COMPOSE_FILE="local.yml"
+setx PATH DJANGO_SETTINGS_MODULE="config.settings.local"
+
+
 Al final de la función deactivate()
    unset COMPOSE_FILE
    unset DJANGO_SETTINGS_MODULE
@@ -30,7 +36,7 @@ python manage.py dumpdata --natural-foreign --natural-primary -e contenttypes -e
 loaddata fixtures/dump.json
 
 
-#Configuración .envs/.loca/.postgres
+#Configuración .envs/.local/.postgres
 # PostgreSQL
 # ------------------------------------------------------------------------------
 POSTGRES_HOST=postgres

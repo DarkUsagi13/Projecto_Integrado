@@ -22,5 +22,6 @@ urlpatterns = [
     path('api-user-login/', views.LoginView.as_view()),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     re_path(r'^$', RedirectView.as_view(url=reverse_lazy('api-root'), permanent=False)),
-    path('api/paypal/', views.PayPalAPIView.as_view(), name='paypal_api'),
+    path('crear-pago/', views.CreatePaymentView.as_view(), name='create-payment'),
+    path('capturar-pago/', views.CapturePaymentView.as_view(), name='capture-payment'),
 ]

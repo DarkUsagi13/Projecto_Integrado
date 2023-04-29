@@ -4,11 +4,14 @@ import {Credenciales, LoggedInUser} from "./autenticar";
 import {HttpClient} from "@angular/common/http";
 import {Usuario} from "./usuario";
 import {Router} from "@angular/router";
+import {url} from "./utils";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AutenticarService {
+
+  url: any= url()
 
   constructor(private http: HttpClient, private router: Router) {
   }
@@ -20,12 +23,12 @@ export class AutenticarService {
   }
 
   nuevoUsuario(usuario: Usuario): Observable<any> {
-    return this.http.post<any>('http://localhost:8000/registro/', usuario);
+    return this.http.post<any>(this.url+'registro/', usuario);
   }
 
   logIn(username: string, password: string): Observable<any> {
     return this.http.post(
-      'http://localhost:8000/api-user-login/', {username, password}
+      this.url+'api-user-login/', {username, password}
     ) as Observable<any>;
   }
 

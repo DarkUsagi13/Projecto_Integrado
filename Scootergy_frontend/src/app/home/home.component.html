@@ -20,7 +20,7 @@
         <div class="row">
           <div class="col-3 d-flex justify-content-center align-items-center" *ngFor="let puesto of puestos">
             <tr class="d-block w-100">
-              <td *ngIf="puesto.disponible" class="d-block w-100 btn btn-success py-5" (click)="open(puesto)">Disponible</td>
+              <td *ngIf="puesto.disponible" class="d-block w-100 btn btn-success py-5" (click)="open(puesto)">Puesto {{puesto.id}} disponible</td>
               <td *ngIf="!puesto.disponible" class="d-block w-100 btn btn-danger py-5" (click)="open(puesto)">No disponible</td>
             </tr>
           </div>
@@ -30,10 +30,10 @@
     </div>
   </div>
 
-  <div class="container m-5" *ngIf="!mostrarDatos">
+  <div class="container p-5" *ngIf="!mostrarDatos">
     <h3 class="text-center">No tienes ningún patinete, ¡Agrega uno!</h3>
     <div class="container d-flex justify-content-center">
-      <a [routerLink]='["/registrar_patinete"]' type="button" class="btn btn-success p-1">Agregar</a>
+      <a [routerLink]='["perfil/registrar_patinete"]' type="button" class="btn btn-success p-1">Agregar</a>
     </div>
   </div>
 </app-template>

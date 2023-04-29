@@ -5,7 +5,7 @@ export class Conexion {
     public idPatinete: any,
     public idUsuario: any,
     public horaDesconexion: any,
-    public precio: any,
+    public monto: any,
     public consumido: any,
     public finalizada: any,
   ) {
