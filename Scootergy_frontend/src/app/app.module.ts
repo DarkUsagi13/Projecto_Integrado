@@ -22,7 +22,6 @@ import {NgxPayPalModule } from 'ngx-paypal';
 import { RouterModule } from '@angular/router';
 import { ResumenPagoComponent } from './resumen-pago/resumen-pago.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

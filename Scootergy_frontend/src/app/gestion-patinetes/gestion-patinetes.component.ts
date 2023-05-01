@@ -14,24 +14,32 @@ export class GestionPatinetesComponent {
 
   public datosPatinetes: Array<Patinete> = [];
   public idUsuario: string = '';
+  public perfil: any;
   public formulario!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private patineteService: PatinetesService,
-    private perfilUsuarios: PerfilService,
+    private perfilService: PerfilService,
     private  router: Router,
   ) {
-  }
-
-  ngOnInit() {
-    this.idUsuario = this.perfilUsuarios.getLoggedInUser();
     this.formulario = this.fb.group({
       marca: new FormControl(''),
       modelo: new FormControl(''),
       consumo: new FormControl(''),
-      idUsuario: new FormControl(this.patineteService.setUsuario(this.idUsuario)),
+      idUsuario: new FormControl(''),
     })
+  }
+
+  ngOnInit() {
+    this.idUsuario = this.perfilService.getLoggedInUser();
+    this.perfilService.perfil(this.idUsuario).subscribe(perfil =>{
+      this.perfil = perfil
+      this.formulario.patchValue({
+        idUsuario: this.perfil.url,
+      })
+    })
+
   }
 
   postPatinete() {

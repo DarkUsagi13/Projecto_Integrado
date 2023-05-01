@@ -28,8 +28,6 @@ export class PerfilComponent implements OnInit {
 
     this.conexionService.getConexiones(this.usuarioId).subscribe(conexiones =>{
       this.conexiones = conexiones;
-      console.log(this.usuarioId)
-      console.log(this.conexiones)
     })
 
     this.conexionService.getConexionesMes(this.usuarioId).subscribe(conexiones => {
