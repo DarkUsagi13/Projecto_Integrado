@@ -9,6 +9,7 @@ $lighblue: #E0E0E0;
 }
 
 .logo {
+  font-size: 3.5rem;
   background: #00CC99;
   background: linear-gradient(to right, #00CC99 0%, #39A38B 100%);
   -webkit-background-clip: text;
@@ -16,7 +17,7 @@ $lighblue: #E0E0E0;
 }
 
 a {
-  color: $naranja;
+  color: $naranja !important;
 }
 
 a:hover {

@@ -39,26 +39,6 @@ class Usuario(AbstractUser):
         Token.objects.filter(user=self).delete()
         Token.objects.create(user=self)
 
-    def cambiar_contrasenia(request):
-        # Obtener el usuario actual
-        usuario = request.user
-
-        # Obtener la nueva contraseña
-        nueva_contrasenia = request.POST.get('nueva_contrasenia')
-
-        # Encriptar la nueva contraseña
-        nueva_contrasenia_encriptada = make_password(nueva_contrasenia)
-
-        # Cambiar la contraseña del usuario
-        usuario.password = nueva_contrasenia_encriptada
-        usuario.save()
-
-        # Regenerar el token de autenticación del usuario
-        usuario.regenerar_token()
-
-        # Redirigir a la página de inicio de sesión
-        return redirect('login')
-
     def __str__(self):
         return self.username
 

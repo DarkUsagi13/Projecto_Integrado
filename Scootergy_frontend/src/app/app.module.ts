@@ -1,6 +1,5 @@
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
@@ -18,9 +17,10 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ConexionesModalComponent} from './conexiones-modal/conexiones-modal.component';
 import {PlantillaPerfilComponent} from './plantilla-perfil/plantilla-perfil.component';
-import {NgxPayPalModule } from 'ngx-paypal';
-import { RouterModule } from '@angular/router';
-import { ResumenPagoComponent } from './resumen-pago/resumen-pago.component';
+import {NgxPayPalModule} from 'ngx-paypal';
+import {RouterModule} from '@angular/router';
+import {ResumenPagoComponent} from './resumen-pago/resumen-pago.component';
+
 
 @NgModule({
   declarations: [

@@ -12,6 +12,7 @@ import {url} from "./utils";
 export class AutenticarService {
 
   url: any= url()
+  mensajeErrores: string = '';
 
   constructor(private http: HttpClient, private router: Router) {
   }
@@ -34,15 +35,16 @@ export class AutenticarService {
 
   logInUser(user: Credenciales): void {
     this.logIn(user.username, user.password).subscribe({
-        next: (data) => {
-          this.setLoggedInUser(data);
-          this.router.navigateByUrl(``);
-        },
-        error: (error) => {
-          console.log(error);
-        }
+      next: (data) => {
+        this.setLoggedInUser(data);
+        this.router.navigateByUrl(``);
+      },
+      error: (error) => {
+        this.mensajeErrores = error.error.non_field_errors[0];
       }
-    );
+    });
   }
+
+
 
 }

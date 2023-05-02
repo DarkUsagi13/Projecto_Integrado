@@ -22,21 +22,17 @@ class UsuarioView(viewsets.ModelViewSet):
     def update(self, request, *args, **kwargs):
         # Obtener el usuario que se va a actualizar
         usuario = self.get_object()
-
         # Obtener los datos actualizados del usuario
         serializer = self.get_serializer(usuario, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
-
         # Verificar si se cambió la contraseña
         if 'password' in request.data:
             # Cambiar la contraseña del usuario
             usuario.set_password(request.data['password'])
             usuario.save()
-
             # Regenerar el token de autenticación del usuario
             usuario.regenerar_token()
-
         return Response(serializer.data)
 
 
