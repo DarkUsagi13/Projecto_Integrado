@@ -105,16 +105,12 @@ class Conexion(models.Model):
 
     def calcular_monto(self):
         consumo_por_hora = self.idPatinete.consumo  # Suponiendo que el consumo está en kWh por hora
-        print(consumo_por_hora)
         horas_utilizadas = (self.horaDesconexion - self.horaConexion).total_seconds() / 3600
-        print(int((self.horaDesconexion - self.horaConexion).total_seconds() / 60))
-        # print(horas_utilizadas)
         consumo_total = consumo_por_hora * Decimal(horas_utilizadas)
-        print(consumo_total)
         costo_por_kwh = 0.15  # Suponiendo que el costo es de 0,10 USD por kWh
         monto_total = consumo_total * Decimal(costo_por_kwh)
-        print(monto_total)
         self.monto = monto_total.quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
+
 
 class Pago(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.RESTRICT)

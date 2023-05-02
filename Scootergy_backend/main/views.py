@@ -128,10 +128,7 @@ class CreatePaymentView(APIView):
         conexion_obj = get_object_or_404(Conexion, id=conexion['id'])
         monto = ''
         if not conexion_obj.finalizada:
-            zona_horaria = timezone.get_fixed_timezone(120)  # UTC+2
-            # fecha_hora_manual = timezone.datetime(2023, 4, 28, 17, 30, tzinfo=zona_horaria)
             conexion_obj.horaDesconexion = timezone.now()
-            # conexion_obj.horaDesconexion = fecha_hora_manual
             conexion_obj.calcular_monto()
             monto = str(conexion_obj.monto)
         # Crear objeto Payment con la información del pago

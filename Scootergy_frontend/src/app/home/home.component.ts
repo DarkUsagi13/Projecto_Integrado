@@ -61,6 +61,10 @@ export class HomeComponent implements OnInit {
 
   //Función para mostrar los puestos de una determinada estación
   mostrarPuestos(): void {
+    const select = document.getElementById('estaciones');
+    if (select){
+      select.classList.add('mostrar');
+    }
     //Se guarda el valor de la estación seleccionada en el formulario
     this.idEstacion = this.formulario.get('estaciones')!.value;
     //Filtro para obtener la estación seleccionada de la lista de estaciones

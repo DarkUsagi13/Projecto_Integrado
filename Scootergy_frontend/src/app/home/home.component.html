@@ -12,24 +12,27 @@
       </form>
     </div>
     <div>
-      <table class="table text-center p-5">
-        <caption style="caption-side: top" *ngIf="estacionSeleccionada" class="text-center fs-1">
-          Estación de carga: <span class="fw-bolder">{{estacionSeleccionada.nombre}}</span>
-        </caption>
-        <tbody>
-        <div class="row">
-          <div class="col-3 d-flex justify-content-center align-items-center" *ngFor="let puesto of puestos">
-            <tr class="d-block w-100">
-              <td *ngIf="puesto.disponible" class="d-block w-100 btn btn-success py-5" (click)="open(puesto)">Puesto {{puesto.id}} disponible</td>
-              <td *ngIf="!puesto.disponible" class="d-block w-100 btn btn-danger py-5" (click)="open(puesto)">No disponible</td>
-            </tr>
+      <ng-container *ngIf="estacionSeleccionada">
+        <div class="text-center fs-1">
+          <h3 class="p-5">
+            Estación de carga: <span class="fw-bolder">{{estacionSeleccionada.nombre}}</span>
+          </h3>
+        </div>
+      </ng-container>
+      <div class="row">
+        <div class="col-3 d-flex justify-content-center align-items-center" *ngFor="let puesto of puestos">
+          <div class="row w-100">
+            <div class="col-12 d-block mt-3 banner d-flex flex-column justify-content-center">
+              <button class="d-block w-100 btn py-5 butn butn__new flex-grow-1" *ngIf="puesto.disponible; else noDisponible" (click)="open(puesto)">Disponible</button>
+              <ng-template #noDisponible>
+                <button class="d-block w-100 btn py-5 butn butn__new flex-grow-1" (click)="open(puesto)">No Disponible</button>
+              </ng-template>
+            </div>
           </div>
         </div>
-        </tbody>
-      </table>
+      </div>
     </div>
   </div>
-
   <div class="container p-5" *ngIf="!mostrarDatos">
     <h3 class="text-center">No tienes ningún patinete, ¡Agrega uno!</h3>
     <div class="container d-flex justify-content-center">
