@@ -36,7 +36,6 @@ export class RegistroComponent {
         },
         error: (error) => {
           this.errores = error.error;
-          console.log(error.error)
         }
       });
     }

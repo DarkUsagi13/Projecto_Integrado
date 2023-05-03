@@ -12,8 +12,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 export class LoginComponent {
 
   logInForm;
-  validacion: boolean = false;
-  mensajeError: string = '';
+  errores: any = {};
   submitted = false;
 
   constructor(private formBuilder: FormBuilder, private loginService: AutenticarService, private router: Router) {
@@ -27,7 +26,7 @@ export class LoginComponent {
   onSubmit(formData: any): void {
     this.submitted = true;
     if (this.logInForm.invalid) {
-      this.mensajeError = 'Los campos son requeridos'
+      this.errores = {invalid:'Todos los campos son obligatorios'}
     } else {
 
       this.loginService.logIn(formData.username, formData.password).subscribe({
@@ -36,9 +35,11 @@ export class LoginComponent {
           this.router.navigateByUrl(``);
         },
         error: (error) => {
-          this.mensajeError = error.error.non_field_errors[0];
+          this.errores = error.error;
         }
       });
     }
   }
+
+  protected readonly Object = Object;
 }
