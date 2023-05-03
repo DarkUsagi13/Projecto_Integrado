@@ -21,12 +21,13 @@ export class LoginComponent {
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
+    this.submitted = false;
   }
 
   onSubmit(formData: any): void {
     this.submitted = true;
     if (this.logInForm.invalid) {
-      console.log(this.logInForm.errors);
+      this.mensajeError = 'Los campos son requeridos'
     } else {
 
       this.loginService.logIn(formData.username, formData.password).subscribe({

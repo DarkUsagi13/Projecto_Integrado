@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AutenticarService} from "../autenticar.service";
 
 @Component({
@@ -8,7 +8,9 @@ import {AutenticarService} from "../autenticar.service";
   styleUrls: ['./registro.component.scss']
 })
 export class RegistroComponent {
+
   public formulario!: FormGroup;
+  public errores: any = {};
 
   constructor(
     private fb: FormBuilder,
@@ -18,18 +20,27 @@ export class RegistroComponent {
 
   ngOnInit() {
     this.formulario = this.fb.group({
-      username: new FormControl(''),
-      email: new FormControl(''),
-      password: new FormControl(''),
+      username: new FormControl('', Validators.required),
+      email: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
     })
   }
 
   nuevoUsuario(formData: any) {
-    this.autenticarService.nuevoUsuario(this.formulario.value).subscribe(
-      data => {
-        this.autenticarService.logInUser(formData);
-      }
-    );
+    if (this.formulario.invalid) {
+      this.errores = {invalid:'Todos los campos son obligatorios'}
+    } else {
+      this.autenticarService.nuevoUsuario(this.formulario.value).subscribe({
+        next: (data) => {
+          this.autenticarService.logInUser(formData);
+        },
+        error: (error) => {
+          this.errores = error.error;
+          console.log(error.error)
+        }
+      });
+    }
   }
 
+  protected readonly Object = Object;
 }

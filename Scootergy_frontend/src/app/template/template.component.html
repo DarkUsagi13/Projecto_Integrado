@@ -36,7 +36,6 @@
     </div>
   </div>
 </header>
-
 <main>
   <div class="container-fluid mx-0 px-0">
     <ng-content>
@@ -44,18 +43,32 @@
     </ng-content>
   </div>
 </main>
-<footer class="footer d-flex justify-content-center p-5 mt-auto align-content-end">
+<footer class="footer d-flex justify-content-center p-4 mt-auto">
   <div class="col-4">
     <h3>Scootergy</h3>
     <div class="w-50">
       <p>
-        Nos especializamos en ofrecer un servicio de recarga de baterías para patinetes eléctricos. Con el creciente uso de
-        estos vehículos en las ciudades, la necesidad de contar con una red confiable de puntos de carga se ha vuelto
-        esencial.
+        Porque el viaje es tan importante como el destino
       </p>
     </div>
   </div>
-  <div class="col-4">2</div>
+  <div class="col-4">
+    Enlaces de interes...
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <ul class="navbar-nav flex-column">
+        <li class="nav-item">
+          <a [routerLink]="['/']" class="nav-link active" aria-current="page">Contactanos</a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['/perfil']" class="nav-link active">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a (click)="logOut()" class="nav-link active" style="cursor: pointer;">FAQ</a>
+        </li>
+      </ul>
+    </nav>
+
+  </div>
   <div class="col-4">3</div>
 </footer>
 </body>

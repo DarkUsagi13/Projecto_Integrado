@@ -27,6 +27,14 @@
         <input id="password" class="form-control border-0 border-bottom mt-2 w-100" formControlName="password" type="password" placeholder="Contraseña">
         <label for="password">Contraseña</label>
       </div>
+      <div *ngIf="Object.keys(errores).length > 0" class="alert alert-danger">
+        <ul>
+          <li *ngFor="let error of Object.values(errores)">
+            {{ error }}
+          </li>
+        </ul>
+      </div>
+
       <div class="d-flex justify-content-center mt-2 mb-5">
         <button class="btn btn-primary mt-3">Registrarse</button>
       </div>

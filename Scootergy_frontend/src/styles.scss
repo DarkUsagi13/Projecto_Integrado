@@ -1,15 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 
-$naranja: #FF6600;
+$naranja: #E0E0E0;
 $lighblue: #E0E0E0;
 
 .header {
   background: linear-gradient(90deg, #000000, #000000);
-  height: 15vh;
+  min-height: 10vh;
 }
 
 .logo {
-  font-size: 3.5rem;
+  min-font-size: 4vw;
+  font-size: 4vw;
   background: #00CC99;
   background: linear-gradient(to right, #00CC99 0%, #39A38B 100%);
   -webkit-background-clip: text;
@@ -18,6 +19,7 @@ $lighblue: #E0E0E0;
 
 a {
   color: $naranja !important;
+  text-decoration: none;
 }
 
 a:hover {
@@ -35,14 +37,14 @@ body {
 }
 
 .btn-primary:hover{
-  color: #F5F5DC;
-  background-color: black;
+  color: black;
+  background-color: #00CC99;
 }
 
 
 /* Estilos para los botones */
 .butn,
-.btn {
+.butn__new {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -60,7 +62,7 @@ body {
 }
 
 .butn::before,
-.btn::before {
+.butn__new::before {
   background: #fff;
   content: "";
   height: 155px;
@@ -73,7 +75,7 @@ body {
 }
 
 .butn::after,
-.btn::after {
+.butn__new::after {
   background: #fff;
   content: "";
   height: 20rem;
@@ -97,8 +99,8 @@ body {
 
 .butn:hover,
 .butn:active,
-.btn:hover,
-.btn:active {
+.butn__new:hover,
+.butn__new:active {
   transform: translateY(-3px);
   color: #fff;
   box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.3);
@@ -117,8 +119,12 @@ body {
 }
 
 .butn span,
-.btn span {
+.butn__new span {
   z-index: 20;
 }
 
+.footer {
+  color: white;
+  background: black;
+}
 
