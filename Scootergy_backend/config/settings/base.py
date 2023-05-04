@@ -46,8 +46,8 @@ DEBUG = env('DEBUG')
 
 paypalrestsdk.configure({
     "mode": "sandbox", # cambiar a "live" para producción
-    "client_id": "ATuLX_QcwckG9Q5xwziJqZfpp5heEUlhwJvMEIuwp8Gu152nMRlanLlrakvzcnoYPb0I76ujuxj80j_d",
-    "client_secret": "EMaLy4IYC7aGmtPcuPtBDTfH32LweokJINr3HycsP6x--g_ojo07Vy2P2pGNR_CHV-7sB2EiZxBLXtro"
+    "client_id": "AUKPAfUbOnyiQLcS8eB79oCnpGNkqFe6SMgjTJIxuAxOoZN3sWXDeeu-iHOrIm7b6YddG1JFbs1RFF9u",
+    "client_secret": "EBAJ4JsWVF15fYKh0ovBkWzhxITVpEvFa7FGchm4tjhzCGsyZCOK6XrRh1VpeY6LuoMr0FqUSkuL27m2"
 })
 
 ALLOWED_HOSTS = [

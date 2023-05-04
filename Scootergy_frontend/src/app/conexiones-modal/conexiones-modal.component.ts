@@ -63,7 +63,7 @@ export class ConexionesModalComponent {
     );
   }
 
-  capturePayment() {
+  capturarPago() {
     this.paypalService.capturarPago(this.paymentId, this.payerId).subscribe(
       (response: any) => {
         console.log(response);
@@ -75,73 +75,73 @@ export class ConexionesModalComponent {
   }
 
 
-  pay() {
-    this.showPaypalButtons = true;
-    this.payPalConfig = {
-      currency: "EUR",
-      clientId: "ATuLX_QcwckG9Q5xwziJqZfpp5heEUlhwJvMEIuwp8Gu152nMRlanLlrakvzcnoYPb0I76ujuxj80j_d",
-      createOrder: () =>
-        <ICreateOrderRequest>{
-          intent: "CAPTURE",
-          purchase_units: [
-            {
-              amount: {
-                currency_code: "EUR",
-                value: "9.99",
-                breakdown: {
-                  item_total: {
-                    currency_code: "EUR",
-                    value: "9.99"
-                  }
-                }
-              },
-              items: [
-                {
-                  name: "Conexion",
-                  quantity: "1",
-                  unit_amount: {
-                    currency_code: "EUR",
-                    value: "9.99"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-      advanced: {
-        commit: "true"
-      },
-      style: {
-        label: "paypal",
-        layout: "vertical"
-      },
-      onApprove: (data: any, actions: { order: { get: () => Promise<any>; }; }) => {
-        console.log(this.conexionService.conexionActual)
-        actions.order.get().then((details: any) => {
-          console.log(
-            "onApprove - you can get full order details inside onApprove: ",
-            details
-          );
-        });
-      },
-      onClientAuthorization: (data: any) => {
-        console.log(
-          "onClientAuthorization - you should probably inform your server about completed transaction at this point",
-          data
-        );
-      },
-      onCancel: (data: any, actions: any) => {
-        console.log("OnCancel", data, actions);
-      },
-      onError: (err: any) => {
-        console.log("OnError", err);
-      },
-      onClick: (data: any, actions: any) => {
-        console.log("onClick", data, actions);
-      }
-    };
-  }
-  //
+  // pay() {
+  //   this.showPaypalButtons = true;
+  //   this.payPalConfig = {
+  //     currency: "EUR",
+  //     clientId: "ATuLX_QcwckG9Q5xwziJqZfpp5heEUlhwJvMEIuwp8Gu152nMRlanLlrakvzcnoYPb0I76ujuxj80j_d",
+  //     createOrder: () =>
+  //       <ICreateOrderRequest>{
+  //         intent: "CAPTURE",
+  //         purchase_units: [
+  //           {
+  //             amount: {
+  //               currency_code: "EUR",
+  //               value: "9.99",
+  //               breakdown: {
+  //                 item_total: {
+  //                   currency_code: "EUR",
+  //                   value: "9.99"
+  //                 }
+  //               }
+  //             },
+  //             items: [
+  //               {
+  //                 name: "Conexion",
+  //                 quantity: "1",
+  //                 unit_amount: {
+  //                   currency_code: "EUR",
+  //                   value: "9.99"
+  //                 }
+  //               }
+  //             ]
+  //           }
+  //         ]
+  //       },
+  //     advanced: {
+  //       commit: "true"
+  //     },
+  //     style: {
+  //       label: "paypal",
+  //       layout: "vertical"
+  //     },
+  //     onApprove: (data: any, actions: { order: { get: () => Promise<any>; }; }) => {
+  //       console.log(this.conexionService.conexionActual)
+  //       actions.order.get().then((details: any) => {
+  //         console.log(
+  //           "onApprove - you can get full order details inside onApprove: ",
+  //           details
+  //         );
+  //       });
+  //     },
+  //     onClientAuthorization: (data: any) => {
+  //       console.log(
+  //         "onClientAuthorization - you should probably inform your server about completed transaction at this point",
+  //         data
+  //       );
+  //     },
+  //     onCancel: (data: any, actions: any) => {
+  //       console.log("OnCancel", data, actions);
+  //     },
+  //     onError: (err: any) => {
+  //       console.log("OnError", err);
+  //     },
+  //     onClick: (data: any, actions: any) => {
+  //       console.log("onClick", data, actions);
+  //     }
+  //   };
+  // }
+
   back() {
     this.showPaypalButtons = false;
   }

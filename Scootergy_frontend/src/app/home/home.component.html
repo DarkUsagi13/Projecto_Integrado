@@ -1,18 +1,18 @@
 <app-template>
-  <div class="container p-5" *ngIf="mostrarDatos">
+  <div class="container h-100 p-5 h-75" *ngIf="mostrarDatos">
     <div>
       <form [formGroup]="formulario">
         <div class="form-group">
           <label for="estaciones">Seleccione una estación:</label>
           <select id="estaciones" formControlName="estaciones" class="form-control mt-3" (click)="mostrarPuestos()">
-            <option disabled selected>Seleccione...</option>
+            <option selected>Seleccione...</option>
             <option *ngFor="let estacion of estaciones" [value]="estacion.id">{{ estacion.direccion }}</option>
           </select>
         </div>
       </form>
     </div>
-    <div class="slide-in-top">
-      <ng-container *ngIf="estacionSeleccionada">
+    <div  *ngIf="estacionSeleccionada" [class.slide-in-right]="mostrarAnimacion">
+      <ng-container>
         <div class="text-center fs-1">
           <h3 class="p-5">
             Estación de carga: <span class="fw-bolder">{{estacionSeleccionada.nombre}}</span>
@@ -25,12 +25,15 @@
             <div class="col-12 d-block mt-3 banner d-flex flex-column justify-content-center">
               <button class="d-block w-100 btn py-5 butn butn__new flex-grow-1" *ngIf="puesto.disponible; else noDisponible" (click)="open(puesto)">Disponible</button>
               <ng-template #noDisponible>
-                <button class="d-block w-100 btn py-5 butn butn__new flex-grow-1" (click)="open(puesto)">No Disponible</button>
+                <button class="d-block w-100 btn py-5 butn butn__new flex-grow-1" style="background: #FF3366" (click)="open(puesto)">No Disponible</button>
               </ng-template>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div class="text-center mt-5" *ngIf="!estacionSeleccionada">
+      <h2><span></span> No has seleccionado ninguna estación</h2>
     </div>
   </div>
   <div class="container p-5" *ngIf="!mostrarDatos">

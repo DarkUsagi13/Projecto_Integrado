@@ -122,11 +122,9 @@ class CreatePaymentView(APIView):
     def post(self, request):
         conexion = request.data['conexion']
         conexion_obj = get_object_or_404(Conexion, id=conexion['id'])
-        monto = ''
         if not conexion_obj.finalizada:
             conexion_obj.horaDesconexion = timezone.now()
             conexion_obj.calcular_monto()
-            monto = str(conexion_obj.monto)
         # Crear objeto Payment con la información del pago
         payment = Payment({
             "intent": "sale",
@@ -141,7 +139,7 @@ class CreatePaymentView(APIView):
                 "description": "Compra de prueba"
             }],
             "redirect_urls": {
-                "return_url": "http://localhost:8000/execute-payment/",
+                "return_url": "http://localhost:4200/perfil/resumen_pago",
                 "cancel_url": "http://localhost:4200"
             }
         })
@@ -167,44 +165,3 @@ class CapturePaymentView(APIView):
             return Response({"success": True})
         else:
             return Response({"error": payment.error})
-
-
-
-# class PayPalAPIView(APIView):
-#     def post(self, request):
-#         payment_data = request.data['paymentData']
-#         conexion_data = request.data['conexion']
-#         conexion = get_object_or_404(Conexion, id=conexion_data['id'])
-#         print(conexion)
-#         # Your PayPal integration code here
-#         payment = Payment({
-#             "intent": "sale",
-#             "payer": {
-#                 "payment_method": "paypal"
-#             },
-#             "redirect_urls": {
-#                 "return_url": "http://localhost:8000/success",
-#                 "cancel_url": "http://localhost:8000/cancel"
-#             },
-#             "transactions": [{
-#                 "item_list": {
-#                     "items": [{
-#                         "name": "item",
-#                         "sku": "item",
-#                         "price": "1.00",
-#                         "currency": "USD",
-#                         "quantity": 1
-#                     }]
-#                 },
-#                 "amount": {
-#                     "total": "1.00",
-#                     "currency": "USD"
-#                 },
-#                 "description": "This is the payment transaction description."
-#             }]
-#         })
-#         if payment.create():
-#             return Response({"paymentID": payment.id})
-#         else:
-#             return Response({"error": payment.error})
-

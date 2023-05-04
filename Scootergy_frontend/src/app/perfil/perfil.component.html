@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="row mt-5">
-      <div class="bg-secondary rounded-3">
+      <div class="rounded-3">
         <table class="table text-center">
           <caption style="caption-side: top" class="fs-1">
             Últimas cargas
@@ -37,12 +37,13 @@
           <ng-container *ngIf="conexiones.length > 0">
             <tbody *ngFor="let conexion of conexiones">
               <tr>
-
-                <td>{{conexion.patineteNombre}}</td>
-                <td>{{conexion.consumido}}</td>
-                <td>{{conexion}}</td>
-                <td>{{conexion.horaConexion | date: 'dd/MM/yyyy HH:mm' }}</td>
-                <td>{{conexion.precio}}</td>
+                <ng-container *ngIf="conexion.finalizada">
+                  <td>{{conexion.patineteNombre}}</td>
+                  <td>{{conexion.consumido}}</td>
+                  <td>{{conexion}}</td>
+                  <td>{{conexion.horaConexion | date: 'dd/MM/yyyy HH:mm' }}</td>
+                  <td>{{conexion.precio}}</td>
+                </ng-container>
               </tr>
             </tbody>
           </ng-container>

@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
   estacionSeleccionada!: any;
   formulario!: FormGroup;
   mostrarDatos = false;
-
+  mostrarAnimacion: boolean = false;
   idUsuario: any;
 
   constructor(
@@ -61,10 +61,6 @@ export class HomeComponent implements OnInit {
 
   //Función para mostrar los puestos de una determinada estación
   mostrarPuestos(): void {
-    const select = document.getElementById('estaciones');
-    if (select){
-      select.classList.add('mostrar');
-    }
     //Se guarda el valor de la estación seleccionada en el formulario
     this.idEstacion = this.formulario.get('estaciones')!.value;
     //Filtro para obtener la estación seleccionada de la lista de estaciones
@@ -73,6 +69,8 @@ export class HomeComponent implements OnInit {
     const estacionActual = this.estacionSeleccionada ? this.estacionSeleccionada.nombre : null;
     //Comprobamos que el nombre de la estación no sea "null"
     if (estacionActual != null) {
+
+      this.mostrarAnimacion = true;
       //Obtenemos los puestos de la estación seleccionada utilizando su ID
       this.estacionesService.getPuestos(this.idEstacion).subscribe((data: Puesto[]) => {
         this.puestos = data;
@@ -84,7 +82,7 @@ export class HomeComponent implements OnInit {
   mostrarEstaciones() {
     //Primero comprobamos que la lista de patinetes no está vacía
     if (this.patinetes.length > 0) {
-      //Si existe al menos 1 patinete, obtenemos las estaciones para mostrarlas luego
+      //Si existe al menos 1 patinete, obtenemos las estaciones para mostrarlas
       this.estacionesService.getEstaciones().subscribe((estaciones: Estacion[]) => {
         this.estaciones = estaciones;
       })
