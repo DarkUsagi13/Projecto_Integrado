@@ -53,7 +53,8 @@ export class ConexionesModalComponent {
   crearPago() {
     this.paypalService.crearPago(this.conexion).subscribe(
       (response: any) => {
-        console.log(this.conexion)
+        console.log("FUNCIONA")
+        console.log(response.conexion_obj)
         this.approvalUrl = response.approval_url;
         window.location.href = this.approvalUrl;
       },
@@ -62,18 +63,6 @@ export class ConexionesModalComponent {
       }
     );
   }
-
-  capturarPago() {
-    this.paypalService.capturarPago(this.paymentId, this.payerId).subscribe(
-      (response: any) => {
-        console.log(response);
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
-  }
-
 
   // pay() {
   //   this.showPaypalButtons = true;
@@ -166,13 +155,5 @@ export class ConexionesModalComponent {
     });
     this.activeModal.close()
   }
-
-  // desconectar(horaDesconexion: any) {
-  //   this.puesto.disponible = true;
-  //   this.conexion.horaDesconexion = horaDesconexion;
-  //   this.conexion.finalizada = true;
-  //   this.estacionService.updatePuesto(this.puesto.id, this.puesto).subscribe();
-  //   this.conexionService.updateConexion(this.conexion.id, this.conexion).subscribe();
-  // }
 
 }

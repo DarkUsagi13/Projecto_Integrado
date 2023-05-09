@@ -1,0 +1,35 @@
+<app-template>
+  <div class="container">
+    <h1 class="text-center p-5">Historial de conexiones</h1>
+    <div>
+      <table class="table text-center">
+        <caption style="caption-side: top" class="fs-1">
+          Últimas cargas
+        </caption>
+        <thead>
+        <tr>
+          <th scope="col">Patinete</th>
+          <th scope="col">Consumido</th>
+          <th scope="col">Tiempo de carga</th>
+          <th scope="col">Fecha y hora</th>
+          <th scope="col">Importe</th>
+        </tr>
+        </thead>
+        <ng-container *ngIf="conexiones.length > 0">
+          <tbody *ngFor="let conexion of conexiones">
+          <tr>
+            <ng-container *ngIf="conexion.finalizada">
+              <td>1</td>
+              <td>{{conexion.patineteNombre}}</td>
+              <td>{{conexion.consumido}}</td>
+              <td>{{conexion}}</td>
+              <td>{{conexion.horaConexion | date: 'dd/MM/yyyy HH:mm' }}</td>
+              <td>{{conexion.precio}}</td>
+            </ng-container>
+          </tr>
+          </tbody>
+        </ng-container>
+      </table>
+    </div>
+  </div>
+</app-template>
