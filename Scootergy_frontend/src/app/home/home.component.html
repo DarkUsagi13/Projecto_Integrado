@@ -4,7 +4,7 @@
       <form [formGroup]="formulario">
         <div class="form-group">
           <label for="estaciones">Seleccione una estación:</label>
-          <select id="estaciones" formControlName="estaciones" class="form-control mt-3" (click)="mostrarPuestos()">
+          <select id="estaciones" formControlName="estaciones" class="form-control mt-3" (change)="mostrarPuestos()">
             <option selected>Seleccione...</option>
             <option *ngFor="let estacion of estaciones" [value]="estacion.id">{{ estacion.direccion }}</option>
           </select>
@@ -20,16 +20,20 @@
         </div>
       </ng-container>
       <div class="row">
-        <div class="col-3 d-flex justify-content-center align-items-center" *ngFor="let puesto of puestos">
-          <div class="row w-100">
-            <div class="col-12 d-block mt-3 banner d-flex flex-column justify-content-center">
-              <button class="d-block w-100 btn py-5 butn butn__new flex-grow-1" *ngIf="puesto.disponible; else noDisponible" (click)="open(puesto)">Disponible</button>
-              <ng-template #noDisponible>
-                <button class="d-block w-100 btn py-5 butn butn__new flex-grow-1" style="background: #FF3366" (click)="open(puesto)">No Disponible</button>
-              </ng-template>
+        <ng-container *ngFor="let puesto of puestos">
+          <div class="col-3 d-flex justify-content-center align-items-center">
+            <div class="row w-100">
+              <div class="col-12 d-block mt-3 banner d-flex flex-column justify-content-center">
+                <ng-container *ngIf="puesto.disponible; else noDisponible">
+                  <button class="d-block w-100 btn py-5 butn butn__new flex-grow-1" (click)="open(puesto)">Disponible</button>
+                </ng-container>
+                <ng-template #noDisponible>
+                  <button class="d-block w-100 btn py-5 butn butn__new flex-grow-1" style="background: #FF3366" (click)="open(puesto)">No Disponible</button>
+                </ng-template>
+              </div>
             </div>
           </div>
-        </div>
+        </ng-container>
       </div>
     </div>
     <div class="text-center mt-5" *ngIf="!estacionSeleccionada">

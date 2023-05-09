@@ -97,8 +97,8 @@ class Pago(models.Model):
     conexion = models.ForeignKey(Conexion, on_delete=models.RESTRICT)
     monto = models.DecimalField(max_digits=10, decimal_places=2)
     moneda = models.CharField(max_length=3)
-    fecha = models.DateTimeField(auto_now_add=True)
-    id_transaccion_paypal = models.CharField(max_length=100)
+    fecha = models.DateTimeField(null=True)
+    id_transaccion_paypal = models.CharField(max_length=100, null=True)
 
     def __str__(self):
         return str(self.usuario) + ', ' + str(self.conexion) + ', ' + self.id_transaccion_paypal

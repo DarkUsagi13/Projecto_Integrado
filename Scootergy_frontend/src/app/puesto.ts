@@ -4,6 +4,7 @@ export class Puesto{
     public id: string,
     public idEstacion: number,
     public disponible: boolean,
+    public url: string,
   ) {
   }
 

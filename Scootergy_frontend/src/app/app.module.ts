@@ -20,6 +20,7 @@ import {PlantillaPerfilComponent} from './plantilla-perfil/plantilla-perfil.comp
 import {NgxPayPalModule} from 'ngx-paypal';
 import {RouterModule} from '@angular/router';
 import {ResumenPagoComponent} from './resumen-pago/resumen-pago.component';
+import { HistorialConexionesComponent } from './historial-conexiones/historial-conexiones.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import {ResumenPagoComponent} from './resumen-pago/resumen-pago.component';
     ConexionesModalComponent,
     PlantillaPerfilComponent,
     ResumenPagoComponent,
+    HistorialConexionesComponent,
   ],
   imports: [
     BrowserModule,
