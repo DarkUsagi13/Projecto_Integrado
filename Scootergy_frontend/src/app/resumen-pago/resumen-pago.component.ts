@@ -17,23 +17,30 @@ export class ResumenPagoComponent {
   public payerId: any;
 
   constructor(
-    private conexionService: ConexionesService,
     private perfilService: PerfilService,
+    private conexionService: ConexionesService,
     private paypalService: PaypalService,
     private route: ActivatedRoute,
   ) {
   }
 
   ngOnInit() {
-    this.conexion = this.conexionService.conexionActual.id
-    this.conexionService.getConexion(this.conexion)
-    this.perfil = this.perfilService.perfil(this.perfilService.getLoggedInUser())
+    const userData = localStorage.getItem('userData')
+    if (userData) {
+      this.perfil = JSON.parse(userData).username
+    }
     this.route.queryParams.subscribe(params => {
       this.paymentId = params['paymentId'];
       this.payerId = params['PayerID'];
       this.capturarPago(this.paymentId, this.payerId)
     });
-
+    const c = localStorage.getItem('conexion')
+    if (c) {
+      this.conexionService.getConexion(JSON.parse(c).id).subscribe( conexion => {
+        this.conexion = conexion;
+        }
+      )
+    }
   }
 
   capturarPago(pagoId: any, payerId: string) {
@@ -45,6 +52,10 @@ export class ResumenPagoComponent {
         console.log(error);
       }
     );
+  }
+
+  ngOnDestroy() {
+    localStorage.removeItem('conexion')
   }
 
 }

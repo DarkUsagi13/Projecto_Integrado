@@ -53,8 +53,6 @@ export class ConexionesModalComponent {
   crearPago() {
     this.paypalService.crearPago(this.conexion).subscribe(
       (response: any) => {
-        console.log("FUNCIONA")
-        console.log(response.conexion_obj)
         this.approvalUrl = response.approval_url;
         window.location.href = this.approvalUrl;
       },

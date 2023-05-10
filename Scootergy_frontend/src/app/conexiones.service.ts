@@ -18,6 +18,7 @@ export class ConexionesService {
   }
 
   getConexiones(userId: string | null): Observable<any> {
+    console.log(this.conexionActual)
     return this.http.get(this.url+`conexion/?idUsuario=${userId}`);
   }
 
@@ -41,12 +42,13 @@ export class ConexionesService {
   getConexionActual(idUsuario: any, puesto: any) {
     if (!puesto.disponible) {
       this.conexionActual = this.conexiones.find((conexion: { idPuesto: any; }) => conexion.idPuesto == puesto.url)
+      localStorage.setItem('conexion', JSON.stringify(this.conexionActual))
     }
     setTimeout(() => {
       this.getConexiones(idUsuario).subscribe(conexiones => {
         this.conexiones = conexiones;
       })
-    }, 500);
+    }, 1000);
   }
 
 }

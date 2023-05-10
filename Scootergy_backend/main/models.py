@@ -87,6 +87,7 @@ class Conexion(models.Model):
         consumo_por_hora = self.idPatinete.consumo  # Suponiendo que el consumo está en kWh por hora
         horas_utilizadas = (self.horaDesconexion - self.horaConexion).total_seconds() / 3600
         consumo_total = consumo_por_hora * Decimal(horas_utilizadas)
+        self.consumido = consumo_total
         costo_por_kwh = 0.15  # Suponiendo que el costo es de 0,10 USD por kWh
         monto_total = consumo_total * Decimal(costo_por_kwh)
         self.monto = monto_total.quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
@@ -98,7 +99,7 @@ class Pago(models.Model):
     monto = models.DecimalField(max_digits=10, decimal_places=2)
     moneda = models.CharField(max_length=3)
     fecha = models.DateTimeField(null=True)
-    id_transaccion_paypal = models.CharField(max_length=100, null=True)
+    id_transaccion_paypal = models.CharField(max_length=100)
 
     def __str__(self):
         return str(self.usuario) + ', ' + str(self.conexion) + ', ' + self.id_transaccion_paypal

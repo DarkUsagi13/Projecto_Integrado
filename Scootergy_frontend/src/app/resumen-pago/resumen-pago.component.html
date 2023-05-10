@@ -5,7 +5,7 @@
         <div class="col-lg-10 col-xl-8">
           <div class="card" style="border-radius: 10px;">
             <div class="card-header px-4 py-5">
-              <h5 class="text-muted mb-0">Gracias por tu compra, <strong>{{ perfil.username }}</strong>!
+              <h5 class="text-muted mb-0">Gracias por utilizar nuestro servicio, <strong>{{ perfil }}</strong>!
               </h5>
             </div>
             <div class="card-body p-4">
@@ -14,30 +14,64 @@
               </div>
               <div class="card shadow-0 border mb-4">
                 <div class="card-body">
-                  <div class="row">
-                    <div class="text-center d-flex justify-content-center align-items-center">
-                      <p class="text-muted mb-0">ID: {{ conexion.id }}</p>
+                  <div class="d-flex">
+                    <div class="p-3">
+                      Patinete:
                     </div>
-                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-muted mb-0 small">Patinete: {{ conexion.idPatinete }}</p>
+                    <div class="p-3">
+                      {{conexion.idPatinete}}
                     </div>
-                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-muted mb-0 small">Estación: {{ conexion.idPuesto }}</p>
+                  </div>
+                  <div class="d-flex">
+                    <div class="p-3">
+                      Puesto:
                     </div>
-                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-muted mb-0 small">Monto: {{ conexion.precio }}€</p>
+                    <div class="p-3">
+                      {{conexion.idPuesto}}
+                    </div>
+                  </div>
+                  <div class="d-flex">
+                    <div class="p-3">
+                      Consumo:
+                    </div>
+                    <div class="p-3">
+                      {{conexion.consumido}}
+                    </div>
+                  </div>
+                  <div class="d-flex">
+                    <div class="p-3">
+                      Hora de conexión:
+                    </div>
+                    <div class="p-3">
+                      {{conexion.horaConexion | date: 'dd/MM/yyyy HH:mm' }}
+                    </div>
+                  </div>
+                  <div class="d-flex">
+                    <div class="p-3">
+                      Hora de desconexión:
+                    </div>
+                    <div class="p-3">
+                      {{conexion.horaDesconexion | date: 'dd/MM/yyyy HH:mm' }}
+                    </div>
+                  </div>
+                  <div class="d-flex">
+                    <div class="p-3">
+                      Tiempo de conexión total:
+                    </div>
+                    <div class="p-3">
+                      {{conexion.monto}}
+                    </div>
+                  </div>
+                  <div class="d-flex">
+                    <div class="p-3">
+                      Monto:
+                    </div>
+                    <div class="p-3">
+                      {{conexion.monto}}€
                     </div>
                   </div>
                   <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
                 </div>
-              </div>
-              <div class="d-flex justify-content-between pt-2">
-                <p class="fw-bold mb-0">Subtotal</p>
-                <p class="text-muted mb-0"><span class="fw-bold me-4"></span>100</p>
-              </div>
-              <div class="d-flex justify-content-between pt-2">
-                <p class="fw-bold mb-0">Gastos envio</p>
-                <p class="text-muted mb-0">Nada</p>
               </div>
               <div class="d-flex justify-content-between pt-2">
                 <p class="fw-bold mb-0">IVA</p>
@@ -47,7 +81,7 @@
             </div>
             <div class="card-footer bg-dark border-0 px-4 py-5">
               <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">
-                Total pagado <span class="h2 mb-0 ms-2">100</span></h5>
+                Total pagado <span class="h2 mb-0 ms-2">{{conexion.monto}}€</span></h5>
             </div>
           </div>
         </div>

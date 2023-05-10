@@ -1,4 +1,4 @@
-<app-template>
+<app-plantilla-perfil>
   <div class="container">
     <h1 class="text-center p-5">Historial de conexiones</h1>
     <div>
@@ -9,9 +9,10 @@
         <thead>
         <tr>
           <th scope="col">Patinete</th>
+          <th scope="col">Puesto</th>
           <th scope="col">Consumido</th>
-          <th scope="col">Tiempo de carga</th>
-          <th scope="col">Fecha y hora</th>
+          <th scope="col">Hora de conexión</th>
+          <th scope="col">Hora de desconexión</th>
           <th scope="col">Importe</th>
         </tr>
         </thead>
@@ -19,12 +20,12 @@
           <tbody *ngFor="let conexion of conexiones">
           <tr>
             <ng-container *ngIf="conexion.finalizada">
-              <td>1</td>
               <td>{{conexion.patineteNombre}}</td>
+              <td>{{conexion.idPuesto}}</td>
               <td>{{conexion.consumido}}</td>
-              <td>{{conexion}}</td>
-              <td>{{conexion.horaConexion | date: 'dd/MM/yyyy HH:mm' }}</td>
-              <td>{{conexion.precio}}</td>
+              <td>{{conexion.horaConexion | date: 'dd/MM/yyyy HH:mm'}}</td>
+              <td>{{conexion.horaDesconexion | date: 'dd/MM/yyyy HH:mm'}}</td>
+              <td>{{conexion.monto}}</td>
             </ng-container>
           </tr>
           </tbody>
@@ -32,4 +33,4 @@
       </table>
     </div>
   </div>
-</app-template>
+</app-plantilla-perfil>
