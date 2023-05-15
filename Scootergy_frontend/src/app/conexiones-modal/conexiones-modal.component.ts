@@ -6,8 +6,6 @@ import {Conexion} from "../conexion";
 import {EstacionesService} from "../estaciones.service";
 import {PerfilService} from "../perfil.service";
 import {PatinetesService} from "../patinetes.service";
-import {ICreateOrderRequest} from "ngx-paypal";
-import {Router} from "@angular/router";
 import {PaypalService} from "../paypal.service";
 
 @Component({
@@ -18,6 +16,7 @@ import {PaypalService} from "../paypal.service";
 export class ConexionesModalComponent {
 
   conexion: any = {};
+  idUsuario: any;
   formulario!: FormGroup;
   @Input() puesto: any;
   patinete: any;
@@ -26,9 +25,7 @@ export class ConexionesModalComponent {
   public payPalConfig: any;
   public showPaypalButtons: boolean | undefined;
   approvalUrl: any;
-  paymentId: any;
-  payerId: any;
-
+  conexionUsuario: boolean = false;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -46,8 +43,10 @@ export class ConexionesModalComponent {
     this.formulario = this.fb.group({
       patinetesList: new FormControl('', Validators.required)
     })
-    this.conexionService.getConexionActual(this.perfilService.getLoggedInUser(), this.puesto);
+    this.idUsuario = this.perfilService.getLoggedInUser()
+    this.conexionService.getConexionActual(this.idUsuario, this.puesto);
     this.conexion = this.conexionService.conexionActual;
+    console.log(this.conexion)
   }
 
   crearPago() {
@@ -150,6 +149,7 @@ export class ConexionesModalComponent {
       this.puesto.disponible = false;
       this.estacionService.updatePuesto(this.puesto.id, this.puesto).subscribe();
       this.patineteService.setPatineteSeleccionado(this.patinete);
+      this.conexionService.getConexiones(this.idUsuario).subscribe();
     });
     this.activeModal.close()
   }

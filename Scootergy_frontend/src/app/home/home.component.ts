@@ -30,7 +30,6 @@ export class HomeComponent implements OnInit {
   mostrarAnimacion: boolean = false;
   idUsuario: any;
   conexiones: any;
-  conexionUsuarioId: any;
   puestosUsuario: any = [];
 
   constructor(
@@ -60,7 +59,6 @@ export class HomeComponent implements OnInit {
     this.conexionesService.getConexiones(this.idUsuario).subscribe(conexiones => {
       this.conexionesService.conexiones = conexiones;
       this.conexiones = conexiones;
-      console.log(this.conexiones)
     })
   }
 
@@ -104,18 +102,6 @@ export class HomeComponent implements OnInit {
     modalRef.componentInstance.puesto = puesto;
     modalRef.componentInstance.patinetesList = this.patinetes;
     modalRef.componentInstance.estacion = this.estacionSeleccionada;
-  }
-
-  conexionesUsuario(puestos: any) {
-    this.puestosUsuario = [];
-    let filtro: any = "";
-    for (const c of this.conexiones) {
-      filtro = puestos.find((p: { url: any; }) => p.url == c.idPuesto)
-      if (filtro != undefined) {
-        this.puestosUsuario.push(filtro)
-      }
-    }
-    console.log(this.puestosUsuario)
   }
 
 }
