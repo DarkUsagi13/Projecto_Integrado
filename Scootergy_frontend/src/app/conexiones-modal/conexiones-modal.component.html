@@ -5,30 +5,47 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
-    <p *ngIf="!puesto.disponible">Puesto no disponible</p>
-    <div *ngIf="puesto.disponible">
-      <form [formGroup]="formulario">
-        <div class="form-group">
-          <label for="patinetesList">Seleccione el patinete que quiere cargar:</label>
-          <select id="patinetesList" formControlName="patinetesList" class="form-control mt-3">
-            <option *ngFor="let patinete of patinetesList" [value]="patinete.id">{{ patinete.marca }}, {{patinete.modelo}} </option>
-          </select>
-        </div>
-      </form>
-    </div>
-  </div>
-  <div class="modal-footer d-flex justify-content-center">
-    <div *ngIf="puesto.disponible">
-      <button type="button" class="btn btn-success" (click)="setConexion()" [disabled]="formulario.invalid">Conectar</button>
-    </div>
-    <div *ngIf="!puesto.disponible">
-      <button *ngIf="!showPaypalButtons" class="btn btn-primary" (click)="crearPago()">Pagar con paypal</button>
-      <ngx-paypal *ngIf="showPaypalButtons" [config]="payPalConfig">
-      </ngx-paypal>
-      <div class="text-center">
-        <button type="button" class="btn btn-secondary" *ngIf="showPaypalButtons" (click)="back()">Volver atrás</button>
+  <ng-container *ngIf="puesto.disponible; else noDisponible">
+    <div class="modal-body">
+      <p *ngIf="!puesto.disponible">Puesto no disponible</p>
+      <div *ngIf="puesto.disponible">
+        <form [formGroup]="formulario">
+          <div class="form-group">
+            <label for="patinetesList">Seleccione el patinete que quiere cargar:</label>
+            <select id="patinetesList" formControlName="patinetesList" class="form-control mt-3">
+              <option *ngFor="let patinete of patinetesList" [value]="patinete.id">{{ patinete.marca }}
+                , {{patinete.modelo}} </option>
+            </select>
+          </div>
+        </form>
       </div>
     </div>
-  </div>
+    <div class="modal-footer d-flex justify-content-center">
+      <div *ngIf="puesto.disponible">
+        <button type="button" class="btn btn-success" (click)="setConexion()" [disabled]="formulario.invalid">Conectar
+        </button>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #noDisponible>
+    <div class="modal-body d-flex justify-content-center">
+      <ng-container *ngIf="!conexionUsuario; else conexion_User">
+        <h3>Puesto no disponible, está siendo utilizado por otro usuario</h3>
+      </ng-container>
+      <ng-container *ngIf="conexionUsuario">
+        <h4>Esta conexión te pertenece</h4>
+      </ng-container>
+    </div>
+    <div class="modal-footer d-flex justify-content-center">
+      <ng-template #conexion_User>
+        <button *ngIf="!showPaypalButtons" class="btn btn-primary" (click)="crearPago()">Pagar con paypal</button>
+        <ngx-paypal *ngIf="showPaypalButtons" [config]="payPalConfig">
+        </ngx-paypal>
+        <div class="text-center">
+          <button type="button" class="btn btn-secondary" *ngIf="showPaypalButtons" (click)="back()">Volver atrás
+          </button>
+        </div>
+      </ng-template>
+    </div>
+  </ng-template>
 </div>

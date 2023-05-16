@@ -17,7 +17,7 @@ export class EstacionesService {
   }
 
   getPuestos(idEstacion: string|null): Observable<any> {
-    return  this.http.get(this.url+`puesto/?idEstacion=${idEstacion}`);
+    return  this.http.get(this.url+`puesto/?idEstacion=${idEstacion}&ordering=id`);
   }
 
   updatePuesto(idPuesto: string|null, puesto: any): Observable<any> {

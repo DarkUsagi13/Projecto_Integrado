@@ -36,6 +36,9 @@ export class RegistroComponent {
         },
         error: (error) => {
           this.errores = error.error;
+          if (error.statusText == 'Unknown Error') {
+            this.errores = {errorServer: 'No se ha podido conectar al servidor'}
+          }
         }
       });
     }

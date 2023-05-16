@@ -91,7 +91,6 @@ export class HomeComponent implements OnInit {
       //Se estable a true "mostrarDatos" para controlar que se puedan ver las estaciones
       this.mostrarDatos = true;
     }
-
   }
 
   //Función que abre el modal que simula la interacción del usuario con la aplicación

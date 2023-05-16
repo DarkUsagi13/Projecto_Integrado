@@ -2,7 +2,7 @@ import paypalrestsdk
 from django.utils import timezone
 from django_filters.rest_framework import DjangoFilterBackend
 from paypalrestsdk import Payment
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, filters
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.generics import GenericAPIView, get_object_or_404
 from rest_framework.permissions import AllowAny
@@ -44,7 +44,8 @@ class EstacionView(viewsets.ModelViewSet):
 class PuestoView(viewsets.ModelViewSet):
     queryset = Puesto.objects.all()
     serializer_class = PuestoSerializer
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    ordering_fields = ['id', 'idEstacion__nombre']
     filterset_fields = ['idEstacion']
 
 
@@ -57,7 +58,9 @@ class PatineteView(viewsets.ModelViewSet):
 
 class ConexionView(viewsets.ModelViewSet):
     serializer_class = ConexionSerializer
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    ordering_fields = ['id']
+    filterset_fields = ['finalizada', 'idUsuario']
 
     def get_queryset(self):
         queryset = Conexion.objects.all()

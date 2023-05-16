@@ -1,3 +1,5 @@
+import string
+
 from rest_framework import serializers
 
 from main.models import *
@@ -25,12 +27,25 @@ class RegistroSerializer(serializers.ModelSerializer):
         extra_kwargs = {"password": {"write_only": True}}
 
     def validate_username(self, value):
-        if Usuario.objects.filter(username=value).exists():
-            raise serializers.ValidationError('Este nombre de usuario ya existe.')
+        if len(value) < 8:
+            raise serializers.ValidationError("El nombre de usuario debe contener al menos 8 caracteres.")
         return value
 
     def create(self, validated_data):
         return Usuario.objects.create_user(**validated_data)
+
+    def validate_password(self, value):
+        if len(value) < 8:
+            raise serializers.ValidationError("La contraseña debe tener al menos 8 caracteres.")
+        if len(value) < 1:
+            raise serializers.ValidationError("La contraseña no puede estar vacía")
+        if not any(char.isupper() for char in value):
+            raise serializers.ValidationError("La contraseña debe contener al menos una letra mayúscula.")
+        if not any(char.islower() for char in value):
+            raise serializers.ValidationError("La contraseña debe contener al menos una letra minúscula.")
+        if not any(char in string.punctuation for char in value):
+            raise serializers.ValidationError("La contraseña debe contener al menos un signo de puntuación.")
+        return value
 
 
 class EstacionSerializer(serializers.HyperlinkedModelSerializer):

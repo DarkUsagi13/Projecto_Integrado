@@ -16,7 +16,7 @@ import {PaypalService} from "../paypal.service";
 export class ConexionesModalComponent {
 
   conexion: any = {};
-  idUsuario: any;
+  perfil: any;
   formulario!: FormGroup;
   @Input() puesto: any;
   patinete: any;
@@ -43,10 +43,13 @@ export class ConexionesModalComponent {
     this.formulario = this.fb.group({
       patinetesList: new FormControl('', Validators.required)
     })
-    this.idUsuario = this.perfilService.getLoggedInUser()
-    this.conexionService.getConexionActual(this.idUsuario, this.puesto);
-    this.conexion = this.conexionService.conexionActual;
-    console.log(this.conexion)
+    this.perfilService.perfil(this.perfilService.getLoggedInUser()).subscribe(perfil => {
+      this.perfil = perfil;
+
+      this.conexionService.getConexionActual(this.perfil.id, this.puesto);
+      this.conexion = this.conexionService.conexionActual;
+      this.conexionUsuario = this.perfil.url == this.conexion.idUsuario;
+    })
   }
 
   crearPago() {
@@ -149,7 +152,7 @@ export class ConexionesModalComponent {
       this.puesto.disponible = false;
       this.estacionService.updatePuesto(this.puesto.id, this.puesto).subscribe();
       this.patineteService.setPatineteSeleccionado(this.patinete);
-      this.conexionService.getConexiones(this.idUsuario).subscribe();
+      this.conexionService.getConexiones(this.perfil.id).subscribe();
     });
     this.activeModal.close()
   }

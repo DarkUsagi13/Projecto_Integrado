@@ -30,10 +30,6 @@ export class ConexionesService {
     return this.http.post<any>(this.url+`conexion/`, conexion);
   }
 
-  updateConexion(idConexion: string, conexion: any): Observable<any> {
-    return this.http.put(this.url+`conexion/${idConexion}/`, conexion);
-  }
-
   getConexion(idConexion: any) {
     return this.http.get(this.url+`conexion/${idConexion}`);
   }
