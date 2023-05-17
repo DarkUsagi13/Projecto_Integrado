@@ -14,20 +14,12 @@ export class PatinetesService {
 
   constructor(private http: HttpClient) { }
 
-  setUsuario(id: string) {
-    return this.url+`${id}/`
-  }
-
   setPatineteSeleccionado(patinete: any) {
     return this.patineteSeleccionado = patinete;
   }
 
-  getPatineteSeleccionado() {
-    return this.patineteSeleccionado;
-  }
-
   patinetes(userId: string|null): Observable<any> {
-    return  this.http.get(this.url+`patinete/?idUsuario=${userId}`);
+    return  this.http.get(this.url+`patinete/?usuario=${userId}`);
   }
 
   postPatinete(patinete: Patinete): Observable<any> {

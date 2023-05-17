@@ -16,4 +16,3 @@ djangorestframework-simplejwt
 django-cors-headers
 django-filter
 paypalrestsdk
-#django-paypal

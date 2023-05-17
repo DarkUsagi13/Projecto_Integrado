@@ -27,8 +27,8 @@ class RegistroSerializer(serializers.ModelSerializer):
         extra_kwargs = {"password": {"write_only": True}}
 
     def validate_username(self, value):
-        if len(value) < 8:
-            raise serializers.ValidationError("El nombre de usuario debe contener al menos 8 caracteres.")
+        if len(value) < 5:
+            raise serializers.ValidationError("El nombre de usuario debe contener al menos 5 caracteres.")
         return value
 
     def create(self, validated_data):
@@ -66,7 +66,7 @@ class PuestoSerializer(serializers.HyperlinkedModelSerializer):
         fields = [
             'url',
             'id',
-            'idEstacion',
+            'estacion',
             'disponible',
         ]
 
@@ -80,7 +80,7 @@ class PatineteSerializer(serializers.HyperlinkedModelSerializer):
             'marca',
             'modelo',
             'consumo',
-            'idUsuario',
+            'usuario',
         ]
 
 
@@ -92,9 +92,9 @@ class ConexionSerializer(serializers.HyperlinkedModelSerializer):
         fields = [
             'url',
             'id',
-            'idPuesto',
-            'idPatinete',
-            'idUsuario',
+            'puesto',
+            'patinete',
+            'usuario',
             'horaConexion',
             'horaDesconexion',
             'monto',

@@ -4,7 +4,7 @@ export class Patinete {
     public marca: string,
     public modelo: string,
     public consumo: number,
-    public idUsuario: number,
+    public usuario: number,
   ) {}
 
 }

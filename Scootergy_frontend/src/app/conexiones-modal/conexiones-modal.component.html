@@ -7,18 +7,15 @@
   </div>
   <ng-container *ngIf="puesto.disponible; else noDisponible">
     <div class="modal-body">
-      <p *ngIf="!puesto.disponible">Puesto no disponible</p>
-      <div *ngIf="puesto.disponible">
-        <form [formGroup]="formulario">
-          <div class="form-group">
-            <label for="patinetesList">Seleccione el patinete que quiere cargar:</label>
-            <select id="patinetesList" formControlName="patinetesList" class="form-control mt-3">
-              <option *ngFor="let patinete of patinetesList" [value]="patinete.id">{{ patinete.marca }}
-                , {{patinete.modelo}} </option>
-            </select>
-          </div>
-        </form>
-      </div>
+      <form [formGroup]="formulario">
+        <div class="form-group">
+          <label for="patinetesList">Seleccione el patinete que quiere cargar:</label>
+          <select id="patinetesList" formControlName="patinetesList" class="form-control mt-3">
+            <option *ngFor="let patinete of patinetesList" [value]="patinete.id">{{ patinete.marca }}
+              , {{patinete.modelo}} </option>
+          </select>
+        </div>
+      </form>
     </div>
     <div class="modal-footer d-flex justify-content-center">
       <div *ngIf="puesto.disponible">
@@ -28,9 +25,28 @@
     </div>
   </ng-container>
   <ng-template #noDisponible>
+    <div class="modal-body">
+      <ng-container *ngIf="conexionUsuario; else puestoUsuario">
+        <p>Puesto no disponible</p>
+        <div>
+          <button *ngIf="!showPaypalButtons" class="btn btn-primary" (click)="crearPago()">Pagar con paypal</button>
+          <div class="text-center">
+            <button type="button" class="btn btn-secondary" *ngIf="showPaypalButtons" (click)="back()">Volver atrás
+            </button>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #puestoUsuario>
+        <h3>Puesto no disponible, en uso por otro usuario</h3>
+      </ng-template>
+    </div>
+  </ng-template>
+</div>
+
+<div class="container-fluid">
+  <ng-template #noDisponible>
     <div class="modal-body d-flex justify-content-center">
       <ng-container *ngIf="!conexionUsuario; else conexion_User">
-        <h3>Puesto no disponible, está siendo utilizado por otro usuario</h3>
       </ng-container>
       <ng-container *ngIf="conexionUsuario">
         <h4>Esta conexión te pertenece</h4>
@@ -38,13 +54,7 @@
     </div>
     <div class="modal-footer d-flex justify-content-center">
       <ng-template #conexion_User>
-        <button *ngIf="!showPaypalButtons" class="btn btn-primary" (click)="crearPago()">Pagar con paypal</button>
-        <ngx-paypal *ngIf="showPaypalButtons" [config]="payPalConfig">
-        </ngx-paypal>
-        <div class="text-center">
-          <button type="button" class="btn btn-secondary" *ngIf="showPaypalButtons" (click)="back()">Volver atrás
-          </button>
-        </div>
+
       </ng-template>
     </div>
   </ng-template>

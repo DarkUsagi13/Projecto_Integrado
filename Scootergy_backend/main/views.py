@@ -1,4 +1,3 @@
-import paypalrestsdk
 from django.utils import timezone
 from django_filters.rest_framework import DjangoFilterBackend
 from paypalrestsdk import Payment
@@ -66,13 +65,10 @@ class ConexionView(viewsets.ModelViewSet):
         queryset = Conexion.objects.all()
         usuario_id = self.request.query_params.get('idUsuario')
         mes = self.request.query_params.get('mes')
-
         if usuario_id:
             queryset = queryset.filter(idUsuario=usuario_id)
-
         if mes:
             queryset = queryset.annotate(mes=ExtractMonth('horaConexion')).filter(mes=mes)
-
         return queryset
 
 
@@ -123,18 +119,13 @@ class Registro(GenericAPIView):
 
 class CreatePaymentView(APIView):
     def post(self, request):
-        pago = ''
+        pago = {}
         conexion = request.data['conexion']
         conexion_obj = get_object_or_404(Conexion, id=conexion['id'])
         if not conexion_obj.finalizada:
             conexion_obj.horaDesconexion = timezone.now()
             conexion_obj.calcular_monto()
             conexion_obj.save()
-            pago = Pago(
-                usuario=conexion_obj.idUsuario,
-                conexion=conexion_obj,
-                monto=conexion_obj.monto,
-            )
         # Crear objeto Payment con la información del pago
         payment = Payment({
             "intent": "sale",
@@ -155,7 +146,12 @@ class CreatePaymentView(APIView):
         })
         # Crear el pago en PayPal
         if payment.create():
-            pago.id_transaccion_paypal = payment.id
+            pago = Pago(
+                usuario=conexion_obj.idUsuario,
+                conexion=conexion_obj,
+                monto=conexion_obj.monto,
+                id_transaccion_paypal=payment.id
+            )
             pago.save()
             approval_url = next(link.href for link in payment.links if link.rel == "approval_url")
             return Response({"approval_url": approval_url})
@@ -169,6 +165,8 @@ class CapturePaymentView(APIView):
         payment_id = request.data.get("payment_id")
         payer_id = request.data.get("payer_id")
         pago = get_object_or_404(Pago, id_transaccion_paypal=payment_id)
+        pago.fecha = timezone.now()
+        pago.save()
         # Obtener el objeto Payment correspondiente al pago
         payment = Payment.find(payment_id)
         # print(payment)

@@ -1,11 +1,9 @@
 from _decimal import ROUND_HALF_UP
 from django.conf import settings
-from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.shortcuts import redirect
 from rest_framework.authtoken.models import Token
 from decimal import Decimal
 
@@ -20,7 +18,7 @@ class ComunidadAutonoma(models.Model):
 
 
 class Provincia(models.Model):
-    id_comunidad_autonoma = models.ForeignKey(ComunidadAutonoma, on_delete=models.RESTRICT)
+    comunidad_autonoma = models.ForeignKey(ComunidadAutonoma, on_delete=models.RESTRICT)
     nombre = models.CharField(max_length=100)
 
     def __str__(self):
@@ -53,27 +51,27 @@ class Estacion(models.Model):
 
 
 class Puesto(models.Model):
-    idEstacion = models.ForeignKey(Estacion, on_delete=models.RESTRICT)
+    estacion = models.ForeignKey(Estacion, on_delete=models.RESTRICT)
     disponible = models.BooleanField(default=True)
 
     def __str__(self):
-        return 'Puesto :' + str(self.id) + ', Estación: ' + str(self.idEstacion)
+        return 'Puesto :' + str(self.id) + ', Estación: ' + str(self.estacion)
 
 
 class Patinete(models.Model):
     marca = models.CharField(max_length=50)
     modelo = models.CharField(max_length=50)
     consumo = models.DecimalField(max_digits=10, decimal_places=2)
-    idUsuario = models.ForeignKey(Usuario, on_delete=models.RESTRICT)
+    usuario = models.ForeignKey(Usuario, on_delete=models.RESTRICT)
 
     def __str__(self):
         return self.modelo + ', ' + self.marca
 
 
 class Conexion(models.Model):
-    idPuesto = models.ForeignKey(Puesto, on_delete=models.RESTRICT)
-    idPatinete = models.ForeignKey(Patinete, on_delete=models.RESTRICT)
-    idUsuario = models.ForeignKey(Usuario, on_delete=models.RESTRICT)
+    puesto = models.ForeignKey(Puesto, on_delete=models.RESTRICT)
+    patinete = models.ForeignKey(Patinete, on_delete=models.RESTRICT)
+    usuario = models.ForeignKey(Usuario, on_delete=models.RESTRICT)
     consumido = models.DecimalField(max_digits=10, decimal_places=2)
     horaConexion = models.DateTimeField(auto_now_add=True)
     horaDesconexion = models.DateTimeField(null=True)
@@ -81,15 +79,15 @@ class Conexion(models.Model):
     finalizada = models.BooleanField(default=False)
 
     def __str__(self):
-        return 'Conexión: ' + str(self.id) + ', Puesto: ' + str(self.idPuesto) + ', Hora: ' + str(self.horaConexion)
+        return 'Conexión: ' + str(self.id) + ', Puesto: ' + str(self.puesto) + ', Hora: ' + str(self.horaConexion)
 
     def calcular_monto(self):
-        consumo_por_hora = self.idPatinete.consumo  # Suponiendo que el consumo está en kWh por hora
+        consumo_por_hora = self.patinete.consumo  # Suponiendo que el consumo está en kWh por hora
         horas_utilizadas = (self.horaDesconexion - self.horaConexion).total_seconds() / 3600
         consumo_total = consumo_por_hora * Decimal(horas_utilizadas)
         self.consumido = consumo_total
         costo_por_kwh = 0.15  # Suponiendo que el costo es de 0,10 USD por kWh
-        monto_total = consumo_total * Decimal(costo_por_kwh)
+        monto_total = consumo_total * Decimal(costo_por_kwh) + 10
         self.monto = monto_total.quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
 
 

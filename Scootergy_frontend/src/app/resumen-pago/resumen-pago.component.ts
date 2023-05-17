@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {ConexionesService} from "../conexiones.service";
 import {PerfilService} from "../perfil.service";
 import {PaypalService} from "../paypal.service";
@@ -36,8 +36,10 @@ export class ResumenPagoComponent {
     });
     const c = localStorage.getItem('conexion')
     if (c) {
-      this.conexionService.getConexion(JSON.parse(c).id).subscribe( conexion => {
-        this.conexion = conexion;
+      this.conexionService.getConexion(JSON.parse(c).id).subscribe(conexion => {
+          if (conexion) {
+            this.conexion = conexion;
+          }
         }
       )
     }

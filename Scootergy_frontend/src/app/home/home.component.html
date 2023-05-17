@@ -6,7 +6,7 @@
           <label for="estaciones">Seleccione una estación:</label>
           <select id="estaciones" formControlName="estaciones" class="form-control mt-3" (change)="mostrarPuestos()">
             <option selected>Seleccione...</option>
-            <option *ngFor="let estacion of estaciones" [value]="estacion.id">{{ estacion.direccion }}</option>
+            <option *ngFor="let estacion of estaciones" [value]="estacion.id">{{ estacion.direccion }}, {{estacion.nombre}}</option>
           </select>
         </div>
       </form>

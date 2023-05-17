@@ -22,7 +22,6 @@ export class ConexionesModalComponent {
   patinete: any;
   @Input() patinetesList: any;
   @Input() estacion: any;
-  public payPalConfig: any;
   public showPaypalButtons: boolean | undefined;
   approvalUrl: any;
   conexionUsuario: boolean = false;
@@ -45,7 +44,6 @@ export class ConexionesModalComponent {
     })
     this.perfilService.perfil(this.perfilService.getLoggedInUser()).subscribe(perfil => {
       this.perfil = perfil;
-
       this.conexionService.getConexionActual(this.perfil.id, this.puesto);
       this.conexion = this.conexionService.conexionActual;
       this.conexionUsuario = this.perfil.url == this.conexion.idUsuario;
@@ -155,6 +153,10 @@ export class ConexionesModalComponent {
       this.conexionService.getConexiones(this.perfil.id).subscribe();
     });
     this.activeModal.close()
+  }
+
+  ngOnDestroy() {
+    localStorage.removeItem('conexion')
   }
 
 }

@@ -2,7 +2,7 @@ export class Puesto{
 
   constructor(
     public id: string,
-    public idEstacion: number,
+    public estacion: number,
     public disponible: boolean,
     public url: string,
   ) {
