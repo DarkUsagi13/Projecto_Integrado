@@ -27,34 +27,21 @@
   <ng-template #noDisponible>
     <div class="modal-body">
       <ng-container *ngIf="conexionUsuario; else puestoUsuario">
-        <p>Puesto no disponible</p>
-        <div>
+        <h5 class="text-center">Estás conectado a este puesto:</h5>
+        <p class="fw-bold">Resumen:</p>
+        <div class="ps-5">
+          <p>Estacion: {{puesto.datosEstacion.nombre}}</p>
+          <p>Patinete conectado: {{conexion.datosPatinete.marca}}, {{conexion.datosPatinete.modelo}}</p>
+          <p>Día/hora de inicio: {{conexion.horaConexion | date: 'dd/MM/yyyy HH:mm' }}</p>
+          <p>Consumo actual: {{conexion.consumido}}</p>
+          <p>Monto actual: {{conexion.monto}}</p>
+        </div>
+        <div class="text-center p-3">
           <button *ngIf="!showPaypalButtons" class="btn btn-primary" (click)="crearPago()">Pagar con paypal</button>
-          <div class="text-center">
-            <button type="button" class="btn btn-secondary" *ngIf="showPaypalButtons" (click)="back()">Volver atrás
-            </button>
-          </div>
         </div>
       </ng-container>
       <ng-template #puestoUsuario>
         <h3>Puesto no disponible, en uso por otro usuario</h3>
-      </ng-template>
-    </div>
-  </ng-template>
-</div>
-
-<div class="container-fluid">
-  <ng-template #noDisponible>
-    <div class="modal-body d-flex justify-content-center">
-      <ng-container *ngIf="!conexionUsuario; else conexion_User">
-      </ng-container>
-      <ng-container *ngIf="conexionUsuario">
-        <h4>Esta conexión te pertenece</h4>
-      </ng-container>
-    </div>
-    <div class="modal-footer d-flex justify-content-center">
-      <ng-template #conexion_User>
-
       </ng-template>
     </div>
   </ng-template>

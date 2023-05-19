@@ -15,7 +15,6 @@ from pathlib import Path
 import environ
 import os
 
-import paypalrestsdk
 from corsheaders.defaults import default_headers
 # Libreria para internacionalización
 from django.utils.translation import gettext_lazy as _
@@ -29,8 +28,9 @@ env = environ.Env(
 SETTINGS_DIR = Path(__file__).resolve().parent
 CONFIG_BASE_DIR = Path(__file__).resolve().parent.parent
 PROJECT_ROOT_DIR = Path(__file__).resolve().parent.parent.parent
-# PAYPAL_CLIENT_ID = os.environ.get('ATuLX_QcwckG9Q5xwziJqZfpp5heEUlhwJvMEIuwp8Gu152nMRlanLlrakvzcnoYPb0I76ujuxj80j_d')
-# PAYPAL_CLIENT_SECRET = os.environ.get('EMaLy4IYC7aGmtPcuPtBDTfH32LweokJINr3HycsP6x--g_ojo07Vy2P2pGNR_CHV-7sB2EiZxBLXtro')
+PAYPAL_CLIENT_ID = 'AUKPAfUbOnyiQLcS8eB79oCnpGNkqFe6SMgjTJIxuAxOoZN3sWXDeeu-iHOrIm7b6YddG1JFbs1RFF9u'
+PAYPAL_CLIENT_SECRET = 'EBAJ4JsWVF15fYKh0ovBkWzhxITVpEvFa7FGchm4tjhzCGsyZCOK6XrRh1VpeY6LuoMr0FqUSkuL27m2'
+PAYPAL_API_BASE_URL = "https://api.sandbox.paypal.com"
 
 # Take environment variables from .env file
 environ.Env.read_env(os.path.join(SETTINGS_DIR, '.env'))
@@ -43,12 +43,6 @@ SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
-
-paypalrestsdk.configure({
-    "mode": "sandbox", # cambiar a "live" para producción
-    "client_id": "AUKPAfUbOnyiQLcS8eB79oCnpGNkqFe6SMgjTJIxuAxOoZN3sWXDeeu-iHOrIm7b6YddG1JFbs1RFF9u",
-    "client_secret": "EBAJ4JsWVF15fYKh0ovBkWzhxITVpEvFa7FGchm4tjhzCGsyZCOK6XrRh1VpeY6LuoMr0FqUSkuL27m2"
-})
 
 ALLOWED_HOSTS = [
 ]

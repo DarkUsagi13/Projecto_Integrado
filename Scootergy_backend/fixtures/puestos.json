@@ -3,7 +3,7 @@
     "model": "main.puesto",
     "pk": 1,
     "fields": {
-      "idEstacion": 1,
+      "estacion": 1,
       "disponible": true
     }
   },
@@ -11,7 +11,7 @@
     "model": "main.puesto",
     "pk": 2,
     "fields": {
-      "idEstacion": 1,
+      "estacion": 1,
       "disponible": true
     }
   },
@@ -19,7 +19,7 @@
     "model": "main.puesto",
     "pk": 3,
     "fields": {
-      "idEstacion": 1,
+      "estacion": 1,
       "disponible": true
     }
   },
@@ -27,7 +27,7 @@
     "model": "main.puesto",
     "pk": 4,
     "fields": {
-      "idEstacion": 1,
+      "estacion": 1,
       "disponible": true
     }
   },
@@ -35,7 +35,7 @@
     "model": "main.puesto",
     "pk": 5,
     "fields": {
-      "idEstacion": 1,
+      "estacion": 1,
       "disponible": true
     }
   },
@@ -43,7 +43,7 @@
     "model": "main.puesto",
     "pk": 6,
     "fields": {
-      "idEstacion": 1,
+      "estacion": 1,
       "disponible": true
     }
   },
@@ -51,7 +51,7 @@
     "model": "main.puesto",
     "pk": 7,
     "fields": {
-      "idEstacion": 1,
+      "estacion": 1,
       "disponible": true
     }
   },
@@ -59,7 +59,7 @@
     "model": "main.puesto",
     "pk": 8,
     "fields": {
-      "idEstacion": 1,
+      "estacion": 1,
       "disponible": true
     }
   },
@@ -67,7 +67,7 @@
     "model": "main.puesto",
     "pk": 9,
     "fields": {
-      "idEstacion": 1,
+      "estacion": 1,
       "disponible": true
     }
   },
@@ -75,7 +75,7 @@
     "model": "main.puesto",
     "pk": 10,
     "fields": {
-      "idEstacion": 1,
+      "estacion": 1,
       "disponible": true
     }
   },
@@ -83,7 +83,7 @@
     "model": "main.puesto",
     "pk": 11,
     "fields": {
-      "idEstacion": 1,
+      "estacion": 1,
       "disponible": true
     }
   },
@@ -91,7 +91,7 @@
     "model": "main.puesto",
     "pk": 12,
     "fields": {
-      "idEstacion": 1,
+      "estacion": 1,
       "disponible": true
     }
   },
@@ -99,7 +99,7 @@
     "model": "main.puesto",
     "pk": 13,
     "fields": {
-      "idEstacion": 2,
+      "estacion": 2,
       "disponible": true
     }
   },
@@ -107,7 +107,7 @@
     "model": "main.puesto",
     "pk": 14,
     "fields": {
-      "idEstacion": 2,
+      "estacion": 2,
       "disponible": true
     }
   },
@@ -115,7 +115,7 @@
     "model": "main.puesto",
     "pk": 15,
     "fields": {
-      "idEstacion": 2,
+      "estacion": 2,
       "disponible": true
     }
   },
@@ -123,7 +123,7 @@
     "model": "main.puesto",
     "pk": 16,
     "fields": {
-      "idEstacion": 2,
+      "estacion": 2,
       "disponible": true
     }
   },
@@ -131,7 +131,7 @@
     "model": "main.puesto",
     "pk": 17,
     "fields": {
-      "idEstacion": 2,
+      "estacion": 2,
       "disponible": true
     }
   },
@@ -139,7 +139,7 @@
     "model": "main.puesto",
     "pk": 18,
     "fields": {
-      "idEstacion": 2,
+      "estacion": 2,
       "disponible": true
     }
   },
@@ -147,7 +147,7 @@
     "model": "main.puesto",
     "pk": 19,
     "fields": {
-      "idEstacion": 2,
+      "estacion": 2,
       "disponible": true
     }
   },
@@ -155,7 +155,7 @@
     "model": "main.puesto",
     "pk": 20,
     "fields": {
-      "idEstacion": 2,
+      "estacion": 2,
       "disponible": true
     }
   },
@@ -163,7 +163,7 @@
     "model": "main.puesto",
     "pk": 21,
     "fields": {
-      "idEstacion": 2,
+      "estacion": 2,
       "disponible": true
     }
   },
@@ -171,7 +171,7 @@
     "model": "main.puesto",
     "pk": 22,
     "fields": {
-      "idEstacion": 2,
+      "estacion": 2,
       "disponible": true
     }
   },
@@ -179,7 +179,7 @@
     "model": "main.puesto",
     "pk": 23,
     "fields": {
-      "idEstacion": 2,
+      "estacion": 2,
       "disponible": true
     }
   },
@@ -187,7 +187,7 @@
     "model": "main.puesto",
     "pk": 24,
     "fields": {
-      "idEstacion": 2,
+      "estacion": 2,
       "disponible": true
     }
   },
@@ -195,7 +195,7 @@
     "model": "main.puesto",
     "pk": 25,
     "fields": {
-      "idEstacion": 3,
+      "estacion": 3,
       "disponible": true
     }
   },
@@ -203,7 +203,7 @@
     "model": "main.puesto",
     "pk": 26,
     "fields": {
-      "idEstacion": 3,
+      "estacion": 3,
       "disponible": true
     }
   },
@@ -211,7 +211,7 @@
     "model": "main.puesto",
     "pk": 27,
     "fields": {
-      "idEstacion": 3,
+      "estacion": 3,
       "disponible": true
     }
   },
@@ -219,7 +219,7 @@
     "model": "main.puesto",
     "pk": 28,
     "fields": {
-      "idEstacion": 3,
+      "estacion": 3,
       "disponible": true
     }
   },
@@ -227,7 +227,7 @@
     "model": "main.puesto",
     "pk": 29,
     "fields": {
-      "idEstacion": 3,
+      "estacion": 3,
       "disponible": true
     }
   },
@@ -235,7 +235,7 @@
     "model": "main.puesto",
     "pk": 30,
     "fields": {
-      "idEstacion": 3,
+      "estacion": 3,
       "disponible": true
     }
   },
@@ -243,7 +243,7 @@
     "model": "main.puesto",
     "pk": 31,
     "fields": {
-      "idEstacion": 3,
+      "estacion": 3,
       "disponible": true
     }
   },
@@ -251,7 +251,7 @@
     "model": "main.puesto",
     "pk": 32,
     "fields": {
-      "idEstacion": 3,
+      "estacion": 3,
       "disponible": true
     }
   },
@@ -259,7 +259,7 @@
     "model": "main.puesto",
     "pk": 33,
     "fields": {
-      "idEstacion": 3,
+      "estacion": 3,
       "disponible": true
     }
   },
@@ -267,7 +267,7 @@
     "model": "main.puesto",
     "pk": 34,
     "fields": {
-      "idEstacion": 3,
+      "estacion": 3,
       "disponible": true
     }
   },
@@ -275,7 +275,7 @@
     "model": "main.puesto",
     "pk": 35,
     "fields": {
-      "idEstacion": 3,
+      "estacion": 3,
       "disponible": true
     }
   },
@@ -283,7 +283,7 @@
     "model": "main.puesto",
     "pk": 36,
     "fields": {
-      "idEstacion": 3,
+      "estacion": 3,
       "disponible": true
     }
   },
@@ -291,7 +291,7 @@
     "model": "main.puesto",
     "pk": 37,
     "fields": {
-      "idEstacion": 4,
+      "estacion": 4,
       "disponible": true
     }
   },
@@ -299,7 +299,7 @@
     "model": "main.puesto",
     "pk": 38,
     "fields": {
-      "idEstacion": 4,
+      "estacion": 4,
       "disponible": true
     }
   },
@@ -307,7 +307,7 @@
     "model": "main.puesto",
     "pk": 39,
     "fields": {
-      "idEstacion": 4,
+      "estacion": 4,
       "disponible": true
     }
   },
@@ -315,7 +315,7 @@
     "model": "main.puesto",
     "pk": 40,
     "fields": {
-      "idEstacion": 4,
+      "estacion": 4,
       "disponible": true
     }
   },
@@ -323,7 +323,7 @@
     "model": "main.puesto",
     "pk": 41,
     "fields": {
-      "idEstacion": 4,
+      "estacion": 4,
       "disponible": true
     }
   },
@@ -331,7 +331,7 @@
     "model": "main.puesto",
     "pk": 42,
     "fields": {
-      "idEstacion": 4,
+      "estacion": 4,
       "disponible": true
     }
   },
@@ -339,7 +339,7 @@
     "model": "main.puesto",
     "pk": 43,
     "fields": {
-      "idEstacion": 4,
+      "estacion": 4,
       "disponible": true
     }
   },
@@ -347,7 +347,7 @@
     "model": "main.puesto",
     "pk": 44,
     "fields": {
-      "idEstacion": 4,
+      "estacion": 4,
       "disponible": true
     }
   },
@@ -355,7 +355,7 @@
     "model": "main.puesto",
     "pk": 45,
     "fields": {
-      "idEstacion": 4,
+      "estacion": 4,
       "disponible": true
     }
   },
@@ -363,7 +363,7 @@
     "model": "main.puesto",
     "pk": 46,
     "fields": {
-      "idEstacion": 4,
+      "estacion": 4,
       "disponible": true
     }
   },
@@ -371,7 +371,7 @@
     "model": "main.puesto",
     "pk": 47,
     "fields": {
-      "idEstacion": 4,
+      "estacion": 4,
       "disponible": true
     }
   },
@@ -379,7 +379,7 @@
     "model": "main.puesto",
     "pk": 48,
     "fields": {
-      "idEstacion": 4,
+      "estacion": 4,
       "disponible": true
     }
   },
@@ -387,7 +387,7 @@
     "model": "main.puesto",
     "pk": 49,
     "fields": {
-      "idEstacion": 5,
+      "estacion": 5,
       "disponible": true
     }
   },
@@ -395,7 +395,7 @@
     "model": "main.puesto",
     "pk": 50,
     "fields": {
-      "idEstacion": 5,
+      "estacion": 5,
       "disponible": true
     }
   },
@@ -403,7 +403,7 @@
     "model": "main.puesto",
     "pk": 51,
     "fields": {
-      "idEstacion": 5,
+      "estacion": 5,
       "disponible": true
     }
   },
@@ -411,7 +411,7 @@
     "model": "main.puesto",
     "pk": 52,
     "fields": {
-      "idEstacion": 5,
+      "estacion": 5,
       "disponible": true
     }
   },
@@ -419,7 +419,7 @@
     "model": "main.puesto",
     "pk": 53,
     "fields": {
-      "idEstacion": 5,
+      "estacion": 5,
       "disponible": true
     }
   },
@@ -427,7 +427,7 @@
     "model": "main.puesto",
     "pk": 54,
     "fields": {
-      "idEstacion": 5,
+      "estacion": 5,
       "disponible": true
     }
   },
@@ -435,7 +435,7 @@
     "model": "main.puesto",
     "pk": 55,
     "fields": {
-      "idEstacion": 5,
+      "estacion": 5,
       "disponible": true
     }
   },
@@ -443,7 +443,7 @@
     "model": "main.puesto",
     "pk": 56,
     "fields": {
-      "idEstacion": 5,
+      "estacion": 5,
       "disponible": true
     }
   },
@@ -451,7 +451,7 @@
     "model": "main.puesto",
     "pk": 57,
     "fields": {
-      "idEstacion": 5,
+      "estacion": 5,
       "disponible": true
     }
   },
@@ -459,7 +459,7 @@
     "model": "main.puesto",
     "pk": 58,
     "fields": {
-      "idEstacion": 5,
+      "estacion": 5,
       "disponible": true
     }
   },
@@ -467,7 +467,7 @@
     "model": "main.puesto",
     "pk": 59,
     "fields": {
-      "idEstacion": 5,
+      "estacion": 5,
       "disponible": true
     }
   },
@@ -475,7 +475,7 @@
     "model": "main.puesto",
     "pk": 60,
     "fields": {
-      "idEstacion": 5,
+      "estacion": 5,
       "disponible": true
     }
   }

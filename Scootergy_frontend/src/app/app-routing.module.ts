@@ -9,6 +9,7 @@ import {GestionPatinetesComponent} from "./gestion-patinetes/gestion-patinetes.c
 import {DatosPerfilComponent} from "./datos-perfil/datos-perfil.component";
 import {ResumenPagoComponent} from "./resumen-pago/resumen-pago.component";
 import {HistorialConexionesComponent} from "./historial-conexiones/historial-conexiones.component";
+import {ResumenPagoGuard} from "./resumen-pago.guard";
 
 const routes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -18,7 +19,7 @@ const routes: Routes = [
   {path: 'perfil/editar_perfil', component: DatosPerfilComponent, canActivate: [AuthGuard]},
   {path: 'patinetes', component: GestionPatinetesComponent, canActivate: [AuthGuard]},
   {path: 'perfil/registrar_patinete', component: GestionPatinetesComponent, canActivate: [AuthGuard]},
-  {path: 'perfil/resumen_pago', component: ResumenPagoComponent},
+  {path: 'perfil/resumen_pago', component: ResumenPagoComponent, canActivate: [ResumenPagoGuard]},
   {path: 'perfil/historial_conexiones', component: HistorialConexionesComponent}
 ];
 

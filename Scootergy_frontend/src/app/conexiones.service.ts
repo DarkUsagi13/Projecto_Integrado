@@ -18,12 +18,12 @@ export class ConexionesService {
   }
 
   getConexiones(userId: string | null): Observable<any> {
-    return this.http.get(this.url+`conexion/?idUsuario=${userId}`);
+    return this.http.get(this.url+`conexion/?usuario=${userId}`);
   }
 
   getConexionesMes(userId: string | null): Observable<any> {
     const mes = new Date().getMonth() + 1;
-    return this.http.get(this.url+`conexion/?idUsuario=${userId}&mes=${mes}`);
+    return this.http.get(this.url+`conexion/?usuario=${userId}&mes=${mes}`);
   }
 
   postConexion(conexion: any): Observable<any> {
@@ -34,15 +34,18 @@ export class ConexionesService {
     return this.http.get(this.url+`conexion/${idConexion}`);
   }
 
-  getConexionActual(idUsuario: any, puesto: any) {
+  getConexionActual(usuario: any, puesto: any) {
+
+    const conexionesNoFinalizadas = []
+
     if (!puesto.disponible) {
-      this.conexionActual = this.conexiones.find((conexion: { idPuesto: any; }) => conexion.idPuesto == puesto.url)
+      this.conexionActual = this.conexiones.find((conexion: { puesto: any; }) => conexion.puesto == puesto.url)
       localStorage.setItem('conexion', JSON.stringify(this.conexionActual))
     } else {
       this.conexionActual = {}
     }
     setTimeout(() => {
-      this.getConexiones(idUsuario).subscribe(conexiones => {
+      this.getConexiones(usuario).subscribe(conexiones => {
         this.conexiones = conexiones;
       })
     }, 1000);

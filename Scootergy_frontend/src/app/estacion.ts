@@ -4,6 +4,7 @@ export class Estacion{
     public nombre: string,
     public direccion: string,
     public provincia: number,
+    public datosEstacion: any,
   ) {}
 
 }

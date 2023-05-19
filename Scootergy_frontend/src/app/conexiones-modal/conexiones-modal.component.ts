@@ -46,7 +46,8 @@ export class ConexionesModalComponent {
       this.perfil = perfil;
       this.conexionService.getConexionActual(this.perfil.id, this.puesto);
       this.conexion = this.conexionService.conexionActual;
-      this.conexionUsuario = this.perfil.url == this.conexion.idUsuario;
+      console.log(this.conexion)
+      this.conexionUsuario = this.perfil.url == this.conexion.usuario;
     })
   }
 
@@ -62,73 +63,6 @@ export class ConexionesModalComponent {
     );
   }
 
-  // pay() {
-  //   this.showPaypalButtons = true;
-  //   this.payPalConfig = {
-  //     currency: "EUR",
-  //     clientId: "ATuLX_QcwckG9Q5xwziJqZfpp5heEUlhwJvMEIuwp8Gu152nMRlanLlrakvzcnoYPb0I76ujuxj80j_d",
-  //     createOrder: () =>
-  //       <ICreateOrderRequest>{
-  //         intent: "CAPTURE",
-  //         purchase_units: [
-  //           {
-  //             amount: {
-  //               currency_code: "EUR",
-  //               value: "9.99",
-  //               breakdown: {
-  //                 item_total: {
-  //                   currency_code: "EUR",
-  //                   value: "9.99"
-  //                 }
-  //               }
-  //             },
-  //             items: [
-  //               {
-  //                 name: "Conexion",
-  //                 quantity: "1",
-  //                 unit_amount: {
-  //                   currency_code: "EUR",
-  //                   value: "9.99"
-  //                 }
-  //               }
-  //             ]
-  //           }
-  //         ]
-  //       },
-  //     advanced: {
-  //       commit: "true"
-  //     },
-  //     style: {
-  //       label: "paypal",
-  //       layout: "vertical"
-  //     },
-  //     onApprove: (data: any, actions: { order: { get: () => Promise<any>; }; }) => {
-  //       console.log(this.conexionService.conexionActual)
-  //       actions.order.get().then((details: any) => {
-  //         console.log(
-  //           "onApprove - you can get full order details inside onApprove: ",
-  //           details
-  //         );
-  //       });
-  //     },
-  //     onClientAuthorization: (data: any) => {
-  //       console.log(
-  //         "onClientAuthorization - you should probably inform your server about completed transaction at this point",
-  //         data
-  //       );
-  //     },
-  //     onCancel: (data: any, actions: any) => {
-  //       console.log("OnCancel", data, actions);
-  //     },
-  //     onError: (err: any) => {
-  //       console.log("OnError", err);
-  //     },
-  //     onClick: (data: any, actions: any) => {
-  //       console.log("onClick", data, actions);
-  //     }
-  //   };
-  // }
-
   back() {
     this.showPaypalButtons = false;
   }
@@ -142,15 +76,17 @@ export class ConexionesModalComponent {
       `http://127.0.0.1:8000/patinete/${this.patinete}/`,
       `http://127.0.0.1:8000/usuario/${idUsuario}/`,
       null,
-      121,
-      10,
+      0,
+      0,
       false,
     );
     this.conexionService.postConexion(this.conexion).subscribe((response: any) => {
       this.puesto.disponible = false;
       this.estacionService.updatePuesto(this.puesto.id, this.puesto).subscribe();
       this.patineteService.setPatineteSeleccionado(this.patinete);
-      this.conexionService.getConexiones(this.perfil.id).subscribe();
+      this.conexionService.getConexiones(this.perfil.id).subscribe(conexiones => {
+        this.conexionService.conexiones = conexiones;
+      });
     });
     this.activeModal.close()
   }

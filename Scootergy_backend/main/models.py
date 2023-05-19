@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils import timezone
 from rest_framework.authtoken.models import Token
 from decimal import Decimal
 
@@ -82,12 +83,16 @@ class Conexion(models.Model):
         return 'Conexión: ' + str(self.id) + ', Puesto: ' + str(self.puesto) + ', Hora: ' + str(self.horaConexion)
 
     def calcular_monto(self):
-        consumo_por_hora = self.patinete.consumo  # Suponiendo que el consumo está en kWh por hora
-        horas_utilizadas = (self.horaDesconexion - self.horaConexion).total_seconds() / 3600
+        consumo_por_hora = self.patinete.consumo
+        if self.horaDesconexion:
+            horas_utilizadas = (self.horaDesconexion - self.horaConexion).total_seconds() / 3600
+        else:
+            # Si horaDesconexion es None, establece horas_utilizadas como 0
+            horas_utilizadas = (timezone.now() - self.horaConexion).total_seconds() / 3600
         consumo_total = consumo_por_hora * Decimal(horas_utilizadas)
-        self.consumido = consumo_total
-        costo_por_kwh = 0.15  # Suponiendo que el costo es de 0,10 USD por kWh
-        monto_total = consumo_total * Decimal(costo_por_kwh) + 10
+        self.consumido = consumo_total + Decimal(5)
+        costo_por_kwh = 0.15
+        monto_total = consumo_total * Decimal(costo_por_kwh)
         self.monto = monto_total.quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
 
 

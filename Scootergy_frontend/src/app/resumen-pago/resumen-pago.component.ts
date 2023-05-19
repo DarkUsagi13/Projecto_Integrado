@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {ConexionesService} from "../conexiones.service";
 import {PerfilService} from "../perfil.service";
 import {PaypalService} from "../paypal.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-resumen-pago',
@@ -21,16 +21,21 @@ export class ResumenPagoComponent {
     private conexionService: ConexionesService,
     private paypalService: PaypalService,
     private route: ActivatedRoute,
+    private  router: Router,
   ) {
   }
 
   ngOnInit() {
+
+
+    localStorage.setItem('resumenPago', 'false')
+
     const userData = localStorage.getItem('userData')
     if (userData) {
       this.perfil = JSON.parse(userData).username
     }
     this.route.queryParams.subscribe(params => {
-      this.paymentId = params['paymentId'];
+      this.paymentId = params['token'];
       this.payerId = params['PayerID'];
       this.capturarPago(this.paymentId, this.payerId)
     });
@@ -46,14 +51,15 @@ export class ResumenPagoComponent {
   }
 
   capturarPago(pagoId: any, payerId: string) {
-    this.paypalService.capturarPago(pagoId, payerId).subscribe(
-      (response: any) => {
-        console.log(response);
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
+    this.paypalService.capturarPago(pagoId, payerId).subscribe();
+    // this.paypalService.capturarPago(pagoId, payerId).subscribe(
+    //   (response: any) => {
+    //     console.log(response);
+    //   },
+    //   (error: any) => {
+    //     console.log(error);
+    //   }
+    // );
   }
 
   ngOnDestroy() {

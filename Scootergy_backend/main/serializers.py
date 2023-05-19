@@ -61,6 +61,8 @@ class EstacionSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class PuestoSerializer(serializers.HyperlinkedModelSerializer):
+    datosEstacion = EstacionSerializer(source='estacion', read_only=True)
+
     class Meta:
         model = Puesto
         fields = [
@@ -68,6 +70,7 @@ class PuestoSerializer(serializers.HyperlinkedModelSerializer):
             'id',
             'estacion',
             'disponible',
+            'datosEstacion',
         ]
 
 
@@ -85,6 +88,8 @@ class PatineteSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ConexionSerializer(serializers.HyperlinkedModelSerializer):
+    datosPuesto = PuestoSerializer(source='puesto', read_only=True)
+    datosPatinete = PatineteSerializer(source='patinete', read_only=True)
     patineteNombre = serializers.SerializerMethodField()
 
     class Meta:
@@ -101,10 +106,12 @@ class ConexionSerializer(serializers.HyperlinkedModelSerializer):
             'consumido',
             'finalizada',
             'patineteNombre',
+            'datosPuesto',
+            'datosPatinete',
         ]
 
     def get_patineteNombre(self, obj):
-        return "{} {}".format(obj.idPatinete.marca, obj.idPatinete.modelo)
+        return "{} {}".format(obj.patinete.marca, obj.patinete.modelo)
 
 
 class PagoSerializer(serializers.HyperlinkedModelSerializer):
@@ -138,6 +145,6 @@ class ProvinciaSerializer(serializers.HyperlinkedModelSerializer):
         fields = [
             'url',
             'id',
-            'id_comunidad_autonoma',
+            'comunidad_autonoma',
             'nombre'
         ]

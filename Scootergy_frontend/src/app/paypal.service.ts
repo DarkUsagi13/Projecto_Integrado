@@ -14,6 +14,7 @@ export class PaypalService {
   ) { }
 
   crearPago(conexion: any) {
+    localStorage.setItem('resumenPago', 'true');
     return this.http.post<any>(this.url+'crear-pago/', {conexion});
   }
 
@@ -22,7 +23,7 @@ export class PaypalService {
       payment_id: pagoID,
       payer_id: payerId
     };
-    return this.http.post(this.url+`capturar-pago/`, body);
+    return this.http.post<any>(this.url+`capturar-pago/`, body);
   }
 
 }
