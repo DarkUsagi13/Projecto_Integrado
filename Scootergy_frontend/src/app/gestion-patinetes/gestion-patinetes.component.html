@@ -1,21 +1,24 @@
 <app-plantilla-perfil>
 
-  <div class="container-fluid p-5">
+  <div class="container-fluid p-5 slide-in-right">
     <div class="d-flex justify-content-center">
       <h2>Agregar un patinete</h2>
     </div>
     <div class="d-flex justify-content-center">
       <form class="text-center p-5" [formGroup]="formulario" (ngSubmit)="postPatinete()">
         <div class="col-auto form-floating">
-          <input id="marca" class="form-control border-0 border-bottom mt-2 w-100" formControlName="marca" type="text" placeholder="Marca">
+          <input id="marca" class="form-control border-0 border-bottom mt-2 w-100" formControlName="marca" type="text"
+                 placeholder="Marca">
           <label for="marca">Marca</label>
         </div>
         <div class="col-auto form-floating">
-          <input id="modelo" class="form-control border-0 border-bottom mt-2 w-100" formControlName="modelo" type="text" placeholder="Modelo">
+          <input id="modelo" class="form-control border-0 border-bottom mt-2 w-100" formControlName="modelo" type="text"
+                 placeholder="Modelo">
           <label for="modelo">Modelo</label>
         </div>
         <div class="col-auto form-floating">
-          <input id="consumo" class="form-control border-0 border-bottom mt-2 w-100" formControlName="consumo" type="text" placeholder="Consumo">
+          <input id="consumo" class="form-control border-0 border-bottom mt-2 w-100" formControlName="consumo"
+                 type="text" placeholder="Consumo">
           <label for="consumo">Consumo</label>
         </div>
         <div class="p-5">

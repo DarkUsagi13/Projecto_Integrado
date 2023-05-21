@@ -39,15 +39,6 @@ export class ResumenPagoComponent {
       this.payerId = params['PayerID'];
       this.capturarPago(this.paymentId, this.payerId)
     });
-    const c = localStorage.getItem('conexion')
-    if (c) {
-      this.conexionService.getConexion(JSON.parse(c).id).subscribe(conexion => {
-          if (conexion) {
-            this.conexion = conexion;
-          }
-        }
-      )
-    }
   }
 
   capturarPago(pagoId: any, payerId: string) {

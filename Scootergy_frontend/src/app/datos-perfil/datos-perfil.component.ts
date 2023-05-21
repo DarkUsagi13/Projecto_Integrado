@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { PerfilService } from '../perfil.service';
+import {Component} from '@angular/core';
+import {PerfilService} from '../perfil.service';
 import {perfilUsuario} from "../perfil";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
@@ -28,14 +28,12 @@ export class DatosPerfilComponent {
   }
 
   ngOnInit() {
-    this.idUsuario =this.perfilService.getLoggedInUser();
+    this.idUsuario = this.perfilService.getLoggedInUser();
 
     this.perfilService.perfil(this.idUsuario).subscribe((perfilUsuario: perfilUsuario[]) => {
       this.datosPerfil = perfilUsuario;
       this.editarPerfil()
     });
-
-
   }
 
   editarPerfil() {
@@ -46,7 +44,7 @@ export class DatosPerfilComponent {
   }
 
   putPerfil() {
-    this.perfilService.putPerfil(this.idUsuario, this.formulario.value).subscribe(data => {})
+    this.perfilService.putPerfil(this.idUsuario, this.formulario.value).subscribe();
   }
 
 }

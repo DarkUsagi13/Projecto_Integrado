@@ -15,21 +15,21 @@ import {PaypalService} from "../paypal.service";
 })
 export class ConexionesModalComponent {
 
+  crearConexion: any = {};
   conexion: any = {};
   perfil: any;
+  id_usuario: any;
   formulario!: FormGroup;
   @Input() puesto: any;
   patinete: any;
   @Input() patinetesList: any;
   @Input() estacion: any;
-  public showPaypalButtons: boolean | undefined;
   approvalUrl: any;
-  conexionUsuario: boolean = false;
 
   constructor(
     public activeModal: NgbActiveModal,
     private fb: FormBuilder,
-    private conexionService: ConexionesService,
+    private conexionesService: ConexionesService,
     private estacionService: EstacionesService,
     private perfilService: PerfilService,
     private patineteService: PatinetesService,
@@ -42,13 +42,22 @@ export class ConexionesModalComponent {
     this.formulario = this.fb.group({
       patinetesList: new FormControl('', Validators.required)
     })
-    this.perfilService.perfil(this.perfilService.getLoggedInUser()).subscribe(perfil => {
+
+    this.id_usuario = this.perfilService.getLoggedInUser()
+
+    this.perfilService.perfil(this.id_usuario).subscribe(perfil => {
       this.perfil = perfil;
-      this.conexionService.getConexionActual(this.perfil.id, this.puesto);
-      this.conexion = this.conexionService.conexionActual;
-      console.log(this.conexion)
-      this.conexionUsuario = this.perfil.url == this.conexion.usuario;
+      // console.log(this.perfil)
     })
+    this.conexionesService.getConexionActual(this.id_usuario, this.puesto.id).subscribe(conexion => {
+      let conexionId = conexion.id;
+      console.log(conexionId)
+      this.conexionesService.calcularMontoConexion(this.id_usuario, conexionId).subscribe(conexionCalculo => {
+        this.conexion = conexionCalculo;
+        console.log(conexionCalculo)
+      });
+    });
+
   }
 
   crearPago() {
@@ -63,29 +72,24 @@ export class ConexionesModalComponent {
     );
   }
 
-  back() {
-    this.showPaypalButtons = false;
-  }
-
   setConexion() {
     // IMPORTANTE!!! CREAR UNA PÁGINA DE RESUMEN QUE MANDE AL  USUARIO A LA MISMA AL INICIAR CORRECTAMENTE UNA CONEXIÓN
-    const idUsuario = this.perfilService.getLoggedInUser();
     this.patinete = this.formulario.get('patinetesList')!.value;
-    this.conexion = new Conexion(
+    this.crearConexion = new Conexion(
       `http://127.0.0.1:8000/puesto/${this.puesto.id}/`,
       `http://127.0.0.1:8000/patinete/${this.patinete}/`,
-      `http://127.0.0.1:8000/usuario/${idUsuario}/`,
+      `http://127.0.0.1:8000/usuario/${this.id_usuario}/`,
       null,
       0,
       0,
       false,
     );
-    this.conexionService.postConexion(this.conexion).subscribe((response: any) => {
+    this.conexionesService.postConexion(this.crearConexion).subscribe((response: any) => {
       this.puesto.disponible = false;
       this.estacionService.updatePuesto(this.puesto.id, this.puesto).subscribe();
       this.patineteService.setPatineteSeleccionado(this.patinete);
-      this.conexionService.getConexiones(this.perfil.id).subscribe(conexiones => {
-        this.conexionService.conexiones = conexiones;
+      this.conexionesService.getConexionesActivas(this.id_usuario.id).subscribe(conexiones => {
+        this.conexionesService.conexionesActivas = conexiones;
       });
     });
     this.activeModal.close()

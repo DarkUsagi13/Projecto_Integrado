@@ -1,12 +1,13 @@
 import base64
 
 import requests
-from django.db.models import Q
+from django.utils import timezone
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, status, filters
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.decorators import action
 from rest_framework.generics import GenericAPIView, get_object_or_404
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -14,9 +15,22 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.db.models.functions import ExtractMonth
 
 from main.serializers import *
+from main.utils import _calcular_monto
 
 
 # Create your views here.
+
+class Paginacion(PageNumberPagination):
+    page_size = 10  # Define el número de elementos que se mostrarán por página
+    page_size_query_param = 'page_size'
+    max_page_size = 100
+
+    def get_paginated_response(self, data):
+        if self.request.query_params.get('page') == '-1':
+            return Response(data)
+        return super().get_paginated_response(data)
+
+
 class UsuarioView(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
@@ -50,6 +64,12 @@ class PuestoView(viewsets.ModelViewSet):
     ordering_fields = ['id', 'estacion__nombre']
     filterset_fields = ['estacion']
 
+    def perform_create(self, serializer):
+        print("holaaa")
+        if 'disponible' in serializer.validated_data and not serializer.validated_data['disponible']:
+            raise serializers.ValidationError("El puesto no está disponible")
+        super().perform_create(serializer)
+
 
 class PatineteView(viewsets.ModelViewSet):
     queryset = Patinete.objects.all()
@@ -62,48 +82,60 @@ class ConexionView(viewsets.ModelViewSet):
     serializer_class = ConexionSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     ordering_fields = ['id']
-    filterset_fields = ['finalizada', 'usuario', 'id']
+    filterset_fields = ['id', 'usuario', 'puesto', 'finalizada']
+    pagination_class = Paginacion
+
+    @action(detail=False, methods=['get'])
+    def conexion_actual(self, request):
+        usuario_id = self.request.query_params.get('usuario')
+        puesto_id = self.request.query_params.get('puesto')
+        puesto = get_object_or_404(Puesto, id=puesto_id)
+        if not puesto.disponible:
+            # conexion = get_object_or_404(Conexion, puesto=puesto_id)
+            conexiones = Conexion.objects.filter(usuario=usuario_id, puesto=puesto_id, finalizada=False)
+            if conexiones:
+                conexion = conexiones[0]
+                if str(conexion.usuario_id) == usuario_id and not conexion.finalizada:
+                    serializer = self.get_serializer(conexion)
+                    return Response(serializer.data)
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
     @action(detail=False, methods=['get'])
     def calcular_monto(self, request):
         conexion_id = self.request.query_params.get('id')
-        conexion = get_object_or_404(Conexion, id=conexion_id)  # Corrección aquí
-        consumo_por_hora = conexion.patinete.consumo
-        if conexion.horaDesconexion:
-            horas_utilizadas = (conexion.horaDesconexion - conexion.horaConexion).total_seconds() / 3600
-        else:
-            # Si horaDesconexion es None, establece horas_utilizadas como 0
-            horas_utilizadas = (timezone.now() - conexion.horaConexion).total_seconds() / 3600
-        consumo_total = consumo_por_hora * Decimal(horas_utilizadas)
-        conexion.consumido = consumo_total + Decimal(5)
-        costo_por_kwh = 0.15
-        monto_total = consumo_total * Decimal(costo_por_kwh) + Decimal(10)
-        conexion.monto = monto_total.quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
-        print(conexion)
+        conexion = _calcular_monto(conexion_id)
         serializer = self.get_serializer(conexion)
         return Response(serializer.data)
+
+    @action(detail=False, methods=['get'])
+    def gasto_total(self, request):
+        usuario_id = self.request.query_params.get('usuario')
+        conexiones = Conexion.objects.filter(usuario=usuario_id, finalizada=True)
+        gasto_total = sum(conexion.monto for conexion in conexiones)
+        data = {'gasto_total': gasto_total}
+        return Response(data)
+
+    @action(detail=False, methods=['get'])
+    def consumo_total(self, request):
+        usuario_id = self.request.query_params.get('usuario')
+        conexiones = Conexion.objects.filter(usuario=usuario_id, finalizada=True)
+        consumo_total = sum(conexion.consumo for conexion in conexiones)
+        data = {'consumo_total': consumo_total}
+        return Response(data)
+
+
 
     def get_queryset(self):
         queryset = Conexion.objects.all()
         usuario_id = self.request.query_params.get('usuario')
         mes = self.request.query_params.get('mes')
+
         if usuario_id:
             queryset = queryset.filter(usuario=usuario_id)
         if mes:
             queryset = queryset.annotate(mes=ExtractMonth('horaConexion')).filter(mes=mes)
-        return queryset
 
-    # def list(self, request, *args, **kwargs):
-    #     queryset = self.get_queryset()
-    #     # Llama a la función calcular_monto() para cada objeto de conexión en el queryset
-    #     for conexion in queryset:
-    #         conexion.calcular_monto()
-    #         print(conexion.monto)
-    #         print(conexion.consumido)
-    #         # conexion.save(update_fields=['consumido', 'monto'])
-    #     # Ahora, puedes serializar y devolver los resultados con el monto calculado
-    #     serializer = self.get_serializer(queryset, many=True)
-    #     return Response(serializer.data)
+        return queryset
 
 
 class PagoView(viewsets.ModelViewSet):
@@ -171,14 +203,13 @@ def get_access_token(client_id, client_secret):
 class CreatePaymentView(APIView):
     def post(self, request):
         # Obtener objeto de conexión
-        conexion = request.data['conexion']
-        conexion_obj = get_object_or_404(Conexion, id=conexion['id'])
+        conexion_id = request.data['conexion']['id']
+        conexion = get_object_or_404(Conexion, id=conexion_id)
 
         # Actualizar objeto de conexión si no está finalizada
-        if not conexion_obj.finalizada:
-            conexion_obj.horaDesconexion = timezone.now()
-            conexion_obj.calcular_monto()
-            conexion_obj.save()
+        if not conexion.finalizada:
+            conexion = _calcular_monto(conexion_id)
+            conexion.save()
 
         # Crear objeto Order con la información del pago
         data = {
@@ -187,7 +218,7 @@ class CreatePaymentView(APIView):
                 {
                     "amount": {
                         "currency_code": "EUR",
-                        "value": str(conexion_obj.monto),
+                        "value": str(conexion.monto),
                     }
                 }
             ],
@@ -215,9 +246,9 @@ class CreatePaymentView(APIView):
 
             # Crear objeto de pago
             pago = Pago(
-                usuario=conexion_obj.usuario,
-                conexion=conexion_obj,
-                monto=conexion_obj.monto,
+                usuario=conexion.usuario,
+                conexion=conexion,
+                monto=conexion.monto,
                 id_transaccion_paypal=order['id']
             )
             pago.save()
@@ -253,7 +284,7 @@ class CapturePaymentView(APIView):
             if response.status_code == 201:
                 # Actualizar objeto de conexión y puesto
                 conexion = get_object_or_404(Conexion, id=pago.conexion.id)
-                conexion.horaConexion = timezone.now()
+                conexion.horaDesconexion = timezone.now()
                 conexion.finalizada = True
                 conexion.save()
 

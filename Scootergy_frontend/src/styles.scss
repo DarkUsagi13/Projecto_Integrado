@@ -199,7 +199,7 @@ body {
   background-image: linear-gradient(to right, #FF3366, #3366FF);
   background-size: 200% 100%;
   -webkit-animation: bg-pan-left 8s linear forwards;
-  animation: bg-pan-left 3s linear forwards;
+  animation: bg-pan-left 1s linear forwards;
 }
 
 @-webkit-keyframes bg-pan-left {
@@ -248,70 +248,6 @@ body {
   100% {
     -webkit-transform: translateX(0);
     transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-
-////////////////////////
-
-.slide-in-bottom {
-  -webkit-animation: slide-in-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-  animation: slide-in-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-}
-
-@-webkit-keyframes slide-in-bottom {
-  0% {
-    -webkit-transform: translateY(1000px);
-    transform: translateY(1000px);
-    opacity: 0;
-  }
-  100% {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-@keyframes slide-in-bottom {
-  0% {
-    -webkit-transform: translateY(1000px);
-    transform: translateY(1000px);
-    opacity: 0;
-  }
-  100% {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-
-.scale-out-horizontal {
-  -webkit-animation: scale-out-horizontal 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
-  animation: scale-out-horizontal 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
-}
-
-@-webkit-keyframes scale-out-horizontal {
-  0% {
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: scaleX(0);
-    transform: scaleX(0);
-    opacity: 1;
-  }
-}
-@keyframes scale-out-horizontal {
-  0% {
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: scaleX(0);
-    transform: scaleX(0);
     opacity: 1;
   }
 }

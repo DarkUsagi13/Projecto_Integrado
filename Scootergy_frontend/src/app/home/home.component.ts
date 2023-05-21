@@ -29,7 +29,6 @@ export class HomeComponent implements OnInit {
   mostrarDatos = false;
   mostrarAnimacion: boolean = false;
   usuario: any;
-  conexiones: any;
 
   constructor(
     private perfilService: PerfilService,
@@ -54,22 +53,16 @@ export class HomeComponent implements OnInit {
     this.formulario = this.fb.group({
       estaciones: ['Seleccione...', Validators.required],
     });
-    //Se obtienen las conexiones del usuario autenticado
-    this.conexionesService.getConexiones(this.usuario).subscribe(conexiones => {
-      this.conexionesService.conexiones = conexiones;
-      this.conexiones = conexiones;
-    })
-  }
+    //Se obtienen las conexiones activas del usuario autenticado
+    this.conexionesService.getConexionesActivas(this.usuario).subscribe(conexiones => {
+      this.conexionesService.conexionesActivas = conexiones.results; // Almacenar los resultados en un array
+    });
 
-  /*
-  * IMPORTANTE, COMPROBAR IMPLEMENTACIÓN!!!!!!!!!!!!!!!!!!!!
-  * OTRO ENFOQUE PARA MOSTRAR LOS PUESTOS QUE LE PERTENECEN AL USUARIO SERÍA AGREGAR UNA PROPIEDAD A LOS PUESTOS
-  * EN UNA NUEVA LISTA: SE RECORREN LOS DATOS DE LOS PUESTOS Y SÍ LA CONEXIÓN COINCIDE CON LAS CONEXIONES DEL USUARIO
-  * LA NUEVA PROPIEDAD SERÁ TRUE, EN CASO CONTRARIO FALSE
-  * */
+  }
 
   //Función para mostrar los puestos de una determinada estación
   mostrarPuestos(): void {
+    let puestosModificados: Puesto[] = []
     this.mostrarAnimacion = false;
     //Se guarda el valor de la estación seleccionada en el formulario
     this.estacion = this.formulario.get('estaciones')!.value;
@@ -81,8 +74,17 @@ export class HomeComponent implements OnInit {
     if (estacionActual != null) {
       this.mostrarAnimacion = true;
       //Obtenemos los puestos de la estación seleccionada utilizando su ID
-      this.estacionesService.getPuestos(this.estacion).subscribe((data: Puesto[]) => {
-        this.puestos = data;
+      this.estacionesService.getPuestos(this.estacion).subscribe((puestos: Puesto[]) => {
+        for (const puesto of puestos) {
+          let c = this.conexionesService.conexionesActivas.find((conexion: {
+            puesto: any;
+          }) => conexion.puesto == puesto.url)
+          if (c) {
+            puesto.perteneceUsuario = true;
+          }
+          puestosModificados.push(puesto);
+        }
+        this.puestos = puestosModificados;
       });
     }
   }
@@ -102,8 +104,8 @@ export class HomeComponent implements OnInit {
 
   //Función que abre el modal que simula la interacción del usuario con la aplicación
   open(puesto: any) {
-    //Se define el componente que servirá como modal de este componente (HOME)
-    let modalRef = this.modalService.open(ConexionesModalComponent, { windowClass: 'slide-in-bottom' });
+    //Se define el componente que servirá como modal de este componente
+    let modalRef = this.modalService.open(ConexionesModalComponent);
     //En el modal interesan valores obtenidos en este componente, por lo que se mandan al modal
     modalRef.componentInstance.puesto = puesto;
     modalRef.componentInstance.patinetesList = this.patinetes;

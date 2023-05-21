@@ -1,16 +1,24 @@
 <app-plantilla-perfil>
-  <div class="container">
+  <div class="container slide-in-right">
     <h1 class="text-center p-5">Historial de conexiones</h1>
     <div>
+      <div>
+        <form [formGroup]="valoresForm">
+          <div class="form-group col-3 p-4">
+            <label for="orden">Ordenar por:</label>
+            <select id="orden" formControlName="orden" class="form-control mt-3" (change)="ordenarHistorial()">
+              <option *ngFor="let valor of valores | keyvalue" [ngValue]="valor.key">{{valor.value}}</option>
+            </select>
+
+          </div>
+        </form>
+      </div>
       <table class="table text-center">
-        <caption style="caption-side: top" class="fs-1">
-          Últimas cargas
-        </caption>
         <thead>
         <tr>
           <th scope="col">Patinete</th>
           <th scope="col">Puesto</th>
-          <th scope="col">Consumido</th>
+          <th scope="col">Consumo</th>
           <th scope="col">Hora de conexión</th>
           <th scope="col">Hora de desconexión</th>
           <th scope="col">Importe</th>
@@ -21,16 +29,22 @@
           <tr>
             <ng-container *ngIf="conexion.finalizada">
               <td>{{conexion.patineteNombre}}</td>
-              <td>{{conexion.idPuesto}}</td>
-              <td>{{conexion.consumido}}</td>
+              <td>{{conexion.datosPuesto.id}}</td>
+              <td>{{conexion.consumo}}</td>
               <td>{{conexion.horaConexion | date: 'dd/MM/yyyy HH:mm'}}</td>
               <td>{{conexion.horaDesconexion | date: 'dd/MM/yyyy HH:mm'}}</td>
-              <td>{{conexion.monto}}</td>
+              <td>{{conexion.monto}}€</td>
             </ng-container>
           </tr>
           </tbody>
         </ng-container>
       </table>
+    </div>
+    <div class="text-center">
+<!--      <ng-container *ngIf="paginaActual == 1">-->
+        <button class="btn btn-primary me-2 mr-2 mb-2 .d-none" (click)="cambiarPagina(-1)">Página anterior</button>
+<!--      </ng-container>-->
+      <button class="btn btn-primary ms-2 mb-2" (click)="cambiarPagina(1)">Página siguiente</button>
     </div>
   </div>
 </app-plantilla-perfil>

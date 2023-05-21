@@ -103,7 +103,7 @@ class ConexionSerializer(serializers.HyperlinkedModelSerializer):
             'horaConexion',
             'horaDesconexion',
             'monto',
-            'consumido',
+            'consumo',
             'finalizada',
             'patineteNombre',
             'datosPuesto',

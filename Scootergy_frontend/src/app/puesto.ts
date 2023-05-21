@@ -6,6 +6,7 @@ export class Puesto {
     public disponible: boolean,
     public url: string,
     public datosPuesto: any,
+    public perteneceUsuario: boolean = false,
   ) {
   }
 

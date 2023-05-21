@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {url} from "./utils";
 
@@ -8,47 +8,56 @@ import {url} from "./utils";
 })
 export class ConexionesService {
 
-  public conexiones: any = {};
-  public conexionActual: any = {};
-  url: any = url()
+  public conexionesActivas: any[] = [];
+  public url: any = url()
+  public mes: any = {};
 
   constructor(
     private http: HttpClient,
   ) {
+    this.mes = new Date().getMonth() + 1;
   }
 
-  getConexiones(userId: string | null): Observable<any> {
-    return this.http.get(this.url+`conexion/?usuario=${userId}`);
+  getConexionesActivas(userId: string, page: number = 1): Observable<any> {
+    const params = new HttpParams().set('usuario', userId).set('finalizada', 'false').set('page', page.toString());
+    return this.http.get(this.url + 'conexion/', { params });
+  }
+
+  getConexionesFinalizadas(userId: string, page: number): Observable<any> {
+    const params = new HttpParams().set('usuario', userId).set('finalizada', 'true').set('page', page.toString());
+    return this.http.get<any>(this.url+`conexion/`, {params});
   }
 
   getConexionesMes(userId: string | null): Observable<any> {
-    const mes = new Date().getMonth() + 1;
-    return this.http.get(this.url+`conexion/?usuario=${userId}&mes=${mes}`);
+    return this.http.get(this.url+`conexion/?usuario=${userId}&mes=${this.mes}&finalizada=true`);
   }
 
   postConexion(conexion: any): Observable<any> {
     return this.http.post<any>(this.url+`conexion/`, conexion);
   }
 
-  getConexion(idConexion: any) {
-    return this.http.get(this.url+`conexion/${idConexion}`);
+  getConexionActual(usuario: string, puesto: string): Observable<any>{
+    return this.http.get<any>(this.url+`/conexion/conexion_actual/?usuario=${usuario}&puesto=${puesto}`)
   }
 
-  getConexionActual(usuario: any, puesto: any) {
+  calcularMontoConexion(usuario: any, id_conexion: any):Observable<any> {
+    return this.http.get<any>(this.url+`conexion/calcular_monto/?usuario=${usuario}&id=${id_conexion}`)
+  }
 
-    const conexionesNoFinalizadas = []
+  consumoTotalMes(usuario: string): Observable<any> {
+    return this.http.get<any>(this.url+`conexion/consumo_total/?usuario=${usuario}&mes=${this.mes}&finalizada=true`)
+  }
 
-    if (!puesto.disponible) {
-      this.conexionActual = this.conexiones.find((conexion: { puesto: any; }) => conexion.puesto == puesto.url)
-      localStorage.setItem('conexion', JSON.stringify(this.conexionActual))
-    } else {
-      this.conexionActual = {}
-    }
-    setTimeout(() => {
-      this.getConexiones(usuario).subscribe(conexiones => {
-        this.conexiones = conexiones;
-      })
-    }, 1000);
+  consumoTotal(usuario: string): Observable<any> {
+    return this.http.get<any>(this.url+`conexion/consumo_total/?usuario=${usuario}`)
+  }
+
+  gastoTotalMes(usuario:string): Observable<any>{
+    return this.http.get<any>(this.url+`conexion/gasto_total/?usuario=${usuario}&mes${this.mes}`)
+  }
+
+  gastoTotal(usuario:string): Observable<any>{
+    return this.http.get<any>(this.url+`conexion/gasto_total/?usuario=${usuario}`)
   }
 
 }
