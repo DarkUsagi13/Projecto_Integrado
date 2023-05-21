@@ -1,11 +1,10 @@
 <app-plantilla-perfil>
-
   <div class="container-fluid p-5 slide-in-right">
     <div class="d-flex justify-content-center">
       <h2>Agregar un patinete</h2>
     </div>
     <div class="d-flex justify-content-center">
-      <form class="text-center p-5" [formGroup]="formulario" (ngSubmit)="postPatinete()">
+      <form class="text-center p-5" [formGroup]="formulario" (ngSubmit)="registrarPatinete()">
         <div class="col-auto form-floating">
           <input id="marca" class="form-control border-0 border-bottom mt-2 w-100" formControlName="marca" type="text"
                  placeholder="Marca">

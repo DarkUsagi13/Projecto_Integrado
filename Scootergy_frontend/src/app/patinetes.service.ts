@@ -22,7 +22,7 @@ export class PatinetesService {
     return  this.http.get(this.url+`patinete/?usuario=${userId}`);
   }
 
-  postPatinete(patinete: Patinete): Observable<any> {
+  registrarPatinete(patinete: Patinete): Observable<any> {
     return this.http.post<any>(this.url+'patinete/', patinete);
   }
 

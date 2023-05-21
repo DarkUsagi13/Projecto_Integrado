@@ -23,7 +23,7 @@ def _calcular_monto(conexion_id):
 
     # Tarifa combinada
     tarifa_base = Decimal('0.50')  # Tarifa de $0.50 por cada 30 minutos
-    tarifa_consumo = Decimal('0.08')  # Tarifa adicional de $0.08 por kWh
+    tarifa_consumo = Decimal('0.15')  # Tarifa adicional de $0.15 por kWh
 
     consumo_total = consumo_por_hora * Decimal(horas_utilizadas)
     minutos_utilizados = horas_utilizadas * 60
@@ -31,6 +31,13 @@ def _calcular_monto(conexion_id):
     monto_tiempo = tarifa_base * bloques_30min
     monto_combinado = monto_tiempo + (tarifa_consumo * consumo_total)
 
+    # Agregar IVA
+    iva = Decimal('0.21')  # IVA del 21%
+    monto_con_iva = monto_combinado * (1 + iva)
+
+    print(monto_combinado)
+    print(monto_con_iva)
+
     conexion.consumo = consumo_total
-    conexion.monto = monto_combinado.quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
+    conexion.monto = monto_con_iva.quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
     return conexion

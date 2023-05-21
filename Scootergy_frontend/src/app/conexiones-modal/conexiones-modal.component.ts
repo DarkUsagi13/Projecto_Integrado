@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ConexionesService} from "../conexiones.service";
@@ -13,7 +13,7 @@ import {PaypalService} from "../paypal.service";
   templateUrl: './conexiones-modal.component.html',
   styleUrls: ['./conexiones-modal.component.scss']
 })
-export class ConexionesModalComponent {
+export class ConexionesModalComponent implements OnInit, OnDestroy {
 
   crearConexion: any = {};
   conexion: any = {};
@@ -43,37 +43,29 @@ export class ConexionesModalComponent {
       patinetesList: new FormControl('', Validators.required)
     })
 
-    this.id_usuario = this.perfilService.getLoggedInUser()
+    this.id_usuario = this.perfilService.obtenerIdUsuario()
 
     this.perfilService.perfil(this.id_usuario).subscribe(perfil => {
       this.perfil = perfil;
-      // console.log(this.perfil)
     })
     this.conexionesService.getConexionActual(this.id_usuario, this.puesto.id).subscribe(conexion => {
       let conexionId = conexion.id;
-      console.log(conexionId)
       this.conexionesService.calcularMontoConexion(this.id_usuario, conexionId).subscribe(conexionCalculo => {
         this.conexion = conexionCalculo;
-        console.log(conexionCalculo)
       });
     });
 
   }
 
   crearPago() {
-    this.paypalService.crearPago(this.conexion).subscribe(
-      (response: any) => {
-        this.approvalUrl = response.approval_url;
+    this.paypalService.crearPago(this.conexion).subscribe(datos => {
+        this.approvalUrl = datos.approval_url;
         window.location.href = this.approvalUrl;
-      },
-      (error: any) => {
-        console.log(error);
       }
     );
   }
 
   setConexion() {
-    // IMPORTANTE!!! CREAR UNA PÁGINA DE RESUMEN QUE MANDE AL  USUARIO A LA MISMA AL INICIAR CORRECTAMENTE UNA CONEXIÓN
     this.patinete = this.formulario.get('patinetesList')!.value;
     this.crearConexion = new Conexion(
       `http://127.0.0.1:8000/puesto/${this.puesto.id}/`,

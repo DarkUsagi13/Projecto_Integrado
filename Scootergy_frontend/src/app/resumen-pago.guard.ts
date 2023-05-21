@@ -7,6 +7,8 @@ import {Observable} from "rxjs";
 })
 export class ResumenPagoGuard {
 
+
+
   constructor(
     private router: Router,
   ) {
@@ -15,7 +17,6 @@ export class ResumenPagoGuard {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    console.log(localStorage.getItem('resumenPago'))
     if (localStorage.getItem('resumenPago') == 'true') {
       return true;
     }

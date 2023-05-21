@@ -28,7 +28,7 @@ export class DatosPerfilComponent {
   }
 
   ngOnInit() {
-    this.idUsuario = this.perfilService.getLoggedInUser();
+    this.idUsuario = this.perfilService.obtenerIdUsuario();
 
     this.perfilService.perfil(this.idUsuario).subscribe((perfilUsuario: perfilUsuario[]) => {
       this.datosPerfil = perfilUsuario;

@@ -11,17 +11,16 @@ import {TokenInterceptor} from "./token.interceptor";
 import {RegistroComponent} from './registro/registro.component';
 import {NgOptimizedImage} from "@angular/common";
 import {HomeComponent} from './home/home.component';
-import {GestionPatinetesComponent} from './gestion-patinetes/gestion-patinetes.component';
+import {GestionPatinetesComponent} from './registrar_patinete/gestion-patinetes.component';
 import {DatosPerfilComponent} from './datos-perfil/datos-perfil.component';
-import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgbModule, NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ConexionesModalComponent} from './conexiones-modal/conexiones-modal.component';
 import {PlantillaPerfilComponent} from './plantilla-perfil/plantilla-perfil.component';
-import {NgxPayPalModule} from 'ngx-paypal';
 import {RouterModule} from '@angular/router';
 import {ResumenPagoComponent} from './resumen-pago/resumen-pago.component';
 import { HistorialConexionesComponent } from './historial-conexiones/historial-conexiones.component';
-
+import { ListadoPatinetesComponent } from './listado-patinetes/listado-patinetes.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +36,7 @@ import { HistorialConexionesComponent } from './historial-conexiones/historial-c
     PlantillaPerfilComponent,
     ResumenPagoComponent,
     HistorialConexionesComponent,
+    ListadoPatinetesComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,8 +47,8 @@ import { HistorialConexionesComponent } from './historial-conexiones/historial-c
     NgOptimizedImage,
     NgbModule,
     BrowserAnimationsModule,
-    NgxPayPalModule,
     RouterModule,
+    NgbPaginationModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},

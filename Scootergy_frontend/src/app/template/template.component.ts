@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PerfilService} from "../perfil.service";
 import {Router} from "@angular/router";
 
@@ -7,7 +7,7 @@ import {Router} from "@angular/router";
   templateUrl: './template.component.html',
   styleUrls: ['./template.component.scss']
 })
-export class TemplateComponent {
+export class TemplateComponent implements OnInit {
 
   public usuario: any = {};
 
@@ -17,7 +17,7 @@ export class TemplateComponent {
   ) {}
 
   ngOnInit() {
-    const id = this.perfilService.getLoggedInUser();
+    const id = this.perfilService.obtenerIdUsuario();
     this.perfilService.perfil(id).subscribe(usuario => {
       if (usuario.username) {
         this.usuario = usuario;

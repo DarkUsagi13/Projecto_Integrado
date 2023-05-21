@@ -18,18 +18,14 @@ export class ConexionesService {
     this.mes = new Date().getMonth() + 1;
   }
 
-  getConexionesActivas(userId: string, page: number = 1): Observable<any> {
-    const params = new HttpParams().set('usuario', userId).set('finalizada', 'false').set('page', page.toString());
+  getConexionesActivas(userId: string): Observable<any> {
+    const params = new HttpParams().set('usuario', userId).set('finalizada', 'false');
     return this.http.get(this.url + 'conexion/', { params });
   }
 
-  getConexionesFinalizadas(userId: string, page: number): Observable<any> {
-    const params = new HttpParams().set('usuario', userId).set('finalizada', 'true').set('page', page.toString());
+  getConexionesFinalizadas(userId: string): Observable<any> {
+    const params = new HttpParams().set('usuario', userId).set('finalizada', 'true');
     return this.http.get<any>(this.url+`conexion/`, {params});
-  }
-
-  getConexionesMes(userId: string | null): Observable<any> {
-    return this.http.get(this.url+`conexion/?usuario=${userId}&mes=${this.mes}&finalizada=true`);
   }
 
   postConexion(conexion: any): Observable<any> {
@@ -38,6 +34,11 @@ export class ConexionesService {
 
   getConexionActual(usuario: string, puesto: string): Observable<any>{
     return this.http.get<any>(this.url+`/conexion/conexion_actual/?usuario=${usuario}&puesto=${puesto}`)
+  }
+
+  getConexionPagada(id: string): Observable<any>{
+    const params = new HttpParams().set('id', id);
+    return this.http.get<any>(this.url+`conexion/`, {params});
   }
 
   calcularMontoConexion(usuario: any, id_conexion: any):Observable<any> {

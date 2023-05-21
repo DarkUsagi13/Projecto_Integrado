@@ -10,9 +10,8 @@ import {ConexionesService} from "../conexiones.service";
 
 export class PerfilComponent implements OnInit {
   perfilUsuario: any = {};
-  conexiones: any = {};
   usuarioId: string = "";
-  conexionesMes: any = {};
+  listaUltimasConexiones: any = {};
   consumo_mes: any = {};
   gasto_mes: any = {};
   conexionesOrdenadas: any = {};
@@ -24,7 +23,7 @@ export class PerfilComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.usuarioId = this.perfilService.getLoggedInUser();
+    this.usuarioId = this.perfilService.obtenerIdUsuario();
     this.perfilService.perfil(this.usuarioId).subscribe(perfilUsuario => {
       this.perfilUsuario = perfilUsuario;
     })
@@ -33,28 +32,20 @@ export class PerfilComponent implements OnInit {
       this.consumo_mes = consumo.consumo_total; // Acceder a la propiedad consumo_total
     });
 
-    const totalPages = 100; // Establece el número total de páginas
-    for (let page = 1; page <= totalPages; page++) {
-      this.conexionesService.getConexionesFinalizadas(this.perfilService.getLoggedInUser(), page).subscribe(conexiones => {
-        this.conexiones = conexiones;
-      });
-    }
+    this.conexionesService.getConexionesFinalizadas(this.usuarioId).subscribe(conexiones => {
+      // Ordenar conexiones por fecha de conexión en orden descendente
+      conexiones.sort((a: { horaConexion: string | number | Date; }, b: { horaConexion: string | number | Date; }) => new Date(b.horaConexion).getTime() - new Date(a.horaConexion).getTime());
 
-    this.conexionesService.getConexionesMes(this.usuarioId).subscribe(conexiones => {
-      this.conexionesMes = conexiones;
-      this.conexionesOrdenadas = this.conexionesMes.sort((a: { horaConexion: string | number | Date; }, b: { horaConexion: string | number | Date; }) => {
-        // Comparar las propiedades horaConexion de cada elemento
-        const fechaA = new Date(a.horaConexion);
-        const fechaB = new Date(b.horaConexion);
-        return fechaA.getTime() - fechaB.getTime();
-      });
-      // conexionesOrdenadas ahora contiene la lista ordenada por horaConexion
+      // Seleccionar las últimas 5 conexiones
+      this.listaUltimasConexiones = conexiones.slice(0, 5);
+      console.log(this.listaUltimasConexiones)
     });
+
+
 
     this.conexionesService.gastoTotalMes(this.usuarioId).subscribe(gasto_mes => {
       this.gasto_mes = gasto_mes.gasto_total;
     })
-
 
   }
 

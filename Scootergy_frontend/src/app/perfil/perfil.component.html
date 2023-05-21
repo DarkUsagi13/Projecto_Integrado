@@ -13,7 +13,7 @@
       <div class="col-6">
         <h1>Resumen de uso</h1>
         <ul class="list-group list-group-flush rounded-3">
-          <li class="list-group-item">Conexiones este mes: <h4 class="text-center">{{conexionesMes.length}}</h4></li>
+<!--          <li class="list-group-item">Conexiones este mes: <h4 class="text-center">{{conexionesMes.length}}</h4></li>-->
           <li class="list-group-item">Consumo este mes: <h4 class="text-center">{{consumo_mes}}</h4></li>
           <li class="list-group-item">Gastado este mes: <h4 class="text-center">{{gasto_mes}}</h4></li>
         </ul>
@@ -33,8 +33,8 @@
               <th scope="col">Importe</th>
             </tr>
           </thead>
-          <ng-container *ngIf="conexiones.length > 0">
-            <tbody *ngFor="let conexion of conexionesOrdenadas">
+          <ng-container *ngIf="listaUltimasConexiones.length > 0">
+            <tbody *ngFor="let conexion of listaUltimasConexiones">
               <tr>
                   <td>{{conexion.patineteNombre}}</td>
                   <td>{{conexion.consumo}}</td>

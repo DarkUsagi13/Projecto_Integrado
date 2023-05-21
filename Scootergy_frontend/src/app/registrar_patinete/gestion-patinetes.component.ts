@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Router} from '@angular/router';
 import {Patinete} from "../patinete";
@@ -10,7 +10,7 @@ import {PerfilService} from "../perfil.service";
   templateUrl: './gestion-patinetes.component.html',
   styleUrls: ['./gestion-patinetes.component.scss']
 })
-export class GestionPatinetesComponent {
+export class GestionPatinetesComponent implements OnInit {
 
   public idUsuario: string = '';
   public perfil: any;
@@ -31,7 +31,7 @@ export class GestionPatinetesComponent {
   }
 
   ngOnInit() {
-    this.idUsuario = this.perfilService.getLoggedInUser();
+    this.idUsuario = this.perfilService.obtenerIdUsuario();
     this.perfilService.perfil(this.idUsuario).subscribe(perfil => {
       this.perfil = perfil
       this.formulario.patchValue({
@@ -41,8 +41,8 @@ export class GestionPatinetesComponent {
 
   }
 
-  postPatinete() {
-    this.patineteService.postPatinete(this.formulario.value).subscribe(data => {
+  registrarPatinete() {
+    this.patineteService.registrarPatinete(this.formulario.value).subscribe(data => {
     });
     this.patineteService.patinetes(this.idUsuario).subscribe()
     this.router.navigate(['']);

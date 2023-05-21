@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     //Se obtiene el ID del usuario autenticado
-    this.usuario = this.perfilService.getLoggedInUser();
+    this.usuario = this.perfilService.obtenerIdUsuario();
     //Se obtienen los patinetes del usuario autenticado y llama a la función mostrarEstaciones()
     this.patinetesService.patinetes(this.usuario).subscribe((data: Patinete[]) => {
       this.patinetes = data;
@@ -55,7 +55,8 @@ export class HomeComponent implements OnInit {
     });
     //Se obtienen las conexiones activas del usuario autenticado
     this.conexionesService.getConexionesActivas(this.usuario).subscribe(conexiones => {
-      this.conexionesService.conexionesActivas = conexiones.results; // Almacenar los resultados en un array
+      this.conexionesService.conexionesActivas = conexiones; // Almacenar los resultados en un array
+      console.log(conexiones)
     });
 
   }
@@ -114,3 +115,15 @@ export class HomeComponent implements OnInit {
   }
 
 }
+
+const compararPropiedad = (a: any, b: any, propiedad: string | number) => {
+  const valorA = a[propiedad];
+  const valorB = b[propiedad];
+  if (valorA < valorB) {
+    return -1;
+  }
+  if (valorA > valorB) {
+    return 1;
+  }
+  return 0;
+};

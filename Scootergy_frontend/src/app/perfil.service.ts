@@ -12,7 +12,7 @@ export class PerfilService {
   token: any;
   constructor(private http: HttpClient) { }
 
-  getLoggedInUser() {
+  obtenerIdUsuario() {
     const usuario = JSON.parse(localStorage.getItem('userData')!);
     if (usuario) {
       return usuario.id
