@@ -28,6 +28,7 @@
           <th scope="col">Hora de conexión</th>
           <th scope="col">Hora de desconexión</th>
           <th scope="col">Importe</th>
+          <th scope="col">Detalles</th>
         </tr>
         </thead>
         <ng-container *ngIf="conexionesPaginadas.length > 0">
@@ -40,6 +41,11 @@
               <td>{{conexion.horaConexion | date: 'dd/MM/yyyy HH:mm'}}</td>
               <td>{{conexion.horaDesconexion | date: 'dd/MM/yyyy HH:mm'}}</td>
               <td>{{conexion.monto}}€</td>
+              <td class="d-flex justify-content-center align-items-center">
+                <a class="btn btn-link mr-1" title="Detalles de la conexión" [routerLink]="['detalles_conexion/', conexion.id]">
+                  <span class="material-symbols-outlined">page_info</span>
+                </a>
+              </td>
             </ng-container>
           </tr>
           </tbody>

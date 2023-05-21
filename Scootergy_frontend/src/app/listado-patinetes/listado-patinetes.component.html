@@ -3,21 +3,21 @@
     <h1 class="text-center p-5">Tus patinetes</h1>
     <div>
       <div>
-<!--        <form [formGroup]="valoresForm" class="row align-items-center">-->
-<!--          <div class="form-group col-3 p-4">-->
-<!--            <label for="filtros">Filtrar por:</label>-->
-<!--            <select id="filtros" formControlName="filtros" class="form-control" (click)="aplicarFiltroOrdenamiento()">-->
-<!--              <option *ngFor="let valor of filtros | keyvalue" [ngValue]="valor.key">{{valor.value}}</option>-->
-<!--            </select>-->
-<!--          </div>-->
-<!--          <div class="form-group col-2 p-4">-->
-<!--            <label for="orden">Ordenar por:</label>-->
-<!--            <select id="orden" formControlName="orden" class="form-control" (change)="aplicarFiltroOrdenamiento()">-->
-<!--              <option selected>Ascendente</option>-->
-<!--              <option>Descendente</option>-->
-<!--            </select>-->
-<!--          </div>-->
-<!--        </form>-->
+        <!--        <form [formGroup]="valoresForm" class="row align-items-center">-->
+        <!--          <div class="form-group col-3 p-4">-->
+        <!--            <label for="filtros">Filtrar por:</label>-->
+        <!--            <select id="filtros" formControlName="filtros" class="form-control" (click)="aplicarFiltroOrdenamiento()">-->
+        <!--              <option *ngFor="let valor of filtros | keyvalue" [ngValue]="valor.key">{{valor.value}}</option>-->
+        <!--            </select>-->
+        <!--          </div>-->
+        <!--          <div class="form-group col-2 p-4">-->
+        <!--            <label for="orden">Ordenar por:</label>-->
+        <!--            <select id="orden" formControlName="orden" class="form-control" (change)="aplicarFiltroOrdenamiento()">-->
+        <!--              <option selected>Ascendente</option>-->
+        <!--              <option>Descendente</option>-->
+        <!--            </select>-->
+        <!--          </div>-->
+        <!--        </form>-->
       </div>
       <table class="table text-center">
         <thead>
@@ -36,11 +36,17 @@
             <td>{{patinete.marca}}</td>
             <td>{{patinete.modelo}}</td>
             <td>{{patinete.consumo}}</td>
-<!--            <td><i class="fas fa-info-circle"></i>-->
-<!--            </td>-->
-            <td>asd</td>
+            <td class="d-flex justify-content-center align-items-center">
+              <a class="btn btn-link mr-1" [routerLink]="['detalles']">
+                <span class="material-symbols-outlined">page_info</span>
+              </a>
+              <a class="btn btn-link" [routerLink]="['eliminar']">
+                <span class="material-symbols-outlined">delete</span>
+              </a>
+            </td>
           </tr>
           </tbody>
+
         </ng-container>
       </table>
     </div>

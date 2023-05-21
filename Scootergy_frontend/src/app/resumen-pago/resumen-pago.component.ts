@@ -3,6 +3,7 @@ import {ConexionesService} from "../conexiones.service";
 import {PerfilService} from "../perfil.service";
 import {PaypalService} from "../paypal.service";
 import {ActivatedRoute} from "@angular/router";
+import {calcular_tiempo} from "../utils";
 
 @Component({
   selector: 'app-resumen-pago',
@@ -44,7 +45,7 @@ export class ResumenPagoComponent implements OnInit, OnDestroy {
       this.conexionService.getConexionPagada(JSON.parse(c).id).subscribe(conexion => {
           if (conexion) {
             this.conexion = conexion[0];
-            this.tiempoTotal = this.calcular_tiempo(this.conexion)
+            this.tiempoTotal = calcular_tiempo(this.conexion)
           }
         }
       )
@@ -63,18 +64,6 @@ export class ResumenPagoComponent implements OnInit, OnDestroy {
     //   }
     // );
   }
-
-   calcular_tiempo(conexion: any) {
-    const fechaInicio = new Date(conexion.horaConexion);
-    const fechaFin = new Date(conexion.horaDesconexion);
-
-    const diferenciaEnMilisegundos = fechaFin.getTime() - fechaInicio.getTime();
-    const horas = Math.floor(diferenciaEnMilisegundos / 3600000); // 1 hora = 3600000 milisegundos
-    const minutos = Math.floor((diferenciaEnMilisegundos % 3600000) / 60000); // 1 minuto = 60000 milisegundos
-
-    return { horas, minutos };
-  }
-
 
   ngOnDestroy() {
     localStorage.removeItem('conexion')

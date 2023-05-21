@@ -11,6 +11,7 @@ export class TemplateComponent implements OnInit {
 
   public usuario: any = {};
 
+
   constructor(
     private perfilService: PerfilService,
     private router: Router,

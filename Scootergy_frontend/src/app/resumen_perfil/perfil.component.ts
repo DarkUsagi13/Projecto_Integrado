@@ -8,7 +8,7 @@ import {ConexionesService} from "../conexiones.service";
   styleUrls: ['./perfil.component.scss']
 })
 
-export class PerfilComponent implements OnInit {
+export class ResumenPerfilComponent implements OnInit {
   perfilUsuario: any = {};
   usuarioId: string = "";
   listaUltimasConexiones: any = {};

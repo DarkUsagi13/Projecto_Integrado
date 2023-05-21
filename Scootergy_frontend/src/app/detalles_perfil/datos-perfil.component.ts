@@ -8,7 +8,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
   templateUrl: './datos-perfil.component.html',
   styleUrls: ['./datos-perfil.component.scss']
 })
-export class DatosPerfilComponent {
+export class DetallesPerfilComponent {
 
   idUsuario: string = "";
   datosPerfil!: any;

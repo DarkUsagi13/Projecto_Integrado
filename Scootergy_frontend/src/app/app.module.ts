@@ -6,13 +6,13 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TemplateComponent} from './template/template.component';
 import {LoginComponent} from './login/login.component';
-import {PerfilComponent} from './perfil/perfil.component';
+import {ResumenPerfilComponent} from './resumen_perfil/perfil.component';
 import {TokenInterceptor} from "./token.interceptor";
 import {RegistroComponent} from './registro/registro.component';
 import {NgOptimizedImage} from "@angular/common";
 import {HomeComponent} from './home/home.component';
 import {GestionPatinetesComponent} from './registrar_patinete/gestion-patinetes.component';
-import {DatosPerfilComponent} from './datos-perfil/datos-perfil.component';
+import {DetallesPerfilComponent} from './detalles_perfil/datos-perfil.component';
 import {NgbModule, NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ConexionesModalComponent} from './conexiones-modal/conexiones-modal.component';
@@ -21,22 +21,24 @@ import {RouterModule} from '@angular/router';
 import {ResumenPagoComponent} from './resumen-pago/resumen-pago.component';
 import { HistorialConexionesComponent } from './historial-conexiones/historial-conexiones.component';
 import { ListadoPatinetesComponent } from './listado-patinetes/listado-patinetes.component';
+import { DetallesConexionComponent } from './detalles-conexion/detalles-conexion.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TemplateComponent,
     LoginComponent,
-    PerfilComponent,
+    ResumenPerfilComponent,
     RegistroComponent,
     HomeComponent,
     GestionPatinetesComponent,
-    DatosPerfilComponent,
+    DetallesPerfilComponent,
     ConexionesModalComponent,
     PlantillaPerfilComponent,
     ResumenPagoComponent,
     HistorialConexionesComponent,
     ListadoPatinetesComponent,
+    DetallesConexionComponent,
   ],
   imports: [
     BrowserModule,
