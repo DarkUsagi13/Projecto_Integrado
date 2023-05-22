@@ -73,7 +73,7 @@ class Conexion(models.Model):
     consumo = models.DecimalField(max_digits=10, decimal_places=2)
     horaConexion = models.DateTimeField(auto_now_add=True)
     horaDesconexion = models.DateTimeField(null=True)
-    monto = models.DecimalField(max_digits=10, decimal_places=2)
+    importe = models.DecimalField(max_digits=10, decimal_places=2)
     finalizada = models.BooleanField(default=False)
 
     def __str__(self):

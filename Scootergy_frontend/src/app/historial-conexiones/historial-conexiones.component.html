@@ -6,15 +6,14 @@
         <form [formGroup]="valoresForm" class="row align-items-center">
           <div class="form-group col-3 p-4">
             <label for="filtros">Filtrar por:</label>
-            <select id="filtros" formControlName="filtros" class="form-control" (click)="aplicarFiltroOrdenamiento()">
+            <select id="filtros" formControlName="filtros" class="form-control">
               <option *ngFor="let valor of filtros | keyvalue" [ngValue]="valor.key">{{valor.value}}</option>
             </select>
           </div>
           <div class="form-group col-2 p-4">
             <label for="orden">Ordenar por:</label>
-            <select id="orden" formControlName="orden" class="form-control" (change)="aplicarFiltroOrdenamiento()">
-              <option selected>Ascendente</option>
-              <option>Descendente</option>
+            <select id="orden" formControlName="orden" class="form-control">
+              <option *ngFor="let valor of orden | keyvalue" [ngValue]="valor.key">{{valor.value}}</option>
             </select>
           </div>
         </form>
@@ -22,6 +21,7 @@
       <table class="table text-center">
         <thead>
         <tr>
+          <th scope="col">ID</th>
           <th scope="col">Patinete</th>
           <th scope="col">Estación</th>
           <th scope="col">Consumo</th>
@@ -35,12 +35,13 @@
           <tbody *ngFor="let conexion of conexionesPaginadas">
           <tr>
             <ng-container *ngIf="conexion.finalizada">
+              <td>{{conexion.id}}</td>
               <td>{{conexion.patineteNombre}}</td>
               <td>{{conexion.datosPuesto.datosEstacion.nombre}}, puesto: {{conexion.datosPuesto.id}}</td>
               <td>{{conexion.consumo}}</td>
               <td>{{conexion.horaConexion | date: 'dd/MM/yyyy HH:mm'}}</td>
               <td>{{conexion.horaDesconexion | date: 'dd/MM/yyyy HH:mm'}}</td>
-              <td>{{conexion.monto}}€</td>
+              <td>{{conexion.importe}}€</td>
               <td class="d-flex justify-content-center align-items-center">
                 <a class="btn btn-link mr-1" title="Detalles de la conexión" [routerLink]="['detalles_conexion/', conexion.id]">
                   <span class="material-symbols-outlined">page_info</span>

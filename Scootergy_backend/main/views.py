@@ -20,17 +20,6 @@ from main.utils import _calcular_monto
 
 # Create your views here.
 
-# class Paginacion(PageNumberPagination):
-#     page_size = 10  # Define el número de elementos que se mostrarán por página
-#     page_size_query_param = 'page_size'
-#     max_page_size = 100
-#
-#     def get_paginated_response(self, data):
-#         if self.request.query_params.get('page') == '-1':
-#             return Response(data)
-#         return super().get_paginated_response(data)
-
-
 class UsuarioView(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
@@ -81,9 +70,8 @@ class PatineteView(viewsets.ModelViewSet):
 class ConexionView(viewsets.ModelViewSet):
     serializer_class = ConexionSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
-    ordering_fields = ['id']
+    ordering_fields = ['id', 'patinete', 'puesto', 'consumo', 'horaConexion', 'horaDesconexion', 'importe']
     filterset_fields = ['id', 'usuario', 'puesto', 'finalizada']
-    # pagination_class = Paginacion
 
     @action(detail=False, methods=['get'])
     def conexion_actual(self, request):
@@ -121,8 +109,6 @@ class ConexionView(viewsets.ModelViewSet):
         consumo_total = sum(conexion.consumo for conexion in conexiones)
         data = {'consumo_total': consumo_total}
         return Response(data)
-
-
 
     def get_queryset(self):
         queryset = Conexion.objects.all()

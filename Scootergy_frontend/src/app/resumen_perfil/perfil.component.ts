@@ -32,7 +32,7 @@ export class ResumenPerfilComponent implements OnInit {
       this.consumo_mes = consumo.consumo_total; // Acceder a la propiedad consumo_total
     });
 
-    this.conexionesService.getConexionesFinalizadas(this.usuarioId).subscribe(conexiones => {
+    this.conexionesService.getConexionesFinalizadas(this.usuarioId, '', '').subscribe(conexiones => {
       // Ordenar conexiones por fecha de conexión en orden descendente
       conexiones.sort((a: { horaConexion: string | number | Date; }, b: { horaConexion: string | number | Date; }) => new Date(b.horaConexion).getTime() - new Date(a.horaConexion).getTime());
 

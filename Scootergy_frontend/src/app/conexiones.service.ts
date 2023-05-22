@@ -23,8 +23,11 @@ export class ConexionesService {
     return this.http.get(this.url + 'conexion/', { params });
   }
 
-  getConexionesFinalizadas(userId: string): Observable<any> {
-    const params = new HttpParams().set('usuario', userId).set('finalizada', 'true');
+  getConexionesFinalizadas(userId: string, orden: string, propiedad: string): Observable<any> {
+    // console.log(propiedad)
+    // console.log(orden)
+    const params = new HttpParams().set('usuario', userId).set('finalizada', 'true').set('ordering', orden+propiedad);
+    console.log(this.url + `conexion/` + params)
     return this.http.get<any>(this.url+`conexion/`, {params});
   }
 

@@ -15,3 +15,4 @@ export function calcular_tiempo(conexion: any) {
 
   return { horas, minutos };
 }
+
