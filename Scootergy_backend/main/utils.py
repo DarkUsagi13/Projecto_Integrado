@@ -1,10 +1,12 @@
 import math
 
 from _decimal import ROUND_HALF_UP
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
 from django.utils import timezone
 from rest_framework.generics import get_object_or_404
 
-from main.models import Conexion
+from main.models import Conexion, Puesto
 from decimal import Decimal
 
 
@@ -16,7 +18,7 @@ def _calcular_horas_utilizadas(conexion):
     return horas_utilizadas
 
 
-def _calcular_monto(conexion_id):
+def _calcular_importe(conexion_id):
     conexion = get_object_or_404(Conexion, id=conexion_id)
     consumo_por_hora = conexion.patinete.consumo
     horas_utilizadas = _calcular_horas_utilizadas(conexion)
@@ -28,16 +30,13 @@ def _calcular_monto(conexion_id):
     consumo_total = consumo_por_hora * Decimal(horas_utilizadas)
     minutos_utilizados = horas_utilizadas * 60
     bloques_30min = math.ceil(minutos_utilizados / 30)  # Cálculo de bloques de 30 minutos redondeando hacia arriba
-    monto_tiempo = tarifa_base * bloques_30min
-    monto_combinado = monto_tiempo + (tarifa_consumo * consumo_total)
+    importe_tiempo = tarifa_base * bloques_30min
+    importe_combinado = importe_tiempo + (tarifa_consumo * consumo_total)
 
     # Agregar IVA
     iva = Decimal('0.21')  # IVA del 21%
-    monto_con_iva = monto_combinado * (1 + iva)
-
-    print(monto_combinado)
-    print(monto_con_iva)
+    importe_con_iva = importe_combinado * (1 + iva)
 
     conexion.consumo = consumo_total
-    conexion.monto = monto_con_iva.quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
+    conexion.importe = importe_con_iva.quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
     return conexion

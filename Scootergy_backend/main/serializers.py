@@ -1,4 +1,6 @@
 import string
+import re
+
 
 from rest_framework import serializers
 
@@ -27,8 +29,10 @@ class RegistroSerializer(serializers.ModelSerializer):
         extra_kwargs = {"password": {"write_only": True}}
 
     def validate_username(self, value):
-        if len(value) < 5:
-            raise serializers.ValidationError("El nombre de usuario debe contener al menos 5 caracteres.")
+        if not re.match(r'^[a-zA-Z0-9_.-]{5,16}$', value):
+            raise serializers.ValidationError(
+                "El nombre de usuario debe contener entre 5 y 16 caracteres y solo puede incluir letras, números, "
+                "guiones bajos, puntos y guiones.")
         return value
 
     def create(self, validated_data):
@@ -37,8 +41,6 @@ class RegistroSerializer(serializers.ModelSerializer):
     def validate_password(self, value):
         if len(value) < 8:
             raise serializers.ValidationError("La contraseña debe tener al menos 8 caracteres.")
-        if len(value) < 1:
-            raise serializers.ValidationError("La contraseña no puede estar vacía")
         if not any(char.isupper() for char in value):
             raise serializers.ValidationError("La contraseña debe contener al menos una letra mayúscula.")
         if not any(char.islower() for char in value):
@@ -61,6 +63,7 @@ class EstacionSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class PuestoSerializer(serializers.HyperlinkedModelSerializer):
+    # puesto = serializers.CharField(source='puesto', read_only=True)
     datosEstacion = EstacionSerializer(source='estacion', read_only=True)
 
     class Meta:
@@ -122,7 +125,7 @@ class PagoSerializer(serializers.HyperlinkedModelSerializer):
             'id',
             'usuario',
             'conexion',
-            'monto',
+            'importe',
             'moneda',
             'fecha',
             'id_transaccion_paypal'

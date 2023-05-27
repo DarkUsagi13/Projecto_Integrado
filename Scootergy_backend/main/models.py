@@ -24,7 +24,6 @@ class Provincia(models.Model):
 
 
 class Usuario(AbstractUser):
-    esAdmin = models.BooleanField(default=False)
 
     @receiver(post_save, sender=settings.AUTH_USER_MODEL)
     def create_auth_token(sender, instance=None, created=False, **kwargs):
@@ -83,7 +82,7 @@ class Conexion(models.Model):
 class Pago(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.RESTRICT)
     conexion = models.ForeignKey(Conexion, on_delete=models.RESTRICT)
-    monto = models.DecimalField(max_digits=10, decimal_places=2)
+    importe = models.DecimalField(max_digits=10, decimal_places=2)
     moneda = models.CharField(max_length=3)
     fecha = models.DateTimeField(null=True)
     id_transaccion_paypal = models.CharField(max_length=100)

@@ -7,15 +7,15 @@ from rest_framework import viewsets, status, filters
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.decorators import action
 from rest_framework.generics import GenericAPIView, get_object_or_404
-from rest_framework.pagination import PageNumberPagination
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.db.models.functions import ExtractMonth
 
+from main.permissions import IsOwnerOrReadOnly
 from main.serializers import *
-from main.utils import _calcular_monto
+from main.utils import _calcular_importe
 
 
 # Create your views here.
@@ -23,6 +23,9 @@ from main.utils import _calcular_monto
 class UsuarioView(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['username']
+    ordering_fields = ['id', 'username', 'date_joined']
 
     def update(self, request, *args, **kwargs):
         # Obtener el usuario que se va a actualizar
@@ -53,23 +56,20 @@ class PuestoView(viewsets.ModelViewSet):
     ordering_fields = ['id', 'estacion__nombre']
     filterset_fields = ['estacion']
 
-    def perform_create(self, serializer):
-        print("holaaa")
-        if 'disponible' in serializer.validated_data and not serializer.validated_data['disponible']:
-            raise serializers.ValidationError("El puesto no está disponible")
-        super().perform_create(serializer)
-
 
 class PatineteView(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     queryset = Patinete.objects.all()
     serializer_class = PatineteSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['usuario']
+    filterset_fields = ['usuario', 'id']
 
 
 class ConexionView(viewsets.ModelViewSet):
     serializer_class = ConexionSerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
+    search_fields = ['id', 'patinete__marca', 'patinete__modelo', 'puesto__id', 'puesto__estacion__nombre', 'consumo',
+                     'horaConexion', 'horaDesconexion', 'importe']
     ordering_fields = ['id', 'patinete', 'puesto', 'consumo', 'horaConexion', 'horaDesconexion', 'importe']
     filterset_fields = ['id', 'usuario', 'puesto', 'finalizada']
 
@@ -88,9 +88,9 @@ class ConexionView(viewsets.ModelViewSet):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     @action(detail=False, methods=['get'])
-    def calcular_monto(self, request):
+    def calcular_importe(self, request):
         conexion_id = self.request.query_params.get('id')
-        conexion = _calcular_monto(conexion_id)
+        conexion = _calcular_importe(conexion_id)
         serializer = self.get_serializer(conexion)
         return Response(serializer.data)
 
@@ -98,7 +98,7 @@ class ConexionView(viewsets.ModelViewSet):
     def gasto_total(self, request):
         usuario_id = self.request.query_params.get('usuario')
         conexiones = Conexion.objects.filter(usuario=usuario_id, finalizada=True)
-        gasto_total = sum(conexion.monto for conexion in conexiones)
+        gasto_total = sum(conexion.importe for conexion in conexiones)
         data = {'gasto_total': gasto_total}
         return Response(data)
 
@@ -146,7 +146,6 @@ class LoginView(ObtainAuthToken):
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
         token = Token.objects.get(user=user)
-        print(token.key + ", " + user.username)
         return Response({
             'token': token.key,
             'id': user.pk,
@@ -193,7 +192,7 @@ class CreatePaymentView(APIView):
 
         # Actualizar objeto de conexión si no está finalizada
         if not conexion.finalizada:
-            conexion = _calcular_monto(conexion_id)
+            conexion = _calcular_importe(conexion_id)
             conexion.save()
 
         # Crear objeto Order con la información del pago
@@ -203,7 +202,7 @@ class CreatePaymentView(APIView):
                 {
                     "amount": {
                         "currency_code": "EUR",
-                        "value": str(conexion.monto),
+                        "value": str(conexion.importe),
                     }
                 }
             ],
@@ -233,7 +232,7 @@ class CreatePaymentView(APIView):
             pago = Pago(
                 usuario=conexion.usuario,
                 conexion=conexion,
-                monto=conexion.monto,
+                importe=conexion.importe,
                 id_transaccion_paypal=order['id']
             )
             pago.save()
@@ -267,6 +266,10 @@ class CapturePaymentView(APIView):
             # Capturar el pago en PayPal
             response = requests.post(capture_url, json={"payer_id": payer_id}, headers=headers)
             if response.status_code == 201:
+                # Actualizar objeto de pago
+                pago.capturado = True
+                pago.save()
+
                 # Actualizar objeto de conexión y puesto
                 conexion = get_object_or_404(Conexion, id=pago.conexion.id)
                 conexion.horaDesconexion = timezone.now()
