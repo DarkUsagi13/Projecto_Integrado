@@ -12,11 +12,13 @@ import {calcular_tiempo} from "../utils";
 })
 export class ResumenPagoComponent implements OnInit, OnDestroy {
 
+  public conexion_id: any;
   public conexion: any = {};
   public perfil: any;
   public paymentId: any;
   public payerId: any;
   public tiempoTotal: any;
+  public success: boolean = false;
 
   constructor(
     private perfilService: PerfilService,
@@ -40,29 +42,22 @@ export class ResumenPagoComponent implements OnInit, OnDestroy {
       this.capturarPago(this.paymentId, this.payerId)
     });
 
-    const c = localStorage.getItem('conexion')
-    if (c) {
-      this.conexionService.getConexionPagada(JSON.parse(c).id).subscribe(conexion => {
-          if (conexion) {
-            this.conexion = conexion[0];
-            this.tiempoTotal = calcular_tiempo(this.conexion)
-          }
-        }
-      )
-    }
-
+    this.conexion_id = localStorage.getItem('conexion')
   }
 
   capturarPago(pagoId: any, payerId: string) {
-    this.paypalService.capturarPago(pagoId, payerId).subscribe();
-    // this.paypalService.capturarPago(pagoId, payerId).subscribe(
-    //   (response: any) => {
-    //     console.log(response);
-    //   },
-    //   (error: any) => {
-    //     console.log(error);
-    //   }
-    // );
+    this.paypalService.capturarPago(pagoId, payerId).subscribe(response => {
+      this.success = response.success
+      if (this.success) {
+        this.conexionService.getConexionPagada(this.conexion_id).subscribe(conexion => {
+            if (conexion) {
+              this.conexion = conexion[0];
+              this.tiempoTotal = calcular_tiempo(this.conexion)
+            }
+          }
+        )
+      }
+    });
   }
 
   ngOnDestroy() {

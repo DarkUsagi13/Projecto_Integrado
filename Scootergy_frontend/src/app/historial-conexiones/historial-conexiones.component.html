@@ -1,21 +1,31 @@
 <app-plantilla-perfil>
-  <div class="container slide-in-right">
+  <div class="container-fluid slide-in-top">
     <h1 class="text-center p-5">Historial de conexiones</h1>
     <div>
       <div>
-        <form [formGroup]="valoresForm" class="row align-items-center">
-          <div class="form-group col-3 p-4">
-            <label for="filtros">Filtrar por:</label>
-            <select id="filtros" formControlName="filtros" class="form-control">
-              <option *ngFor="let valor of filtros | keyvalue" [ngValue]="valor.key">{{valor.value}}</option>
-            </select>
-          </div>
-          <div class="form-group col-2 p-4">
-            <label for="orden">Ordenar por:</label>
-            <select id="orden" formControlName="orden" class="form-control">
-              <option *ngFor="let valor of orden | keyvalue" [ngValue]="valor.key">{{valor.value}}</option>
-            </select>
-          </div>
+        <form [formGroup]="formularioBusquedas">
+          <mat-form-field class="p-3" appearance="fill">
+            <mat-label>Buscar</mat-label>
+            <input formControlName="barraBusqueda" type="search" matInput placeholder="Buscar" aria-label="Search" />
+          </mat-form-field>
+
+          <mat-form-field class="p-3" appearance="fill">
+            <mat-label>Filtrar por:</mat-label>
+            <mat-select formControlName="filtroBusqueda">
+              <mat-option *ngFor="let valor of filtroBusqueda | keyvalue" [value]="valor.key">
+                {{ valor.value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="p-3" appearance="fill">
+            <mat-label>Ordenar por:</mat-label>
+            <mat-select formControlName="ordenBusqueda">
+              <mat-option *ngFor="let valor of ordenBusqueda | keyvalue" [value]="valor.key">
+                {{ valor.value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </form>
       </div>
       <table class="table text-center">
@@ -34,31 +44,30 @@
         <ng-container *ngIf="conexionesPaginadas.length > 0">
           <tbody *ngFor="let conexion of conexionesPaginadas">
           <tr>
-            <ng-container *ngIf="conexion.finalizada">
-              <td>{{conexion.id}}</td>
-              <td>{{conexion.patineteNombre}}</td>
-              <td>{{conexion.datosPuesto.datosEstacion.nombre}}, puesto: {{conexion.datosPuesto.id}}</td>
-              <td>{{conexion.consumo}}</td>
-              <td>{{conexion.horaConexion | date: 'dd/MM/yyyy HH:mm'}}</td>
-              <td>{{conexion.horaDesconexion | date: 'dd/MM/yyyy HH:mm'}}</td>
-              <td>{{conexion.importe}}€</td>
-              <td class="d-flex justify-content-center align-items-center">
-                <a class="btn btn-link mr-1" title="Detalles de la conexión" [routerLink]="['detalles_conexion/', conexion.id]">
-                  <span class="material-symbols-outlined">page_info</span>
-                </a>
-              </td>
-            </ng-container>
+            <td>{{conexion.id}}</td>
+            <td>{{conexion.patineteNombre}}</td>
+            <td>{{conexion.datosPuesto.datosEstacion.nombre}}, puesto: {{conexion.datosPuesto.id}}</td>
+            <td>{{conexion.consumo}}</td>
+            <td>{{conexion.horaConexion | date: 'dd/MM/yyyy HH:mm'}}</td>
+            <td>{{conexion.horaDesconexion | date: 'dd/MM/yyyy HH:mm'}}</td>
+            <td>{{conexion.importe}}€</td>
+            <td class="d-flex justify-content-center align-items-center">
+              <a class="btn btn-link mr-1" title="Detalles de la conexión"
+                 [routerLink]="['detalles_conexion/', conexion.id]">
+                <span class="material-symbols-outlined">page_info</span>
+              </a>
+            </td>
           </tr>
           </tbody>
         </ng-container>
       </table>
     </div>
-    <div class="text-center">
+    <div class="text-center d-flex justify-content-center">
       <ngb-pagination
         [(page)]="paginaActual"
         [pageSize]="itemsPorPagina"
         [collectionSize]="totalConexiones"
-        (pageChange)="realizarPaginacion()"
+        (pageChange)="buscarConexionesPersonales()"
       ></ngb-pagination>
     </div>
   </div>

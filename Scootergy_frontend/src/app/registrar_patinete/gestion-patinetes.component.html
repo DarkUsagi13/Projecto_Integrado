@@ -1,29 +1,32 @@
 <app-plantilla-perfil>
-  <div class="container-fluid p-5 slide-in-right">
-    <div class="d-flex justify-content-center">
+  <div class="container-fluid slide-in-top">
+    <mat-card-header class="d-flex justify-content-center p-5">
       <h2>Agregar un patinete</h2>
-    </div>
-    <div class="d-flex justify-content-center">
-      <form class="text-center p-5" [formGroup]="formulario" (ngSubmit)="registrarPatinete()">
-        <div class="col-auto form-floating">
-          <input id="marca" class="form-control border-0 border-bottom mt-2 w-100" formControlName="marca" type="text"
-                 placeholder="Marca">
-          <label for="marca">Marca</label>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="text-center" [formGroup]="formulario" (ngSubmit)="registrarPatinete()">
+        <div class="form-field">
+          <mat-form-field appearance="outline">
+            <mat-label>Marca</mat-label>
+            <input matInput formControlName="marca" type="text" placeholder="Marca">
+          </mat-form-field>
         </div>
-        <div class="col-auto form-floating">
-          <input id="modelo" class="form-control border-0 border-bottom mt-2 w-100" formControlName="modelo" type="text"
-                 placeholder="Modelo">
-          <label for="modelo">Modelo</label>
+        <div class="form-field">
+          <mat-form-field appearance="outline">
+            <mat-label>Modelo</mat-label>
+            <input matInput formControlName="modelo" type="text" placeholder="Modelo">
+          </mat-form-field>
         </div>
-        <div class="col-auto form-floating">
-          <input id="consumo" class="form-control border-0 border-bottom mt-2 w-100" formControlName="consumo"
-                 type="text" placeholder="Consumo">
-          <label for="consumo">Consumo</label>
+        <div class="form-field">
+          <mat-form-field appearance="outline">
+            <mat-label>Consumo</mat-label>
+            <input matInput formControlName="consumo" type="text" placeholder="Consumo">
+          </mat-form-field>
         </div>
-        <div class="p-5">
-          <button class="btn btn-primary">Registrar patinete</button>
+        <div class="text-center mt-3">
+          <button mat-raised-button color="primary">Registrar patinete</button>
         </div>
       </form>
-    </div>
+    </mat-card-content>
   </div>
 </app-plantilla-perfil>

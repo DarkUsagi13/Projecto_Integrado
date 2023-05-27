@@ -9,16 +9,15 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
 <header class="header">
-  <div class="container-fluid mx-0 px-0">
+  <div class="container-fluid mx-0 px-0 ">
     <div class="d-flex align-items-center">
       <div class="col-4">
-        <!--        <a [routerLink]="['/']" class="nav-link">-->
-        <!--          <img ngSrc="assets/Scootergy.png" width="100" height="100" alt="" style="width: 200px; height: 150px;">-->
-        <!--        </a>-->
-        <a [routerLink]="['/']"><h1 class="logo tracking-in-expand">Scootergy</h1></a>
+            <a class="p-5" [routerLink]="['/']">
+              <img src="assets/logo/logo.png" width="300px">
+            </a>
       </div>
       <div class="col-4 d-flex justify-content-center">
-        <h3><a>Bienvenid@ {{usuario.username}}</a></h3>
+        <h3><a>Bienvenid@ {{usuario}}</a></h3>
       </div>
       <div class="col-4 d-flex justify-content-end pe-5">
         <nav class="navbar navbar-expand-lg">
@@ -36,6 +35,9 @@
                   <a class="enlace_main p-2" [routerLink]="['/perfil']">Perfil</a>
                 </li>
                 <li class="nav-item">
+                  <a class="enlace_main p-2" [routerLink]="['/administracion']" href="#">Administración</a>
+                </li>
+                <li>
                   <a class="enlace_main p-2" (click)="logOut()" href="#">Cerrar sesión</a>
                 </li>
               </ul>
@@ -44,10 +46,11 @@
         </nav>
       </div>
     </div>
+    <hr class="mb-4 p-0" style="color: #00CC99; opacity: 1;">
   </div>
+
 </header>
-<hr class="mb-4" style="color: #00CC99; opacity: 1;">
-<main>
+<main class="">
   <div class="container-fluid mx-0 px-0">
     <ng-content>
 
@@ -68,7 +71,7 @@
   </div>
   <div class="col-4">
     Enlaces de interes...
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg">
       <ul class="navbar-nav flex-column">
         <li class="nav-item">
           <a href="" class="nav-link enlace_main" aria-current="page">Contactanos</a>

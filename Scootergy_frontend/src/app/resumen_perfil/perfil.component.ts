@@ -14,7 +14,7 @@ export class ResumenPerfilComponent implements OnInit {
   listaUltimasConexiones: any = {};
   consumo_mes: any = {};
   gasto_mes: any = {};
-  conexionesOrdenadas: any = {};
+  conexiones_mes : any;
 
   constructor(
     private perfilService: PerfilService,
@@ -32,16 +32,11 @@ export class ResumenPerfilComponent implements OnInit {
       this.consumo_mes = consumo.consumo_total; // Acceder a la propiedad consumo_total
     });
 
-    this.conexionesService.getConexionesFinalizadas(this.usuarioId, '', '').subscribe(conexiones => {
-      // Ordenar conexiones por fecha de conexión en orden descendente
-      conexiones.sort((a: { horaConexion: string | number | Date; }, b: { horaConexion: string | number | Date; }) => new Date(b.horaConexion).getTime() - new Date(a.horaConexion).getTime());
-
+    this.conexionesService.getConexionesFinalizadas(this.usuarioId, '-', '').subscribe(conexiones => {
+      this.conexiones_mes = conexiones.length;
       // Seleccionar las últimas 5 conexiones
       this.listaUltimasConexiones = conexiones.slice(0, 5);
-      console.log(this.listaUltimasConexiones)
     });
-
-
 
     this.conexionesService.gastoTotalMes(this.usuarioId).subscribe(gasto_mes => {
       this.gasto_mes = gasto_mes.gasto_total;

@@ -22,6 +22,22 @@ import {ResumenPagoComponent} from './resumen-pago/resumen-pago.component';
 import { HistorialConexionesComponent } from './historial-conexiones/historial-conexiones.component';
 import { ListadoPatinetesComponent } from './listado-patinetes/listado-patinetes.component';
 import { DetallesConexionComponent } from './detalles-conexion/detalles-conexion.component';
+import {MatInputModule} from "@angular/material/input";
+import {MatSelectModule} from "@angular/material/select";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
+import {MatTableModule} from "@angular/material/table";
+import {MatCardModule} from "@angular/material/card";
+import {MatListModule} from "@angular/material/list";
+import {MatLineModule} from "@angular/material/core";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import { ConfirmarBorrarModalComponent } from './confirmar-borrar-modal/confirmar-borrar-modal.component';
+import { ConfirmarPagoModalComponent } from './confirmar-pago-modal/confirmar-pago-modal.component';
+import { DetallesPatineteComponent } from './detalles-patinete/detalles-patinete.component';
+import { AdministradorComponent } from './administrador/administrador.component';
+import { AdministracionUsuariosComponent } from './administracion-usuarios/administracion-usuarios.component';
+import { PlantillaAdministracionComponent } from './plantilla-administracion/plantilla-administracion.component';
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -39,6 +55,12 @@ import { DetallesConexionComponent } from './detalles-conexion/detalles-conexion
     HistorialConexionesComponent,
     ListadoPatinetesComponent,
     DetallesConexionComponent,
+    ConfirmarBorrarModalComponent,
+    ConfirmarPagoModalComponent,
+    DetallesPatineteComponent,
+    AdministradorComponent,
+    AdministracionUsuariosComponent,
+    PlantillaAdministracionComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +73,16 @@ import { DetallesConexionComponent } from './detalles-conexion/detalles-conexion
     BrowserAnimationsModule,
     RouterModule,
     NgbPaginationModule,
+    MatInputModule,
+    MatSelectModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTableModule,
+    MatCardModule,
+    MatListModule,
+    MatLineModule,
+    MatSidenavModule,
+    MatTooltipModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},

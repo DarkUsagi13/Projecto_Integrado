@@ -1,105 +1,109 @@
 <app-template>
-  <ng-container *ngIf="conexion">
-    <section class="h-100 gradient-custom">
-      <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-          <div class="col-lg-10 col-xl-8">
-            <div class="card" style="border-radius: 10px;">
-              <div class="card-header px-4 py-5">
-                <h5 class="text-muted mb-0">Gracias por utilizar nuestro servicio, <strong>{{ perfil }}</strong>!
-                </h5>
-              </div>
-              <div class="card-body p-4">
-                <div class="">
-                  <p class="lead fw-normal mb-0">Recibo</p>
+    <section class="min-h-100 gradient-custom d-flex justify-content-center align-content-center">
+      <ng-container *ngIf="!success; else mostrarDatos">
+        <div class="loading-container d-flex justify-content-center align-content-center">
+          <div class="loading"></div>
+          <div id="loading-text">Cargando...</div>
+        </div>
+      </ng-container>
+      <ng-template #mostrarDatos>
+        <div class="container py-5 h-100" [class.slide-in-top]="success">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-10 col-xl-8">
+
+              <div class="card" style="border-radius: 10px;">
+                <div class="card-header px-4 py-5">
+                  <h5 class="text-muted mb-0">Gracias por utilizar nuestro servicio, <strong>{{ perfil }}</strong>!
+                  </h5>
                 </div>
-                <div class="card shadow-0 border mb-4">
-                  <div class="card-body">
-                    <div class="d-flex">
-                      <div class="p-3">
-                        Identificador de la conexión:
+                <div class="card-body p-4">
+                  <div class="">
+                    <p class="lead fw-normal mb-0">Recibo</p>
+                  </div>
+                  <div class="card shadow-0 border mb-4">
+                    <div class="card-body">
+                      <div class="d-flex">
+                        <div class="p-3">
+                          Identificador de la conexión:
+                        </div>
+                        <div class="p-3">
+                          {{conexion?.id}}
+                        </div>
                       </div>
-                      <div class="p-3">
-                        {{conexion?.id}}
+                      <div class="d-flex">
+                        <div class="p-3">
+                          Patinete:
+                        </div>
+                        <div class="p-3">
+                          {{conexion?.datosPatinete?.marca}}, {{conexion.datosPatinete?.modelo}}
+                        </div>
                       </div>
+                      <div class="d-flex">
+                        <div class="p-3">
+                          ID Puesto / Estación:
+                        </div>
+                        <div class="p-3">
+                          {{conexion.datosPuesto?.id}}, {{conexion.datosPuesto?.datosEstacion?.nombre}}
+                        </div>
+                      </div>
+                      <div class="d-flex">
+                        <div class="p-3">
+                          Consumo:
+                        </div>
+                        <div class="p-3">
+                          {{conexion?.consumo}}
+                        </div>
+                      </div>
+                      <div class="d-flex">
+                        <div class="p-3">
+                          Hora de conexión:
+                        </div>
+                        <div class="p-3">
+                          {{conexion?.horaConexion | date: 'dd/MM/yyyy HH:mm' }}
+                        </div>
+                      </div>
+                      <div class="d-flex">
+                        <div class="p-3">
+                          Hora de desconexión:
+                        </div>
+                        <div class="p-3">
+                          {{conexion?.horaDesconexion | date: 'dd/MM/yyyy HH:mm' }}
+                        </div>
+                      </div>
+                      <div class="d-flex">
+                        <div class="p-3">
+                          Tiempo de conexión total:
+                        </div>
+                        <div class="p-3">
+                          {{tiempoTotal?.horas}}:{{tiempoTotal?.minutos}}
+                        </div>
+                      </div>
+                      <div class="d-flex">
+                        <div class="p-3">
+                          Monto:
+                        </div>
+                        <div class="p-3">
+                          {{conexion.importe}}€
+                        </div>
+                      </div>
+                      <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
                     </div>
-                    <div class="d-flex">
-                      <div class="p-3">
-                        Patinete:
-                      </div>
-                      <div class="p-3">
-                        {{conexion?.datosPatinete?.marca}}, {{conexion.datosPatinete?.modelo}}
-                      </div>
-                    </div>
-                    <div class="d-flex">
-                      <div class="p-3">
-                        ID Puesto / Estación:
-                      </div>
-                      <div class="p-3">
-                        {{conexion.datosPuesto?.id}}, {{conexion.datosPuesto?.datosEstacion?.nombre}}
-                      </div>
-                    </div>
-                    <div class="d-flex">
-                      <div class="p-3">
-                        Consumo:
-                      </div>
-                      <div class="p-3">
-                        {{conexion?.consumo}}
-                      </div>
-                    </div>
-                    <div class="d-flex">
-                      <div class="p-3">
-                        Hora de conexión:
-                      </div>
-                      <div class="p-3">
-                        {{conexion?.horaConexion | date: 'dd/MM/yyyy HH:mm' }}
-                      </div>
-                    </div>
-                    <div class="d-flex">
-                      <div class="p-3">
-                        Hora de desconexión:
-                      </div>
-                      <div class="p-3">
-                        {{conexion?.horaDesconexion | date: 'dd/MM/yyyy HH:mm' }}
-                      </div>
-                    </div>
-                    <div class="d-flex">
-                      <div class="p-3">
-                        Tiempo de conexión total:
-                      </div>
-                      <div class="p-3">
-                        {{tiempoTotal?.horas}}:{{tiempoTotal?.minutos}}
-                      </div>
-                    </div>
-                    <div class="d-flex">
-                      <div class="p-3">
-                        Monto:
-                      </div>
-                      <div class="p-3">
-                        {{conexion.monto}}€
-                      </div>
-                    </div>
-                    <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
+                  </div>
+                  <div class="d-flex justify-content-between pt-2">
+                    <p class="fw-bold mb-0">IVA</p>
+                    <p class="text-muted mb-0"><span
+                      class="fw-bold me-4"></span>{{ (conexion.importe * 0.21) | number:'1.2-2' }}€</p>
                   </div>
                 </div>
-                <div class="d-flex justify-content-between pt-2">
-                  <p class="fw-bold mb-0">IVA</p>
-                  <p class="text-muted mb-0"><span
-                    class="fw-bold me-4"></span>{{ (conexion.monto * 0.21) | number:'1.2-2' }}€</p>
+                <div class="card-footer bg-dark border-0 px-4 py-5">
+                  <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">
+                    Total pagado <span class="h2 mb-0 ms-2">{{conexion.importe}}€</span></h5>
                 </div>
               </div>
-              <div class="card-footer bg-dark border-0 px-4 py-5">
-                <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">
-                  Total pagado <span class="h2 mb-0 ms-2">{{conexion.monto}}€</span></h5>
-              </div>
-            </div>
-            <div class="p-3 d-flex justify-content-center">
-              <a [routerLink]="['']" class="enlace_main p-2">Página principal</a>
-              <a [routerLink]="['/perfil/historial_conexiones']" class="enlace_main p-2">Ver historial de conexiones</a>
             </div>
           </div>
         </div>
-      </div>
+      </ng-template>
+
     </section>
-  </ng-container>
 </app-template>

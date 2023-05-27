@@ -1,0 +1,66 @@
+<app-plantilla-administracion>
+  <div class="container-fluid slide-in-top">
+    <form [formGroup]="formularioBusquedas">
+      <mat-form-field class="p-3" appearance="fill">
+        <mat-label>Buscar</mat-label>
+        <input formControlName="barraBusqueda" type="search" matInput placeholder="Buscar" aria-label="Search"/>
+      </mat-form-field>
+
+      <mat-form-field class="p-3" appearance="fill">
+        <mat-label>Filtrar por:</mat-label>
+        <mat-select formControlName="filtroBusqueda">
+          <mat-option *ngFor="let valor of filtroBusqueda | keyvalue" [value]="valor.key">
+            {{ valor.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="p-3" appearance="fill">
+        <mat-label>Ordenar por:</mat-label>
+        <mat-select formControlName="ordenBusqueda">
+          <mat-option *ngFor="let valor of ordenBusqueda | keyvalue" [value]="valor.key">
+            {{ valor.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+    <div>
+      <table class="table text-center">
+        <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Nombre de usuario</th>
+          <th scope="col">Correo</th>
+          <th scope="col">Fecha de alta</th>
+          <th scope="col">Staff</th>
+          <th scope="col" colspan="2">Acciones</th>
+        </tr>
+        </thead>
+        <ng-container *ngIf="usuarios.length > 0">
+          <tbody *ngFor="let usuario of usuarios">
+          <tr>
+            <td>{{usuario.id}}</td>
+            <td>{{usuario.username}}</td>
+            <td>{{usuario.email}}</td>
+            <td>{{usuario.date_joined | date: 'dd/MM/yyyy HH:mm'}}</td>
+            <ng-container *ngIf="usuario.is_staff; else noStaff">
+              <td>Sí</td>
+            </ng-container>
+            <ng-template #noStaff>
+              <td>No</td>
+            </ng-template>
+            <td class="d-flex justify-content-center align-items-center">
+              <a class="btn btn-link mr-1" [routerLink]="['/administración/usuarios/detalles_usuario', usuario.id]">
+                <span class="material-symbols-outlined">page_info</span>
+              </a>
+<!--              <a class="btn btn-link" (click)="open(patinete)">-->
+<!--                <span class="material-symbols-outlined">delete</span>-->
+<!--              </a>-->
+            </td>
+          </tr>
+          </tbody>
+        </ng-container>
+      </table>
+    </div>
+  </div>
+</app-plantilla-administracion>

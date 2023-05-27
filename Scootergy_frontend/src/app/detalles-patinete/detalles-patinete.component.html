@@ -1,26 +1,26 @@
 <app-plantilla-perfil>
   <div class="container-fluid slide-in-top">
     <mat-card-header class="d-flex justify-content-center p-5">
-      <h2>Datos personales</h2>
+      <h2>Detalles Patinete</h2>
     </mat-card-header>
     <mat-card-content>
-      <form class="text-center" [formGroup]="formulario" (ngSubmit)="putPerfil()">
+      <form class="text-center" [formGroup]="formulario" (ngSubmit)="putPatinete()">
         <div class="form-field">
           <mat-form-field appearance="outline">
-            <mat-label>Nombre de usuario</mat-label>
-            <input matInput formControlName="username" type="text" placeholder="Nombre de usuario">
+            <mat-label>Marca</mat-label>
+            <input matInput formControlName="marca" type="text" placeholder="Nombre de usuario">
           </mat-form-field>
         </div>
         <div class="form-field">
           <mat-form-field appearance="outline">
-            <mat-label>Correo</mat-label>
-            <input matInput formControlName="email" type="email" placeholder="Correo">
+            <mat-label>Modelo</mat-label>
+            <input matInput formControlName="modelo" type="text" placeholder="Correo">
           </mat-form-field>
         </div>
         <div class="form-field">
           <mat-form-field appearance="outline">
-            <mat-label>Contraseña</mat-label>
-            <input matInput formControlName="password" type="password" placeholder="Contraseña">
+            <mat-label>Consumo</mat-label>
+            <input matInput formControlName="consumo" type="number" placeholder="Contraseña">
           </mat-form-field>
         </div>
         <div class="text-center mt-3">
@@ -29,5 +29,4 @@
       </form>
     </mat-card-content>
   </div>
-
 </app-plantilla-perfil>

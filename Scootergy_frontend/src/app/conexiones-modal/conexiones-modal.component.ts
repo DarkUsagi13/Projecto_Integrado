@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ConexionesService} from "../conexiones.service";
 import {Conexion} from "../conexion";
@@ -7,6 +7,7 @@ import {EstacionesService} from "../estaciones.service";
 import {PerfilService} from "../perfil.service";
 import {PatinetesService} from "../patinetes.service";
 import {PaypalService} from "../paypal.service";
+import {ConfirmarPagoModalComponent} from "../confirmar-pago-modal/confirmar-pago-modal.component";
 
 @Component({
   selector: 'app-conexiones-modal',
@@ -25,6 +26,8 @@ export class ConexionesModalComponent implements OnInit, OnDestroy {
   @Input() patinetesList: any;
   @Input() estacion: any;
   approvalUrl: any;
+  confirmarPago: boolean = false;
+  cargarDatos: boolean = false;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -34,6 +37,7 @@ export class ConexionesModalComponent implements OnInit, OnDestroy {
     private perfilService: PerfilService,
     private patineteService: PatinetesService,
     private paypalService: PaypalService,
+    private modalService: NgbModal,
   ) {
 
   }
@@ -45,22 +49,30 @@ export class ConexionesModalComponent implements OnInit, OnDestroy {
 
     this.id_usuario = this.perfilService.obtenerIdUsuario()
 
-    this.perfilService.perfil(this.id_usuario).subscribe(perfil => {
-      this.perfil = perfil;
-    })
-    this.conexionesService.getConexionActual(this.id_usuario, this.puesto.id).subscribe(conexion => {
-      let conexionId = conexion.id;
-      this.conexionesService.calcularMontoConexion(this.id_usuario, conexionId).subscribe(conexionCalculo => {
-        this.conexion = conexionCalculo;
+    if (!this.puesto.disponible) {
+      this.conexionesService.getConexionActual(this.id_usuario, this.puesto.id).subscribe(conexion => {
+        console.log(conexion)
+        if (conexion.status == 200) {
+          let conexionId = conexion.body.id;
+          localStorage.setItem('conexion', conexionId)
+          this.conexionesService.calcularImporteConexion(this.id_usuario, conexionId).subscribe(conexionCalculo => {
+            if (conexionCalculo.status == 200) {
+              this.conexion = conexionCalculo.body;
+              setTimeout(() => {
+                this.cargarDatos = true;
+              }, 500)
+            }
+          });
+        }
       });
-    });
+    }
 
   }
 
   crearPago() {
     this.paypalService.crearPago(this.conexion).subscribe(datos => {
         this.approvalUrl = datos.approval_url;
-        window.location.href = this.approvalUrl;
+        // window.location.href = this.approvalUrl;
       }
     );
   }
@@ -83,8 +95,21 @@ export class ConexionesModalComponent implements OnInit, OnDestroy {
       this.conexionesService.getConexionesActivas(this.id_usuario.id).subscribe(conexiones => {
         this.conexionesService.conexionesActivas = conexiones;
       });
+
+      if (response.status == 201) {
+      }
     });
     this.activeModal.close()
+  }
+
+  open() {
+    const modalRef = this.modalService.open(ConfirmarPagoModalComponent, {centered: true});
+    modalRef.componentInstance.confirmarPago.subscribe((valor: boolean) => {
+      if (valor) {
+        this.confirmarPago = true;
+        this.crearPago()
+      }
+    });
   }
 
   ngOnDestroy() {

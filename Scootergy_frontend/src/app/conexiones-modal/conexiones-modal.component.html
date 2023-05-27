@@ -1,44 +1,81 @@
-<div class="container-fluid">
-  <div class="modal-header">
-    <h4 class="modal-title">Puesto {{puesto.id}}</h4>
-    <button type="button" class="close btn btn-danger" aria-label="Close" (click)="activeModal.dismiss()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
 
-  <ng-container *ngIf="puesto.disponible; else noDisponible">
-    <div class="modal-body">
-      <form [formGroup]="formulario">
-        <div class="form-group">
-          <label for="patinetesList">Seleccione el patinete que quiere cargar:</label>
-          <select id="patinetesList" formControlName="patinetesList" class="form-control mt-3">
-            <option *ngFor="let patinete of patinetesList" [value]="patinete.id">{{ patinete.marca }}
-              , {{patinete.modelo}} </option>
-          </select>
-        </div>
-      </form>
-    </div>
-    <div class="modal-footer d-flex justify-content-center">
-      <button type="button" class="btn btn-success" (click)="setConexion()" [disabled]="formulario.invalid">Conectar
+  <div class="container-fluid">
+    <div class="modal-header">
+      <h4 class="modal-title">Puesto {{puesto.id}}</h4>
+      <button type="button" class="close btn btn-danger" aria-label="Close" (click)="activeModal.dismiss()">
+        <span aria-hidden="true">&times;</span>
       </button>
     </div>
-  </ng-container>
-  <ng-template #noDisponible>
-    <div class="modal-body">
-      <h5 class="text-center">Estás conectado a este puesto:</h5>
-      <p class="fw-bold">Resumen:</p>
-      <div class="ps-5">
-        <p>Estacion: {{puesto.datosEstacion.nombre}}</p>
-        <p>Patinete conectado: {{conexion.datosPatinete?.marca}}, {{conexion.datosPatinete?.modelo}}</p>
-        <p>Día/hora de inicio: {{conexion.horaConexion | date: 'dd/MM/yyyy HH:mm' }}</p>
-        <p>Consumo actual: {{conexion.consumo}}</p>
-        <p>Monto actual: {{conexion.monto}}</p>
+
+    <ng-container *ngIf="puesto.disponible; else noDisponible">
+      <div class="modal-body">
+        <form [formGroup]="formulario">
+          <div class="form-group">
+            <label for="patinetesList">Seleccione el patinete que quiere cargar:</label>
+            <select id="patinetesList" formControlName="patinetesList" class="form-control mt-3">
+              <option *ngFor="let patinete of patinetesList" [value]="patinete.id">{{ patinete.marca }}, {{patinete.modelo}}</option>
+            </select>
+          </div>
+        </form>
       </div>
-      <div class="text-center p-3">
+
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="button" class="btn btn-success" (click)="setConexion()" [disabled]="formulario.invalid">
+          Conectar
+        </button>
       </div>
-    </div>
-    <div class="modal-footer d-flex justify-content-center">
-      <button class="btn btn-primary" (click)="crearPago()">Pagar con paypal</button>
-    </div>
-  </ng-template>
-</div>
+    </ng-container>
+
+    <ng-template #noDisponible>
+      <ng-container *ngIf="cargarDatos; else noCargar">
+        <div class="modal-body">
+          <h5 class="text-center">Estás conectado a este puesto:</h5>
+          <p class="fw-bold">Resumen:</p>
+          <div class="ps-5">
+            <p>Estacion: {{puesto.datosEstacion.nombre}}</p>
+            <p>Patinete conectado: {{conexion.datosPatinete?.marca}}, {{conexion.datosPatinete?.modelo}}</p>
+            <p>Día/hora de inicio: {{conexion.horaConexion | date: 'dd/MM/yyyy HH:mm' }}</p>
+            <p>Consumo actual: {{conexion.consumo}}</p>
+            <p>Monto actual: {{conexion.importe}}</p>
+          </div>
+          <div class="text-center p-3"></div>
+        </div>
+
+        <div class="modal-footer d-flex justify-content-center">
+          <ng-container *ngIf="!confirmarPago; else botonPayPal">
+            <button class="btn btn-primary" (click)="open()">Proceder con el pago</button>
+          </ng-container>
+
+          <ng-template #botonPayPal>
+            <ng-container *ngIf="approvalUrl; else cargando">
+              <div [class.slide-in-top]="approvalUrl">
+                <h6>Puedes realizar el pago a través de PayPal</h6>
+                <div class="payment-buttons p-2">
+                  <a href="{{ approvalUrl }}" class="paypal-button">
+                    <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-large.png" alt="PayPal">
+                  </a>
+                </div>
+              </div>
+            </ng-container>
+
+            <ng-template #cargando>
+              <div class="loading-container d-flex justify-content-center align-content-center">
+                <div class="loading"></div>
+                <div id="loading-text">Cargando...</div>
+              </div>
+            </ng-template>
+          </ng-template>
+        </div>
+      </ng-container>
+
+
+      <ng-template #noCargar>
+        <div class="container-fluid">
+          <div class="loading-container d-flex justify-content-center align-content-center">
+            <div class="loading"></div>
+            <div id="loading-text">Cargando...</div>
+          </div>
+        </div>
+      </ng-template>
+    </ng-template>
+  </div>

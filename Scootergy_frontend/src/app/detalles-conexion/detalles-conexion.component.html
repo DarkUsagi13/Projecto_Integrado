@@ -1,10 +1,15 @@
 <app-plantilla-perfil>
   <ng-container *ngIf="conexion">
-    <div class="container-fluid slide-in-right">
+    <div class="container-fluid slide-in-top">
       <section class="h-100 gradient-custom">
         <div class="container py-5 h-100">
           <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-lg-10 col-xl-8">
+
+              <div class="p-3 d-flex justify-content-center">
+                <a [routerLink]="['']" class="enlace_main p-2">Página principal</a>
+                <a [routerLink]="['/perfil/historial_conexiones']" class="enlace_main p-2">Volver al historial</a>
+              </div>
               <div class="card" style="border-radius: 10px;">
                 <div class="card-header px-4 py-5">
                   <h5 class="text-muted mb-0">Detalles de la conexión:
@@ -74,7 +79,7 @@
                           Monto:
                         </div>
                         <div class="p-3">
-                          {{conexion.monto}}€
+                          {{conexion.importe}}€
                         </div>
                       </div>
                       <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
@@ -83,17 +88,13 @@
                   <div class="d-flex justify-content-between pt-2">
                     <p class="fw-bold mb-0">IVA</p>
                     <p class="text-muted mb-0"><span
-                      class="fw-bold me-4"></span>{{ (conexion.monto * 0.21) | number:'1.2-2' }}€</p>
+                      class="fw-bold me-4"></span>{{ (conexion.importe * 0.21) | number:'1.2-2' }}€</p>
                   </div>
                 </div>
                 <div class="card-footer bg-dark border-0 px-4 py-5">
                   <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">
-                    Total pagado <span class="h2 mb-0 ms-2">{{conexion.monto}}€</span></h5>
+                    Total pagado <span class="h2 mb-0 ms-2">{{conexion.importe}}€</span></h5>
                 </div>
-              </div>
-              <div class="p-3 d-flex justify-content-center">
-                <a [routerLink]="['']" class="enlace_main p-2">Página principal</a>
-                <a [routerLink]="['/perfil/historial_conexiones']" class="enlace_main p-2">Volver al historial</a>
               </div>
             </div>
           </div>

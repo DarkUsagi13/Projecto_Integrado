@@ -114,16 +114,4 @@ export class HomeComponent implements OnInit {
 
   }
 
-}
-
-const compararPropiedad = (a: any, b: any, propiedad: string | number) => {
-  const valorA = a[propiedad];
-  const valorB = b[propiedad];
-  if (valorA < valorB) {
-    return -1;
-  }
-  if (valorA > valorB) {
-    return 1;
-  }
-  return 0;
 };

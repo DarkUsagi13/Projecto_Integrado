@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Patinete} from "./patinete";
 import {url} from "./utils";
 
@@ -22,12 +22,22 @@ export class PatinetesService {
     return  this.http.get(this.url+`patinete/?usuario=${userId}`);
   }
 
+  patinete(patinete_id: string):Observable<any> {
+    const params = new HttpParams().set('id', patinete_id);
+    return this.http.get(this.url+`patinete/`, {params})
+  }
+
   registrarPatinete(patinete: Patinete): Observable<any> {
     return this.http.post<any>(this.url+'patinete/', patinete);
   }
 
-  puttPatinete(patinete: Patinete): Observable<any> {
-    return this.http.put<any>(this.url+'patinete/', patinete);
+  puttPatinete(patinete_id: any, patinete: Patinete): Observable<any> {
+    return this.http.put<any>(this.url+`patinete/${patinete_id}/`, patinete);
+  }
+
+  eliminarPatinete(usuario_id: string, patinete_id: string): Observable<any> {
+    // const params = new HttpParams().set('id', patinete_id);
+    return this.http.delete<any>(this.url+`patinete/${patinete_id}`)
   }
 
 }

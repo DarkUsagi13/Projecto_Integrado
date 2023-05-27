@@ -11,20 +11,15 @@ export class TemplateComponent implements OnInit {
 
   public usuario: any = {};
 
-
   constructor(
     private perfilService: PerfilService,
     private router: Router,
   ) {}
 
   ngOnInit() {
-    const id = this.perfilService.obtenerIdUsuario();
-    this.perfilService.perfil(id).subscribe(usuario => {
-      if (usuario.username) {
-        this.usuario = usuario;
-      } else {
-      }
-    })
+
+    this.usuario = JSON.parse(localStorage.getItem('userData')!).username
+
   }
 
   logOut(): void {

@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { PerfilService } from '../perfil.service';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { realizarPaginacion } from "../../utils/paginar-utils";
 import {ConexionesService} from "../conexiones.service";
-import {PerfilService} from "../perfil.service";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {BusquedasService} from "../busquedas.service";
 
 @Component({
   selector: 'app-historial-conexiones',
@@ -9,83 +11,72 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
   styleUrls: ['./historial-conexiones.component.scss']
 })
 export class HistorialConexionesComponent implements OnInit {
-
   listaConexiones: any[] = [];
-  filtros: any = {};
-  orden: any = {}
-  valoresForm!: FormGroup;
+
+  formularioBusquedas!: FormGroup;
+  valorBusqueda: string = '';
+  filtroBusqueda: any = '';
+  ordenBusqueda: any = '';
+
   conexionesPaginadas: any[] = [];
 
   paginaActual = 1; // Página actual
   itemsPorPagina = 10; // Cantidad de elementos por página
   totalConexiones = 0; // Total de conexiones
 
-  propiedadSeleccionada: string = '';
-  ordenSeleccionado: string = '';
+  propiedadSeleccionada = '';
+  ordenSeleccionado = '';
 
   constructor(
     private perfilService: PerfilService,
     private conexionesService: ConexionesService,
     private fb: FormBuilder,
+    private busquedaService: BusquedasService,
   ) {
-    this.filtros = {
-      'id': 'ID',
-      'patinete': 'Patinete',
-      'puesto': 'Puesto',
-      'consumo': 'Consumo',
-      'horaConexion': 'Hora de conexión',
-      'horaDesconexion': 'Hora de Desconexión',
-      'importe': 'Importe'
+    this.filtroBusqueda = {
+      id: 'ID',
+      patinete: 'Patinete',
+      puesto: 'Puesto',
+      consumo: 'Consumo',
+      horaConexion: 'Hora de conexión',
+      horaDesconexion: 'Hora de Desconexión',
+      importe: 'Importe'
     };
-    this.orden = {
+    this.ordenBusqueda = {
       '': 'Ascendente',
-      '-': 'Descendente',
-    }
-
+      '-': 'Descendente'
+    };
   }
 
   ngOnInit() {
-    this.valoresForm = this.fb.group({
-      filtros: new FormControl(''), // Establece la opción predeterminada como 'Hora de conexión'
-      orden: new FormControl(''),
+    this.formularioBusquedas = this.fb.group({
+      barraBusqueda: new FormControl(''),
+      filtroBusqueda: new FormControl('horaConexion'), // Establece la opción predeterminada como 'Hora de conexión'
+      ordenBusqueda: new FormControl('')
     });
-    this.obtenerConexiones();
+
+    this.propiedadSeleccionada = this.formularioBusquedas.get('filtros')?.value;
+    this.ordenSeleccionado = this.formularioBusquedas.get('orden')?.value;
+
+    this.formularioBusquedas.valueChanges.subscribe(() => {
+      this.propiedadSeleccionada = this.formularioBusquedas.get('filtros')?.value
+      this.ordenSeleccionado = this.formularioBusquedas.get('orden')?.value
+      this.buscarConexionesPersonales()
+    })
+    this.buscarConexionesPersonales();
   }
 
-  obtenerConexiones() {
+  buscarConexionesPersonales() {
     const userId = this.perfilService.obtenerIdUsuario();
-
-    this.conexionesService.getConexionesFinalizadas(userId, this.ordenSeleccionado, this.propiedadSeleccionada).subscribe(conexiones => {
-      this.listaConexiones = conexiones;
-      this.realizarPaginacion();
-
-    })
-
-    this.valoresForm.valueChanges.subscribe(valores => {
-      this.propiedadSeleccionada = valores.filtros;
-      this.ordenSeleccionado = valores.orden
-
-      this.conexionesService.getConexionesFinalizadas(userId, this.ordenSeleccionado, this.propiedadSeleccionada).subscribe(conexiones => {
+    const valor = this.formularioBusquedas.get('barraBusqueda')?.value;
+    const orden = this.formularioBusquedas.get('ordenBusqueda')?.value;
+    const filtro = this.formularioBusquedas.get('filtroBusqueda')?.value;
+    this.busquedaService
+      .buscarConexionesPersonales(userId, valor, orden, filtro)
+      .subscribe(conexiones => {
         this.listaConexiones = conexiones;
         this.totalConexiones = conexiones.length;
-        this.valoresForm.valueChanges.subscribe(valores => {
-          this.propiedadSeleccionada = valores.filtros;
-          this.ordenSeleccionado = valores.orden
-        })
-        this.realizarPaginacion();
+        this.conexionesPaginadas = realizarPaginacion(conexiones, this.paginaActual, this.itemsPorPagina);
       });
-
-    })
   }
-
-  realizarPaginacion() {
-    // Calcula el índice de inicio en función de la página actual y la cantidad de elementos por página
-    const startIndex = (this.paginaActual - 1) * this.itemsPorPagina;
-    // Calcula el índice de fin sumando el índice de inicio y la cantidad de elementos por página
-    const endIndex = startIndex + this.itemsPorPagina;
-
-    // Obtiene una porción de los elementos filtrados utilizando los índices de inicio y fin
-    this.conexionesPaginadas = this.listaConexiones.slice(startIndex, endIndex);
-  }
-
 }
