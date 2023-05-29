@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PerfilService } from '../perfil.service';
+import { UsuariosService } from '../usuarios.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { realizarPaginacion } from "../../utils/paginar-utils";
 import {ConexionesService} from "../conexiones.service";
@@ -28,7 +28,7 @@ export class HistorialConexionesComponent implements OnInit {
   ordenSeleccionado = '';
 
   constructor(
-    private perfilService: PerfilService,
+    private usuariosService: UsuariosService,
     private conexionesService: ConexionesService,
     private fb: FormBuilder,
     private busquedaService: BusquedasService,
@@ -73,7 +73,7 @@ export class HistorialConexionesComponent implements OnInit {
   }
 
   buscarConexionesPersonales() {
-    const userId = this.perfilService.obtenerIdUsuario();
+    const userId = this.usuariosService.obtenerIdUsuario();
     const valor = this.formularioBusquedas.get('barraBusqueda')?.value;
     const orden = this.formularioBusquedas.get('ordenBusqueda')?.value;
     const filtro = this.formularioBusquedas.get('filtroBusqueda')?.value;

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {PerfilService} from "../perfil.service";
+import {UsuariosService} from "../usuarios.service";
 
 @Component({
   selector: 'app-administracion-detalles-usuario',
@@ -17,7 +17,7 @@ export class AdministracionDetallesUsuarioComponent implements OnInit {
   constructor(
     public activeModal: NgbActiveModal,
     private fb: FormBuilder,
-    private perfilService: PerfilService,
+    private usuariosService: UsuariosService,
   ) {
   }
 
@@ -31,7 +31,7 @@ export class AdministracionDetallesUsuarioComponent implements OnInit {
     if (this.actualizarUsuario.invalid) {
 
     } else {
-      this.perfilService.patchPerfil(this.usuario.id, this.actualizarUsuario.value).subscribe((response) => {
+      this.usuariosService.patchPerfil(this.usuario.id, this.actualizarUsuario.value).subscribe((response) => {
         if (response.status == 200) {
           this.usuarioActualizado.emit(true);
           this.activeModal.close()

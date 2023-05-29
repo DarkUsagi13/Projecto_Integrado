@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PatinetesService} from "../patinetes.service";
-import {PerfilService} from "../perfil.service";
+import {UsuariosService} from "../usuarios.service";
 import {Patinete} from "../patinete";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -25,7 +25,7 @@ export class ListadoPatinetesComponent implements OnInit{
   itemsPorPagina = 10; // Cantidad de elementos por página
 
   constructor(
-    private perfilService: PerfilService,
+    private usuariosService: UsuariosService,
     private patinetesServices: PatinetesService,
     private fb: FormBuilder,
     private modalService: NgbModal,
@@ -62,7 +62,7 @@ export class ListadoPatinetesComponent implements OnInit{
   }
 
   obtenerPatinetes() {
-    const userId = this.perfilService.obtenerIdUsuario()
+    const userId = this.usuariosService.obtenerIdUsuario()
     this.patinetesServices.patinetes(userId).subscribe(patinetes => {
       this.listaPatinetes = patinetes;
       this.listaPaginada = realizarPaginacion(patinetes, this.paginaActual, this.itemsPorPagina);

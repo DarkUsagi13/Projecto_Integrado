@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {PerfilService} from "../perfil.service";
+import {UsuariosService} from "../usuarios.service";
 import {PatinetesService} from "../patinetes.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Patinete} from "../patinete";
@@ -20,7 +20,7 @@ export class DetallesPatineteComponent {
 
   constructor(
     private fb: FormBuilder,
-    private perfilService: PerfilService,
+    private perfilService: UsuariosService,
     private patinetesService: PatinetesService,
     private router: Router,
     private activateRoute: ActivatedRoute,) {

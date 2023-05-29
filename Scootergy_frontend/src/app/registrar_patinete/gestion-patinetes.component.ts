@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from '@angular/router';
-import {Patinete} from "../patinete";
 import {PatinetesService} from "../patinetes.service";
-import {PerfilService} from "../perfil.service";
+import {UsuariosService} from "../usuarios.service";
 
 @Component({
   selector: 'app-gestion-patinetes',
@@ -25,7 +24,7 @@ export class GestionPatinetesComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private patineteService: PatinetesService,
-    private perfilService: PerfilService,
+    private usuariosService: UsuariosService,
     private router: Router,
   ) {
     this.formulario = this.fb.group({
@@ -37,8 +36,8 @@ export class GestionPatinetesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.idUsuario = this.perfilService.obtenerIdUsuario();
-    this.perfilService.perfil(this.idUsuario).subscribe(perfil => {
+    this.idUsuario = this.usuariosService.obtenerIdUsuario();
+    this.usuariosService.perfil(this.idUsuario).subscribe(perfil => {
       this.perfil = perfil
       this.formulario.patchValue({
         usuario: this.perfil.url,

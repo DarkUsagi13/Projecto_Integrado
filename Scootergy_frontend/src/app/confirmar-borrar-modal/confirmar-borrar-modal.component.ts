@@ -1,7 +1,7 @@
 import {Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {PatinetesService} from "../patinetes.service";
-import {PerfilService} from "../perfil.service";
+import {UsuariosService} from "../usuarios.service";
 
 @Component({
   selector: 'app-confirmar-borrar-modal',
@@ -16,7 +16,7 @@ export class ConfirmarBorrarModalComponent implements OnInit{
   constructor(
     public activeModal: NgbActiveModal,
     private patinetesService: PatinetesService,
-    private perfilService: PerfilService,
+    private perfilService: UsuariosService,
   ) {
   }
 

@@ -4,7 +4,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ConexionesService} from "../conexiones.service";
 import {Conexion} from "../conexion";
 import {EstacionesService} from "../estaciones.service";
-import {PerfilService} from "../perfil.service";
+import {UsuariosService} from "../usuarios.service";
 import {PatinetesService} from "../patinetes.service";
 import {PaypalService} from "../paypal.service";
 import {ConfirmarPagoModalComponent} from "../confirmar-pago-modal/confirmar-pago-modal.component";
@@ -34,7 +34,7 @@ export class ConexionesModalComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private conexionesService: ConexionesService,
     private estacionService: EstacionesService,
-    private perfilService: PerfilService,
+    private perfilService: UsuariosService,
     private patineteService: PatinetesService,
     private paypalService: PaypalService,
     private modalService: NgbModal,

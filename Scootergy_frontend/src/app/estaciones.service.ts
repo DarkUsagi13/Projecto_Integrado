@@ -23,4 +23,9 @@ export class EstacionesService {
   updatePuesto(idPuesto: string|null, puesto: any): Observable<any> {
     return this.http.put(this.url+`puesto/${idPuesto}/`, puesto);
   }
+
+  estadisticas_estaciones(): Observable<any> {
+    return this.http.get(this.url+`estacion/estadisticas_estaciones/`, {observe: 'response'})
+  }
+
 }

@@ -15,7 +15,6 @@ export class ConexionesService {
   constructor(
     private http: HttpClient,
   ) {
-    this.mes = new Date().getMonth() + 1;
   }
 
   getConexionesActivas(userId: string): Observable<any> {
@@ -47,22 +46,9 @@ export class ConexionesService {
     return this.http.get<any>(this.url+`conexion/calcular_importe`, { params, observe: 'response' });
   }
 
-  consumoTotalMes(usuario: string): Observable<any> {
-    return this.http.get<any>(this.url+`conexion/consumo_total/?usuario=${usuario}&mes=${this.mes}&finalizada=true`)
-  }
-
-  consumoTotal(usuario: string): Observable<any> {
-    const params = new HttpParams().set('usuario', usuario);
-    return this.http.get<any>(this.url+`conexion/`, {params});
-  }
-
-  gastoTotalMes(usuario:string): Observable<any>{
-    const params = new HttpParams().set('usuario', usuario).set('mes', this.mes);
-    return this.http.get<any>(this.url+`conexion/gasto_total`, {params});
-  }
-
-  gastoTotal(usuario:string): Observable<any>{
-    return this.http.get<any>(this.url+`conexion/gasto_total/?usuario=${usuario}`)
+  gasto_y_consumo_total(usuario_id: string, mes: number) {
+    const params = new HttpParams().set('usuario', usuario_id).set('mes', mes)
+    return this.http.get<any>(this.url+`/conexion/gasto_y_consumo_total/`, {params})
   }
 
 }

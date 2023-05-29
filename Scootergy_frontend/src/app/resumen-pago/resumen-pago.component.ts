@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ConexionesService} from "../conexiones.service";
-import {PerfilService} from "../perfil.service";
+import {UsuariosService} from "../usuarios.service";
 import {PaypalService} from "../paypal.service";
 import {ActivatedRoute} from "@angular/router";
 import {calcular_tiempo} from "../utils";
@@ -21,7 +21,7 @@ export class ResumenPagoComponent implements OnInit, OnDestroy {
   public success: boolean = false;
 
   constructor(
-    private perfilService: PerfilService,
+    private usuariosService: UsuariosService,
     private conexionService: ConexionesService,
     private paypalService: PaypalService,
     private route: ActivatedRoute,

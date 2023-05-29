@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {PerfilService} from "../perfil.service";
+import {UsuariosService} from "../usuarios.service";
 import {ConexionesService} from "../conexiones.service";
 
 @Component({
@@ -17,19 +17,23 @@ export class ResumenPerfilComponent implements OnInit {
   conexiones_mes : any;
 
   constructor(
-    private perfilService: PerfilService,
+    private usuariosService: UsuariosService,
     private conexionesService: ConexionesService
   ) {
   }
 
   ngOnInit(): void {
-    this.usuarioId = this.perfilService.obtenerIdUsuario();
-    this.perfilService.perfil(this.usuarioId).subscribe(perfilUsuario => {
+    this.usuarioId = this.usuariosService.obtenerIdUsuario();
+    this.usuariosService.perfil(this.usuarioId).subscribe(perfilUsuario => {
       this.perfilUsuario = perfilUsuario;
     })
 
-    this.conexionesService.consumoTotalMes(this.usuarioId).subscribe(consumo => {
-      this.consumo_mes = consumo.consumo_total; // Acceder a la propiedad consumo_total
+    const mes = new Date().getMonth() + 1;
+
+
+    this.conexionesService.gasto_y_consumo_total(this.usuarioId, mes).subscribe(gastoYConsumoMes => {
+      this.consumo_mes = gastoYConsumoMes.consumo_total; // Acceder a la propiedad consumo_total
+      this.gasto_mes = gastoYConsumoMes.gasto_total;
     });
 
     this.conexionesService.getConexionesFinalizadas(this.usuarioId, '-', '').subscribe(conexiones => {
@@ -37,10 +41,6 @@ export class ResumenPerfilComponent implements OnInit {
       // Seleccionar las últimas 5 conexiones
       this.listaUltimasConexiones = conexiones.slice(0, 5);
     });
-
-    this.conexionesService.gastoTotalMes(this.usuarioId).subscribe(gasto_mes => {
-      this.gasto_mes = gasto_mes.gasto_total;
-    })
 
   }
 

@@ -6,7 +6,7 @@ import {url} from "./utils";
 @Injectable({
   providedIn: 'root'
 })
-export class PerfilService {
+export class UsuariosService {
 
   url: any = url();
   token: any;
@@ -35,6 +35,14 @@ export class PerfilService {
 
   patchPerfil(userId: string, usuario: any): Observable<any> {
     return this.http.patch(this.url+`usuario/${userId}/`, usuario, { observe: 'response'})
+  }
+
+  estadisticas_usuarios(): Observable<any> {
+    return this.http.get(this.url+`/usuario/estadisticas/`, {observe: 'response'})
+  }
+
+  estadisticas_totales(): Observable<any> {
+    return this.http.get(this.url+`/conexion/gasto_y_consumo_total/`, {observe : 'response'})
   }
 
 }

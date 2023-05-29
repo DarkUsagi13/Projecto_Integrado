@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
-import {PerfilService} from '../perfil.service';
+import {UsuariosService} from '../usuarios.service';
 import {perfilUsuario} from "../perfil";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {validarPassword} from "../../utils/validators-utils";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-datos-perfil',
@@ -27,7 +27,7 @@ export class DetallesPerfilComponent {
   letra minúscula y un carácter especial como !@#$%^&*()\-=+_{};':"|,.<>?`;
 
   constructor(
-    private perfilService: PerfilService,
+    private perfilService: UsuariosService,
     private fb: FormBuilder,
     private router: Router,
   ) {

@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {Estacion} from '../estacion';
 import {EstacionesService} from '../estaciones.service';
 import {Patinete} from '../patinete';
-import {PerfilService} from '../perfil.service';
+import {UsuariosService} from '../usuarios.service';
 import {Puesto} from '../puesto';
 import {PatinetesService} from "../patinetes.service";
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
   usuario: any;
 
   constructor(
-    private perfilService: PerfilService,
+    private usuariosService: UsuariosService,
     private patinetesService: PatinetesService,
     private estacionesService: EstacionesService,
     private conexionesService: ConexionesService,
@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     //Se obtiene el ID del usuario autenticado
-    this.usuario = this.perfilService.obtenerIdUsuario();
+    this.usuario = this.usuariosService.obtenerIdUsuario();
     //Se obtienen los patinetes del usuario autenticado y llama a la función mostrarEstaciones()
     this.patinetesService.patinetes(this.usuario).subscribe((data: Patinete[]) => {
       this.patinetes = data;

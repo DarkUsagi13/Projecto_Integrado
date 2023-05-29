@@ -1,6 +1,7 @@
 import base64
 
 import requests
+from django.db.models import Count, Q
 from django.utils import timezone
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, status, filters
@@ -15,7 +16,7 @@ from django.db.models.functions import ExtractMonth
 
 from main.permissions import IsOwnerOrReadOnly
 from main.serializers import *
-from main.utils import _calcular_importe
+from main.utils import _calcular_importe, _calcular_gasto_y_consumo_total
 
 
 # Create your views here.
@@ -26,6 +27,25 @@ class UsuarioView(viewsets.ModelViewSet):
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['username']
     ordering_fields = ['id', 'username', 'date_joined']
+
+    @action(detail=False, methods=['get'])
+    def estadisticas(self, request):
+        total_usuarios = Usuario.objects.exclude(is_staff=True).count()
+        usuarios_con_conexion_activa = Usuario.objects.exclude(is_staff=True).filter(
+            conexion__finalizada=False).distinct().count()
+        usuarios_sin_conexion = total_usuarios - usuarios_con_conexion_activa
+
+        print(total_usuarios)
+        print(usuarios_con_conexion_activa)
+        print(usuarios_sin_conexion)
+
+        data = {
+            'total_usuarios': total_usuarios,
+            'usuarios_con_conexion_activa': usuarios_con_conexion_activa,
+            'usuarios_sin_conexion': usuarios_sin_conexion
+        }
+
+        return Response(data)
 
     def update(self, request, *args, **kwargs):
         # Obtener el usuario que se va a actualizar
@@ -48,6 +68,21 @@ class EstacionView(viewsets.ModelViewSet):
     queryset = Estacion.objects.all()
     serializer_class = EstacionSerializer
 
+    @action(detail=False, methods=['get'])
+    def estadisticas_estaciones(self, request):
+        estaciones_con_puestos_ocupados = Estacion.objects.annotate(
+            num_puestos_ocupados=Count('puesto', filter=Q(puesto__disponible=False))).filter(
+            num_puestos_ocupados__gt=0).count()
+        estaciones_sin_puestos_ocupados = Estacion.objects.annotate(
+            num_puestos_ocupados=Count('puesto', filter=Q(puesto__disponible=False))).filter(
+            num_puestos_ocupados=0).count()
+
+        data = {
+            'estaciones_activas': estaciones_con_puestos_ocupados,
+            'estaciones_inactivas': estaciones_sin_puestos_ocupados
+        }
+        return Response(data)
+
 
 class PuestoView(viewsets.ModelViewSet):
     queryset = Puesto.objects.all()
@@ -69,7 +104,7 @@ class ConexionView(viewsets.ModelViewSet):
     serializer_class = ConexionSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     search_fields = ['id', 'patinete__marca', 'patinete__modelo', 'puesto__id', 'puesto__estacion__nombre', 'consumo',
-                     'horaConexion', 'horaDesconexion', 'importe']
+                     'importe']
     ordering_fields = ['id', 'patinete', 'puesto', 'consumo', 'horaConexion', 'horaDesconexion', 'importe']
     filterset_fields = ['id', 'usuario', 'puesto', 'finalizada']
 
@@ -95,19 +130,22 @@ class ConexionView(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     @action(detail=False, methods=['get'])
-    def gasto_total(self, request):
+    def gasto_y_consumo_total(self, request):
         usuario_id = self.request.query_params.get('usuario')
-        conexiones = Conexion.objects.filter(usuario=usuario_id, finalizada=True)
-        gasto_total = sum(conexion.importe for conexion in conexiones)
-        data = {'gasto_total': gasto_total}
+        gasto_total, consumo_total = _calcular_gasto_y_consumo_total(usuario_id)
+        data = {
+            'gasto_total': gasto_total,
+            'consumo_total': consumo_total
+        }
         return Response(data)
 
     @action(detail=False, methods=['get'])
-    def consumo_total(self, request):
-        usuario_id = self.request.query_params.get('usuario')
-        conexiones = Conexion.objects.filter(usuario=usuario_id, finalizada=True)
-        consumo_total = sum(conexion.consumo for conexion in conexiones)
-        data = {'consumo_total': consumo_total}
+    def gasto_y_consumo_total_todos_usuarios(self, request):
+        gasto_total, consumo_total = _calcular_gasto_y_consumo_total()
+        data = {
+            'gasto_total': gasto_total,
+            'consumo_total': consumo_total
+        }
         return Response(data)
 
     def get_queryset(self):

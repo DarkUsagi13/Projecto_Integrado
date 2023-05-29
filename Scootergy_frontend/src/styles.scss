@@ -502,7 +502,7 @@ body {
 
 .loading {
   border: 2px solid transparent;
-  border-color: transparent #00CC99 transparent #00CC99;
+  border-color: transparent #0077CC transparent #0077CC;
   -moz-animation: rotate-loading 1.5s linear 0s infinite normal;
   -moz-transform-origin: 50% 50%;
   -o-animation: rotate-loading 1.5s linear 0s infinite normal;
@@ -519,7 +519,6 @@ body {
   -webkit-animation: loading-text-opacity 2s linear 0s infinite normal;
   animation: loading-text-opacity 2s linear 0s infinite normal;
   color: #000000;
-  //font-family: "Helvetica Neue, "Helvetica", ""arial";
   font-size: 10px;
   font-weight: bold;
   margin-top: 45px;

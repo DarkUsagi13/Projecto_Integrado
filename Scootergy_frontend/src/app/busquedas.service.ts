@@ -9,6 +9,8 @@ import {Observable} from "rxjs";
 export class BusquedasService {
 
   url = url()
+
+  totalUsuario : any;
   constructor(
     private http: HttpClient,
   ) { }

@@ -3,6 +3,7 @@ import math
 from _decimal import ROUND_HALF_UP
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
+from django.db.models import Sum
 from django.utils import timezone
 from rest_framework.generics import get_object_or_404
 
@@ -40,3 +41,12 @@ def _calcular_importe(conexion_id):
     conexion.consumo = consumo_total
     conexion.importe = importe_con_iva.quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
     return conexion
+
+
+def _calcular_gasto_y_consumo_total(usuario_id=None):
+    queryset = Conexion.objects.filter(finalizada=True)
+    if usuario_id:
+        queryset = queryset.filter(usuario=usuario_id)
+    gasto_total = queryset.aggregate(total_gasto=Sum('importe'))['total_gasto'] or 0
+    consumo_total = queryset.aggregate(total_consumo=Sum('consumo'))['total_consumo'] or 0
+    return gasto_total, consumo_total

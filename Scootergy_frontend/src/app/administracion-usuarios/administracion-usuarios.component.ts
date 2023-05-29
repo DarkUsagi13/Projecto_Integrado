@@ -1,4 +1,4 @@
-import {Component, Input, Output} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {BusquedasService} from "../busquedas.service";
 import {realizarPaginacion} from "../../utils/paginar-utils";
@@ -6,7 +6,6 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {
   AdministracionDetallesUsuarioComponent
 } from "../administracion-detalles-usuario/administracion-detalles-usuario.component";
-import {set} from "lodash";
 
 @Component({
   selector: 'app-administracion-usuarios',

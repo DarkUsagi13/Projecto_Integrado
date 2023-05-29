@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {PerfilService} from "../perfil.service";
+import {UsuariosService} from "../usuarios.service";
 import {ConexionesService} from "../conexiones.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {calcular_tiempo} from "../utils";
 
 @Component({
@@ -17,7 +17,7 @@ export class DetallesConexionComponent implements OnInit {
   tiempoTotal: any;
 
   constructor(
-    private perfilService: PerfilService,
+    private perfilService: UsuariosService,
     private conexionesService: ConexionesService,
     private activateRoute: ActivatedRoute,
   ) {
