@@ -5,23 +5,73 @@
     </mat-card-header>
     <mat-card-content>
       <form class="text-center" [formGroup]="formulario" (ngSubmit)="putPerfil()">
-        <div class="form-field">
+
+        <div class="col-auto">
           <mat-form-field appearance="outline">
             <mat-label>Nombre de usuario</mat-label>
-            <input matInput formControlName="username" type="text" placeholder="Nombre de usuario">
+            <div style="display: flex; flex-direction: row; align-items: flex-start;">
+              <input id="username" matInput formControlName="username" type="text" placeholder="Nombre de usuario">
+              <ng-container *ngIf="formulario.get('username')?.invalid && (formulario.get('username')?.touched && formulario.get('username')?.dirty)">
+                <ng-container *ngIf="formulario.get('username')?.hasError('pattern')">
+                  <div style="position: relative; margin-left: 10px;">
+                    <mat-icon matTooltip="{{usernameInvalid}}" matTooltipPosition="after">warning</mat-icon>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
           </mat-form-field>
         </div>
-        <div class="form-field">
+
+        <div class="col-auto">
           <mat-form-field appearance="outline">
             <mat-label>Correo</mat-label>
-            <input matInput formControlName="email" type="email" placeholder="Correo">
+            <div style="display: flex; flex-direction: row; align-items: flex-start;">
+              <input id="email" matInput formControlName="email" type="email" placeholder="Correo">
+              <ng-container
+                *ngIf="formulario.get('email')?.invalid && (formulario.get('email')?.touched && formulario.get('email')?.dirty)">
+                <ng-container *ngIf="formulario.get('email')?.hasError('pattern')">
+                  <div style="position: relative; margin-left: 10px;">
+                    <mat-icon matTooltip="{{emailInvalid}}" matTooltipPosition="after">warning</mat-icon>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
           </mat-form-field>
         </div>
-        <div class="form-field">
+
+        <div class="col-auto">
           <mat-form-field appearance="outline">
             <mat-label>Contraseña</mat-label>
-            <input matInput formControlName="password" type="password" placeholder="Contraseña">
+            <div style="display: flex; flex-direction: row; align-items: flex-start;">
+              <input id="password" matInput formControlName="password" type="password" placeholder="Contraseña">
+              <ng-container *ngIf="formulario.get('password')?.invalid && (formulario.get('password')?.touched && formulario.get('password')?.dirty)">
+                <ng-container *ngIf="formulario.get('password')?.hasError('pattern')">
+                  <div style="position: relative; margin-left: 10px;">
+                    <mat-icon matTooltip="{{passwordInvalid}}" matTooltipPosition="after">warning</mat-icon>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
           </mat-form-field>
+        </div>
+
+        <div class="col-auto">
+          <mat-form-field appearance="outline">
+            <mat-label>Confirmar contraseña</mat-label>
+            <div style="display: flex; flex-direction: row; align-items: flex-start;">
+              <input id="password2" matInput formControlName="password2" type="password" placeholder="Confirmar contraseña">
+              <ng-container *ngIf="formulario.get('password2')?.invalid && formulario.get('password2')?.touched">
+                <ng-container *ngIf="formulario.get('password2')?.hasError('passwordNoCoincide')">
+                  <div style="position: relative; margin-left: 10px;">
+                    <mat-icon matTooltip="Las contraseñas no coinciden" matTooltipPosition="after">warning</mat-icon>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
+          </mat-form-field>
+        </div>
+        <div>
+          <span>* Campos obligatorios</span>
         </div>
         <div class="text-center mt-3">
           <button mat-raised-button color="primary">Editar datos</button>

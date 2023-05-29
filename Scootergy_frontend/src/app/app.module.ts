@@ -38,6 +38,7 @@ import { AdministradorComponent } from './administrador/administrador.component'
 import { AdministracionUsuariosComponent } from './administracion-usuarios/administracion-usuarios.component';
 import { PlantillaAdministracionComponent } from './plantilla-administracion/plantilla-administracion.component';
 import {MatTooltipModule} from "@angular/material/tooltip";
+import { AdministracionDetallesUsuarioComponent } from './administracion-detalles-usuario/administracion-detalles-usuario.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     AdministradorComponent,
     AdministracionUsuariosComponent,
     PlantillaAdministracionComponent,
+    AdministracionDetallesUsuarioComponent,
   ],
   imports: [
     BrowserModule,

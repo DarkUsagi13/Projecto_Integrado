@@ -1,60 +1,62 @@
 <app-template>
-  <div class="container h-100 p-5 h-75" *ngIf="mostrarDatos">
-    <div>
-      <form [formGroup]="formulario">
-        <div class="form-group">
-          <label for="estaciones">Seleccione una estación:</label>
-          <select id="estaciones" formControlName="estaciones" class="form-control mt-3" (change)="mostrarPuestos()">
-            <option selected>Seleccione...</option>
-            <option *ngFor="let estacion of estaciones" [value]="estacion.id">{{ estacion.direccion }}
-              , {{estacion.nombre}}</option>
-          </select>
-        </div>
-      </form>
-    </div>
-    <div *ngIf="estacionSeleccionada" [class.slide-in-top]="mostrarAnimacion">
-      <ng-container>
-        <div class="text-center fs-1">
-          <h3 class="p-5">
-            Estación de carga: <span class="fw-bolder">{{estacionSeleccionada.nombre}}</span>
-          </h3>
-        </div>
-      </ng-container>
-      <div class="row">
-        <ng-container *ngFor="let puesto of puestos">
-          <div class="col-3 d-flex justify-content-center align-items-center">
-            <div class="row w-100">
-              <div class="col-12 d-block mt-3 banner d-flex flex-column justify-content-center">
-                <ng-container *ngIf="puesto.disponible; else noDisponible">
-                  <button class="d-block w-100 btn py-5 butn butn__new flex-grow-1" (click)="open(puesto)">Disponible
-                  </button>
-                </ng-container>
-                <ng-template #noDisponible>
-                  <ng-container *ngIf="!puesto.disponible && puesto.perteneceUsuario; else noPertenece">
-                    <button class="d-block w-100 btn py-5 butn butn__new flex-grow-1 bg-pan-left"
-                            (click)="open(puesto)">Utilizado por ti
-                    </button>
-                  </ng-container>
-                  <ng-template #noPertenece>
-                    <button class="d-block w-100 btn py-5 butn butn__new flex-grow-1 disabled text-sm"
-                            style="background: #FFCCCC" (click)="open(puesto)">No disponible
-                    </button>
-                  </ng-template>
-                </ng-template>
-              </div>
-            </div>
+  <div class="container-fluid">
+    <div class="container h-100 p-5 h-75" *ngIf="mostrarDatos">
+      <div>
+        <form [formGroup]="formulario">
+          <div class="form-group">
+            <label for="estaciones">Seleccione una estación:</label>
+            <select id="estaciones" formControlName="estaciones" class="form-control mt-3" (change)="mostrarPuestos()">
+              <option selected>Seleccione...</option>
+              <option *ngFor="let estacion of estaciones" [value]="estacion.id">{{ estacion.direccion }}
+                , {{estacion.nombre}}</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div *ngIf="estacionSeleccionada" [class.slide-in-top]="mostrarAnimacion">
+        <ng-container>
+          <div class="text-center fs-1">
+            <h3 class="p-5">
+              Estación de carga: <span class="fw-bolder">{{estacionSeleccionada.nombre}}</span>
+            </h3>
           </div>
         </ng-container>
+        <div class="row">
+          <ng-container *ngFor="let puesto of puestos">
+            <div class="col-3 d-flex justify-content-center align-items-center">
+              <div class="row w-100">
+                <div class="col-12 d-block mt-3 banner d-flex flex-column justify-content-center">
+                  <ng-container *ngIf="puesto.disponible; else noDisponible">
+                    <button class="d-block w-100 btn py-5 butn butn__new flex-grow-1" (click)="open(puesto)">Disponible
+                    </button>
+                  </ng-container>
+                  <ng-template #noDisponible>
+                    <ng-container *ngIf="!puesto.disponible && puesto.perteneceUsuario; else noPertenece">
+                      <button class="d-block w-100 btn py-5 butn butn__new flex-grow-1 personal"
+                              (click)="open(puesto)">Utilizado por ti
+                      </button>
+                    </ng-container>
+                    <ng-template #noPertenece>
+                      <button class="d-block w-100 btn py-5 butn butn__new flex-grow-1 disabled text-sm"
+                              style="background: #FFCCCC" (click)="open(puesto)">No disponible
+                      </button>
+                    </ng-template>
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <div class="text-center mt-5" *ngIf="!estacionSeleccionada">
+        <h2><span></span> No has seleccionado ninguna estación</h2>
       </div>
     </div>
-    <div class="text-center mt-5" *ngIf="!estacionSeleccionada">
-      <h2><span></span> No has seleccionado ninguna estación</h2>
-    </div>
-  </div>
-  <div class="container p-5" *ngIf="!mostrarDatos">
-    <h3 class="text-center">No tienes ningún patinete, ¡Agrega uno!</h3>
-    <div class="container d-flex justify-content-center">
-      <a [routerLink]='["perfil/registrar_patinete"]' type="button" class="btn btn-success p-1">Agregar</a>
+    <div class="container p-5" *ngIf="!mostrarDatos">
+      <h3 class="text-center">No tienes ningún patinete, ¡Agrega uno!</h3>
+      <div class="container d-flex justify-content-center">
+        <a [routerLink]='["perfil/registrar_patinete"]' type="button" class="btn btn-success p-1">Agregar</a>
+      </div>
     </div>
   </div>
 </app-template>

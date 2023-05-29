@@ -1,0 +1,30 @@
+<div class="container-fluid">
+  <form [formGroup]="actualizarUsuario" (ngSubmit)="cambiarStaff()">
+
+    <div class="modal-header">
+      <h2>Detalles de: <span class="fw-bolder">{{usuario.username}}</span></h2>
+      <button type="button" class="close btn btn-danger" aria-label="Close" (click)="activeModal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>ID: {{usuario.id}}</p>
+      <p>Nombre de usuario: {{usuario.username}}</p>
+      <p>Correo: {{usuario.email}}</p>
+      <p>Fecha de alta: {{usuario.date_joined | date: 'dd/MM/yyyy' }}</p>
+      <div class="form-check">
+        <label class="form-check-label" for="is_staff">Staff</label>
+        <input class="form-check-input" type="checkbox" id="is_staff" formControlName="is_staff">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div>
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+      </div>
+      <div class="modal-buttons">
+        <button class="btn btn-secondary" (click)="activeModal.dismiss()">Cancelar</button>
+      </div>
+    </div>
+  </form>
+
+</div>

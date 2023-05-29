@@ -20,7 +20,6 @@ export class ConexionesService {
 
   getConexionesActivas(userId: string): Observable<any> {
     const params = new HttpParams().set('usuario', userId).set('finalizada', 'false');
-    console.log(this.url+params)
     return this.http.get(this.url + 'conexion/', { params });
   }
 

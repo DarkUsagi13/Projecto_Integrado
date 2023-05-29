@@ -56,7 +56,6 @@ export class HomeComponent implements OnInit {
     //Se obtienen las conexiones activas del usuario autenticado
     this.conexionesService.getConexionesActivas(this.usuario).subscribe(conexiones => {
       this.conexionesService.conexionesActivas = conexiones; // Almacenar los resultados en un array
-      console.log(conexiones)
     });
 
   }

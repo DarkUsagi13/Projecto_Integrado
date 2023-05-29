@@ -5,23 +5,57 @@
     </mat-card-header>
     <mat-card-content>
       <form class="text-center" [formGroup]="formulario" (ngSubmit)="registrarPatinete()">
-        <div class="form-field">
+
+        <div class="col-auto">
           <mat-form-field appearance="outline">
             <mat-label>Marca</mat-label>
-            <input matInput formControlName="marca" type="text" placeholder="Marca">
+            <div style="display: flex; flex-direction: row; align-items: flex-start;">
+              <input id="username" matInput formControlName="marca" type="text" placeholder="Marca">
+              <ng-container *ngIf="formulario.get('marca')?.invalid && (formulario.get('marca')?.touched && formulario.get('marca')?.dirty)">
+                <ng-container *ngIf="formulario.get('marca')?.hasError('pattern')">
+                  <div style="position: relative; margin-left: 10px;">
+                    <mat-icon matTooltip="{{marcaModeloInvalid}}" matTooltipPosition="after">warning</mat-icon>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
           </mat-form-field>
         </div>
-        <div class="form-field">
+
+        <div class="col-auto">
           <mat-form-field appearance="outline">
             <mat-label>Modelo</mat-label>
-            <input matInput formControlName="modelo" type="text" placeholder="Modelo">
+            <div style="display: flex; flex-direction: row; align-items: flex-start;">
+              <input id="modelo" matInput formControlName="modelo" type="text" placeholder="Modelo">
+              <ng-container *ngIf="formulario.get('modelo')?.invalid && (formulario.get('modelo')?.touched && formulario.get('marca')?.dirty)">
+                <ng-container *ngIf="formulario.get('modelo')?.hasError('pattern')">
+                  <div style="position: relative; margin-left: 10px;">
+                    <mat-icon matTooltip="{{marcaModeloInvalid}}" matTooltipPosition="after">warning</mat-icon>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
           </mat-form-field>
         </div>
-        <div class="form-field">
+
+        <div class="col-auto">
           <mat-form-field appearance="outline">
             <mat-label>Consumo</mat-label>
-            <input matInput formControlName="consumo" type="text" placeholder="Consumo">
+            <div style="display: flex; flex-direction: row; align-items: flex-start;">
+              <input id="consumo" matInput formControlName="consumo" type="number" placeholder="consumo">
+              <ng-container *ngIf="formulario.get('consumo')?.invalid && (formulario.get('consumo')?.touched && formulario.get('marca')?.dirty)">
+                <ng-container *ngIf="formulario.get('consumo')?.hasError('min')">
+                  <div style="position: relative; margin-left: 10px;">
+                    <mat-icon matTooltip="{{consumoInvalid}}" matTooltipPosition="after">warning</mat-icon>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
           </mat-form-field>
+        </div>
+
+        <div>
+          <span>* Campos obligatorios</span>
         </div>
         <div class="text-center mt-3">
           <button mat-raised-button color="primary">Registrar patinete</button>

@@ -6,7 +6,6 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { realizarPaginacion } from "../../utils/paginar-utils";
 import {ConfirmarBorrarModalComponent} from "../confirmar-borrar-modal/confirmar-borrar-modal.component";
-import {result} from "lodash";
 
 @Component({
   selector: 'app-listado-patinetes',

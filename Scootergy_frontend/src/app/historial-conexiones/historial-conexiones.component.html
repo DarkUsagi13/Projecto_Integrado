@@ -31,7 +31,6 @@
       <table class="table text-center">
         <thead>
         <tr>
-          <th scope="col">ID</th>
           <th scope="col">Patinete</th>
           <th scope="col">Estación</th>
           <th scope="col">Consumo</th>
@@ -44,7 +43,6 @@
         <ng-container *ngIf="conexionesPaginadas.length > 0">
           <tbody *ngFor="let conexion of conexionesPaginadas">
           <tr>
-            <td>{{conexion.id}}</td>
             <td>{{conexion.patineteNombre}}</td>
             <td>{{conexion.datosPuesto.datosEstacion.nombre}}, puesto: {{conexion.datosPuesto.id}}</td>
             <td>{{conexion.consumo}}</td>

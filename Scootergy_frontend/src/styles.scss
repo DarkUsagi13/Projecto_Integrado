@@ -35,8 +35,7 @@ $scootergy-theme: mat.define-light-theme((
 
 /* You can add global styles to this file, and also import other style files */
 
-$naranja: #E0E0E0;
-$lighblue: #E0E0E0;
+$gris: #E0E0E0;
 
 .logo {
   min-font-size: 6vw;
@@ -56,8 +55,8 @@ a {
 .enlace_main {
   background-image: linear-gradient(
       to right,
-      #00CC99,
-      #00CC99,
+      #0077CC,
+      #0077CC,
       #000 50%
   );
   background-size: 200% 100%;
@@ -109,13 +108,13 @@ body {
 
 .btn-primary{
   color: #000000;
-  background: $naranja;
-  border-color: $naranja;
+  background: $gris;
+  border-color: $gris;
 }
 
 .btn-primary:hover{
   color: black;
-  background-color: #00CC99;
+  background-color: #0077CC;
 }
 
 /* Estilos para los botones */

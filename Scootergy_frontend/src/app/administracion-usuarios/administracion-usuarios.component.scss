@@ -1,0 +1,17 @@
+@keyframes highlight-animation {
+  0% {
+    background-color: yellow;
+  }
+  50% {
+    background-color: white;
+  }
+  100% {
+    background-color: yellow;
+  }
+}
+
+.usuario-editado {
+  animation-name: highlight-animation;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}

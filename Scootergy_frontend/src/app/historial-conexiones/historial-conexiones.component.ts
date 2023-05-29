@@ -33,6 +33,7 @@ export class HistorialConexionesComponent implements OnInit {
     private fb: FormBuilder,
     private busquedaService: BusquedasService,
   ) {
+
     this.filtroBusqueda = {
       id: 'ID',
       patinete: 'Patinete',
@@ -42,18 +43,21 @@ export class HistorialConexionesComponent implements OnInit {
       horaDesconexion: 'Hora de Desconexión',
       importe: 'Importe'
     };
+
     this.ordenBusqueda = {
       '': 'Ascendente',
       '-': 'Descendente'
     };
-  }
 
-  ngOnInit() {
     this.formularioBusquedas = this.fb.group({
       barraBusqueda: new FormControl(''),
       filtroBusqueda: new FormControl('horaConexion'), // Establece la opción predeterminada como 'Hora de conexión'
       ordenBusqueda: new FormControl('')
     });
+
+  }
+
+  ngOnInit() {
 
     this.propiedadSeleccionada = this.formularioBusquedas.get('filtros')?.value;
     this.ordenSeleccionado = this.formularioBusquedas.get('orden')?.value;
@@ -63,7 +67,9 @@ export class HistorialConexionesComponent implements OnInit {
       this.ordenSeleccionado = this.formularioBusquedas.get('orden')?.value
       this.buscarConexionesPersonales()
     })
+
     this.buscarConexionesPersonales();
+
   }
 
   buscarConexionesPersonales() {

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from '@angular/router';
 import {Patinete} from "../patinete";
 import {PatinetesService} from "../patinetes.service";
@@ -16,6 +16,12 @@ export class GestionPatinetesComponent implements OnInit {
   public perfil: any;
   public formulario!: FormGroup;
 
+  public patternMarcaModelo = /^[A-Za-z0-9.\s\-]+$/;
+
+  public marcaModeloInvalid = 'El campo puede contener solo letras, números, guiones y puntos.';
+
+  public consumoInvalid = 'El consumo no puede ser menor a 1'
+
   constructor(
     private fb: FormBuilder,
     private patineteService: PatinetesService,
@@ -23,10 +29,10 @@ export class GestionPatinetesComponent implements OnInit {
     private router: Router,
   ) {
     this.formulario = this.fb.group({
-      marca: new FormControl(''),
-      modelo: new FormControl(''),
-      consumo: new FormControl(''),
-      usuario: new FormControl(''),
+      marca: new FormControl('', [Validators.required, Validators.pattern(this.patternMarcaModelo)]),
+      modelo: new FormControl('', [Validators.required, Validators.pattern(this.patternMarcaModelo)]),
+      consumo: new FormControl('', [Validators.required, Validators.min(1)]),
+      usuario: new FormControl('', [Validators.required]),
     })
   }
 
@@ -42,10 +48,13 @@ export class GestionPatinetesComponent implements OnInit {
   }
 
   registrarPatinete() {
-    this.patineteService.registrarPatinete(this.formulario.value).subscribe(data => {
-    });
-    this.patineteService.patinetes(this.idUsuario).subscribe()
-    this.router.navigate(['']);
+    if (this.formulario.invalid) {
+      console.log(this.formulario.invalid)
+    } else {
+      this.patineteService.registrarPatinete(this.formulario.value).subscribe(data => {});
+      // this.patineteService.patinetes(this.idUsuario).subscribe()
+      this.router.navigate(['']);
+    }
   }
 
 }

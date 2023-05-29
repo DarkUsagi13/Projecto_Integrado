@@ -29,8 +29,12 @@ export class PerfilService {
     return this.http.get(this.url+`usuario/${userId}/`, { headers: headers });
   }
 
-  putPerfil(userId: string|null, usuario: any): Observable<any> {
-    return this.http.put(this.url+`usuario/${userId}/`, usuario);
+  putPerfil(userId: string, usuario: any): Observable<any> {
+    return this.http.put(this.url+`usuario/${userId}/`, usuario , {observe: 'response'});
+  }
+
+  patchPerfil(userId: string, usuario: any): Observable<any> {
+    return this.http.patch(this.url+`usuario/${userId}/`, usuario, { observe: 'response'})
   }
 
 }

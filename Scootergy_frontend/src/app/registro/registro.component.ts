@@ -18,7 +18,8 @@ export class RegistroComponent {
 
   public emailInvalid = 'El correo electrónico debe tener un formato válido. Ejemplo: example@example.com'
 
-  public passwordInvalid = String.raw`La contraseña debe tener al menos 8 caracteres e incluir al menos una letra mayúscula, una letra minúscula y un carácter especial como !@#$%^&*()\-=+_{};':"|,.<>?`;
+  public passwordInvalid = String.raw`La contraseña debe tener al menos 8 caracteres e incluir al menos una letra mayúscula, una
+  letra minúscula y un carácter especial como !@#$%^&*()\-=+_{};':"|,.<>?`;
 
 
   constructor(

@@ -14,7 +14,7 @@ export class BusquedasService {
   ) { }
 
   buscarUsuarios(valor: string, orden: string, filtro: string):Observable<any> {
-    return this.http.get(this.url+`usuario/?ordering=${orden}${filtro}&search=${valor}`)
+    return this.http.get(this.url+`usuario/?ordering=${orden}${filtro}&search=${valor}`, {observe: 'response'})
   }
 
  buscarConexionesPersonales(userId:string, valor: string, orden: string, filtro: string): Observable<any> {

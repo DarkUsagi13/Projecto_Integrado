@@ -10,37 +10,45 @@
 <body>
 <div class="d-flex flex-column min-vh-100 bg-pan-left">
   <header class="d-flex justify-content-center mt-5">
-    <img src="assets/logo/logo.png" width="400px">
+    <img class="mt-5" src="assets/logo/logo.png" width="400px">
   </header>
   <main class="d-flex justify-content-center p-5">
     <form class="text-center py-4" [formGroup]="logInForm" (ngSubmit)="onSubmit(logInForm.value)">
       <div class="col-auto">
         <mat-form-field appearance="outline">
           <mat-label>Nombre de usuario</mat-label>
-          <input id="username" matInput formControlName="username" type="text" placeholder="Nombre de usuario">
+          <div style="display: flex; flex-direction: row; align-items: flex-start;">
+            <input id="username" matInput formControlName="username" type="text" placeholder="Nombre de usuario">
+          </div>
         </mat-form-field>
       </div>
+
       <div class="col-auto">
         <mat-form-field appearance="outline">
           <mat-label>Contraseña</mat-label>
-          <input id="password" matInput formControlName="password" type="password" placeholder="Contraseña">
+          <div style="display: flex; flex-direction: row; align-items: flex-start;">
+            <input id="password" matInput formControlName="password" type="password" placeholder="Contraseña">
+            <ng-container *ngIf="logInForm.get('password')?.invalid && (logInForm.get('password')?.touched) || showPasswordTooltip">
+              <ng-container *ngIf="logInForm.get('password2')?.hasError('passwordNoCoincide')">
+                <div style="position: relative; margin-left: 10px;">
+                  <mat-icon matTooltip="Las contraseñas no coinciden" matTooltipPosition="after">warning</mat-icon>
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
         </mat-form-field>
       </div>
-      <ng-container *ngIf="Object.keys(errores).length > 0">
-        <mat-card class="mt-5">
-          <mat-card-header>
-            <mat-card-title class="text-center">Errores</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <mat-list>
-              <mat-list-item *ngFor="let error of Object.values(errores)">
-                <mat-icon>error</mat-icon>
-                <span mat-line>{{ error }}</span>
-              </mat-list-item>
-            </mat-list>
-          </mat-card-content>
-        </mat-card>
+
+      <ng-container *ngIf="errores">
+        <mat-error>
+          <div class="mb-5">
+            <span>{{errores.invalid}}</span>
+          </div>
+        </mat-error>
       </ng-container>
+      <div>
+        <span>* Campos obligatorios</span>
+      </div>
       <div class="d-flex justify-content-center mt-2 mb-5">
         <button mat-raised-button color="primary" class="mt-3">Iniciar sesión</button>
       </div>
