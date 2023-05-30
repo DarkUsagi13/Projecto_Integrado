@@ -16,6 +16,10 @@ import {ConfirmarBorrarModalComponent} from "./confirmar-borrar-modal/confirmar-
 import {DetallesPatineteComponent} from "./detalles-patinete/detalles-patinete.component";
 import {AdministradorComponent} from "./administrador/administrador.component";
 import {AdministracionUsuariosComponent} from "./administracion-usuarios/administracion-usuarios.component";
+import {
+  AdministracionEstacionesCargaComponent
+} from "./administracion-estaciones-carga/administracion-estaciones-carga.component";
+import {AdministracionConexionesComponent} from "./administracion-conexiones/administracion-conexiones.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -33,6 +37,8 @@ const routes: Routes = [
   {path: 'perfil/historial_conexiones/detalles_conexion/:id', component: DetallesConexionComponent, canActivate: [AuthGuard]},
   {path: 'administracion', component: AdministradorComponent, canActivate: [AuthGuard] },
   {path: 'administracion/usuarios', component:AdministracionUsuariosComponent, canActivate: [AuthGuard] },
+  {path: 'administracion/estaciones', component: AdministracionEstacionesCargaComponent, canActivate: [AuthGuard]},
+  {path: 'administracion/conexiones', component: AdministracionConexionesComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

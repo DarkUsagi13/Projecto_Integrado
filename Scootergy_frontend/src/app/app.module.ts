@@ -39,6 +39,8 @@ import { AdministracionUsuariosComponent } from './administracion-usuarios/admin
 import { PlantillaAdministracionComponent } from './plantilla-administracion/plantilla-administracion.component';
 import {MatTooltipModule} from "@angular/material/tooltip";
 import { AdministracionDetallesUsuarioComponent } from './administracion-detalles-usuario/administracion-detalles-usuario.component';
+import { AdministracionEstacionesCargaComponent } from './administracion-estaciones-carga/administracion-estaciones-carga.component';
+import { AdministracionConexionesComponent } from './administracion-conexiones/administracion-conexiones.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +65,8 @@ import { AdministracionDetallesUsuarioComponent } from './administracion-detalle
     AdministracionUsuariosComponent,
     PlantillaAdministracionComponent,
     AdministracionDetallesUsuarioComponent,
+    AdministracionEstacionesCargaComponent,
+    AdministracionConexionesComponent,
   ],
   imports: [
     BrowserModule,

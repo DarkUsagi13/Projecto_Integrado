@@ -1,0 +1,93 @@
+<app-plantilla-administracion>
+  <ng-container *ngIf="mostrarAnimacion; else noMostrar">
+    <div class="loading-container d-flex justify-content-center align-content-center">
+      <div class="loading"></div>
+      <div id="loading-text">Cargando...</div>
+    </div>
+  </ng-container>
+  <ng-template #noMostrar>
+    <div [class.slide-in-top]="!mostrarAnimacion" class="container-fluid">
+      <div class="d-flex">
+        <div>
+          <nav class="navbar">
+            <div class="container-fluid">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="enlace_main" [routerLink]="['/administracion']">Crear nueva estación</a>
+                </li>
+                <li class="nav-item">
+                  <a class="enlace_main" [routerLink]="['/administracion/usuarios']">Crear puestos para una estación</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div>
+          1
+        </div>
+      </div>
+      <div>
+        <h1 class="text-center p-5">Estaciones de carga</h1>
+        <div>
+          <div>
+            <form [formGroup]="formularioBusquedas" class="row align-items-center">
+              <form [formGroup]="formularioBusquedas">
+                <mat-form-field class="p-3" appearance="fill">
+                  <mat-label>Buscar</mat-label>
+                  <input formControlName="barraBusqueda" type="search" matInput placeholder="Buscar"
+                         aria-label="Search"/>
+                </mat-form-field>
+
+                <mat-form-field class="p-3" appearance="fill">
+                  <mat-label>Filtrar por:</mat-label>
+                  <mat-select formControlName="filtroBusqueda">
+                    <mat-option *ngFor="let valor of filtroBusqueda | keyvalue" [value]="valor.key">
+                      {{ valor.value }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="p-3" appearance="fill">
+                  <mat-label>Ordenar por:</mat-label>
+                  <mat-select formControlName="ordenBusqueda">
+                    <mat-option *ngFor="let valor of ordenBusqueda | keyvalue" [value]="valor.key">
+                      {{ valor.value }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </form>
+            </form>
+          </div>
+          <table class="table text-center">
+            <thead>
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Dirección</th>
+              <th scope="col">Provincia</th>
+              <th scope="col">Acciones</th>
+            </tr>
+            </thead>
+            <ng-container *ngIf="listadoEstaciones.length > 0">
+              <tbody *ngFor="let estacion of listadoEstaciones">
+              <tr>
+                <td>{{estacion.nombre}}</td>
+                <td>{{estacion.direccion}}</td>
+                <td>{{estacion.datosProvincia.nombre}}</td>
+                <td class="d-flex justify-content-center align-items-center">
+                  <a class="btn btn-link mr-1"
+                     [routerLink]="['/perfil/listado_patinetes/detalles_patinete', estacion.id]">
+                    <span class="material-symbols-outlined">page_info</span>
+                  </a>
+                  <!--                            <a class="btn btn-link" (click)="open(patinete)">-->
+                  <!--                              <span class="material-symbols-outlined">delete</span>-->
+                  <!--                            </a>-->
+                </td>
+              </tr>
+              </tbody>
+            </ng-container>
+          </table>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</app-plantilla-administracion>

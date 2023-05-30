@@ -14,7 +14,7 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.db.models.functions import ExtractMonth
 
-from main.permissions import IsOwnerOrReadOnly
+from main.permissions import IsOwnerOrReadOnly, IsStaffOrReadOnly
 from main.serializers import *
 from main.utils import _calcular_importe, _calcular_gasto_y_consumo_total
 
@@ -22,6 +22,7 @@ from main.utils import _calcular_importe, _calcular_gasto_y_consumo_total
 # Create your views here.
 
 class UsuarioView(viewsets.ModelViewSet):
+    permission_classes = [IsOwnerOrReadOnly]
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
@@ -34,10 +35,6 @@ class UsuarioView(viewsets.ModelViewSet):
         usuarios_con_conexion_activa = Usuario.objects.exclude(is_staff=True).filter(
             conexion__finalizada=False).distinct().count()
         usuarios_sin_conexion = total_usuarios - usuarios_con_conexion_activa
-
-        print(total_usuarios)
-        print(usuarios_con_conexion_activa)
-        print(usuarios_sin_conexion)
 
         data = {
             'total_usuarios': total_usuarios,
@@ -65,8 +62,13 @@ class UsuarioView(viewsets.ModelViewSet):
 
 
 class EstacionView(viewsets.ModelViewSet):
+    permission_classes = [IsStaffOrReadOnly]
     queryset = Estacion.objects.all()
     serializer_class = EstacionSerializer
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter, DjangoFilterBackend]
+    search_fields = ['nombre', 'direccion', 'provincia__nombre']
+    filterset_fields = ['nombre', 'direccion', 'provincia__nombre']
+    ordering_fields = ['nombre', 'direccion', 'provincia__nombre']
 
     @action(detail=False, methods=['get'])
     def estadisticas_estaciones(self, request):
@@ -85,6 +87,7 @@ class EstacionView(viewsets.ModelViewSet):
 
 
 class PuestoView(viewsets.ModelViewSet):
+    permission_classes = [IsStaffOrReadOnly]
     queryset = Puesto.objects.all()
     serializer_class = PuestoSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
@@ -103,9 +106,9 @@ class PatineteView(viewsets.ModelViewSet):
 class ConexionView(viewsets.ModelViewSet):
     serializer_class = ConexionSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
-    search_fields = ['id', 'patinete__marca', 'patinete__modelo', 'puesto__id', 'puesto__estacion__nombre', 'consumo',
+    search_fields = ['patinete__marca', 'patinete__modelo', 'puesto__estacion__nombre', 'consumo',
                      'importe']
-    ordering_fields = ['id', 'patinete', 'puesto', 'consumo', 'horaConexion', 'horaDesconexion', 'importe']
+    ordering_fields = ['id', 'patinete__modelo', 'puesto', 'consumo', 'horaConexion', 'horaDesconexion', 'importe']
     filterset_fields = ['id', 'usuario', 'puesto', 'finalizada']
 
     @action(detail=False, methods=['get'])
@@ -167,11 +170,13 @@ class PagoView(viewsets.ModelViewSet):
 
 
 class ComunidadAutonomaView(viewsets.ModelViewSet):
+    permission_classes = [IsStaffOrReadOnly]
     queryset = ComunidadAutonoma.objects.all()
     serializer_class = ComunidadAutonomaSerializer
 
 
 class ProvinciaView(viewsets.ModelViewSet):
+    permission_classes = [IsStaffOrReadOnly]
     queryset = Provincia.objects.all()
     serializer_class = ProvinciaSerializer
 
@@ -223,6 +228,8 @@ def get_access_token(client_id, client_secret):
 
 
 class CreatePaymentView(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
     def post(self, request):
         # Obtener objeto de conexión
         conexion_id = request.data['conexion']['id']
@@ -282,6 +289,8 @@ class CreatePaymentView(APIView):
 
 
 class CapturePaymentView(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
     def post(self, request):
         # Obtener ID de pago y pagador
         payment_id = request.data.get("payment_id")

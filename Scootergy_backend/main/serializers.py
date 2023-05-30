@@ -7,6 +7,27 @@ from rest_framework import serializers
 from main.models import *
 
 
+class ComunidadAutonomaSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = ComunidadAutonoma
+        fields = [
+            'url',
+            'id',
+            'nombre'
+        ]
+
+
+class ProvinciaSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Provincia
+        fields = [
+            'url',
+            'id',
+            'comunidad_autonoma',
+            'nombre'
+        ]
+
+
 class UsuarioSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Usuario
@@ -51,6 +72,8 @@ class RegistroSerializer(serializers.ModelSerializer):
 
 
 class EstacionSerializer(serializers.HyperlinkedModelSerializer):
+    datosProvincia = ProvinciaSerializer(source='provincia', read_only=True)
+
     class Meta:
         model = Estacion
         fields = [
@@ -58,7 +81,8 @@ class EstacionSerializer(serializers.HyperlinkedModelSerializer):
             'id',
             'nombre',
             'direccion',
-            'provincia'
+            'provincia',
+            'datosProvincia',
         ]
 
 
@@ -132,22 +156,3 @@ class PagoSerializer(serializers.HyperlinkedModelSerializer):
         ]
 
 
-class ComunidadAutonomaSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = ComunidadAutonoma
-        fields = [
-            'url',
-            'id',
-            'nombre'
-        ]
-
-
-class ProvinciaSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Provincia
-        fields = [
-            'url',
-            'id',
-            'comunidad_autonoma',
-            'nombre'
-        ]

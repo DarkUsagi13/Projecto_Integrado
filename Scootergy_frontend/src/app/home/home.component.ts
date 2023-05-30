@@ -94,11 +94,13 @@ export class HomeComponent implements OnInit {
     //Primero comprobamos que la lista de patinetes no está vacía
     if (this.patinetes.length > 0) {
       //Si existe al menos 1 patinete, obtenemos las estaciones para mostrarlas
-      this.estacionesService.getEstaciones().subscribe((estaciones: Estacion[]) => {
-        this.estaciones = estaciones;
-      })
+      this.estacionesService.getEstaciones().subscribe( response => {
+        if (response.status == 200) {
+          this.estaciones = response.body;
+          this.mostrarDatos = true;
+        }
+      });
       //Se estable a true "mostrarDatos" para controlar que se puedan ver las estaciones
-      this.mostrarDatos = true;
     }
   }
 
@@ -113,4 +115,4 @@ export class HomeComponent implements OnInit {
 
   }
 
-};
+}

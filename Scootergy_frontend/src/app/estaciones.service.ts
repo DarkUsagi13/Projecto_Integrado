@@ -13,7 +13,7 @@ export class EstacionesService {
   constructor(private http: HttpClient) { }
 
   getEstaciones(): Observable<any> {
-    return this.http.get(this.url+`estacion`);
+    return this.http.get(this.url+`estacion`, {observe: 'response'});
   }
 
   getPuestos(estacion: string|null): Observable<any> {

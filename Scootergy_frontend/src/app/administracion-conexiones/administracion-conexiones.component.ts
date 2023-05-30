@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { UsuariosService } from '../usuarios.service';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { realizarPaginacion } from "../../utils/paginar-utils";
+import { Component } from '@angular/core';
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {UsuariosService} from "../usuarios.service";
 import {ConexionesService} from "../conexiones.service";
 import {BusquedasService} from "../busquedas.service";
+import {realizarPaginacion} from "../../utils/paginar-utils";
 
 @Component({
-  selector: 'app-historial-conexiones',
-  templateUrl: './historial-conexiones.component.html',
-  styleUrls: ['./historial-conexiones.component.scss']
+  selector: 'app-administracion-conexiones',
+  templateUrl: './administracion-conexiones.component.html',
+  styleUrls: ['./administracion-conexiones.component.scss']
 })
-export class HistorialConexionesComponent implements OnInit {
+export class AdministracionConexionesComponent {
+
   listaConexiones: any[] = [];
+  mostrarAnimacion: boolean = true;
 
   formularioBusquedas!: FormGroup;
   filtroBusqueda: any = '';
@@ -22,9 +24,6 @@ export class HistorialConexionesComponent implements OnInit {
   paginaActual = 1; // Página actual
   itemsPorPagina = 10; // Cantidad de elementos por página
   totalConexiones = 0; // Total de conexiones
-
-  propiedadSeleccionada = '';
-  ordenSeleccionado = '';
 
   constructor(
     private usuariosService: UsuariosService,
@@ -57,28 +56,28 @@ export class HistorialConexionesComponent implements OnInit {
 
   ngOnInit() {
 
-
     this.formularioBusquedas.valueChanges.subscribe(() => {
-      this.buscarConexionesPersonales()
+      this.buscarConexiones()
     })
 
-    this.buscarConexionesPersonales();
+    this.buscarConexiones();
 
   }
 
-  buscarConexionesPersonales() {
-    const userId = this.usuariosService.obtenerIdUsuario();
+  buscarConexiones() {
     const valor = this.formularioBusquedas.get('barraBusqueda')?.value;
     const orden = this.formularioBusquedas.get('ordenBusqueda')?.value;
     const filtro = this.formularioBusquedas.get('filtroBusqueda')?.value;
     this.busquedaService
-      .buscarConexiones(userId, valor, orden, filtro)
+      .buscarConexiones('', valor, orden, filtro)
       .subscribe(response => {
         if (response.status == 200) {
           this.listaConexiones = response.body;
           this.totalConexiones = response.body.length;
           this.conexionesPaginadas = realizarPaginacion(response.body, this.paginaActual, this.itemsPorPagina);
+          this.mostrarAnimacion = false;
         }
       });
   }
+
 }
