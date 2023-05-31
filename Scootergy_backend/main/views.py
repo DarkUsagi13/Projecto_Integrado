@@ -22,7 +22,7 @@ from main.utils import _calcular_importe, _calcular_gasto_y_consumo_total
 # Create your views here.
 
 class UsuarioView(viewsets.ModelViewSet):
-    permission_classes = [IsOwnerOrReadOnly]
+    # permission_classes = [IsOwnerOrReadOnly]
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
@@ -87,7 +87,6 @@ class EstacionView(viewsets.ModelViewSet):
 
 
 class PuestoView(viewsets.ModelViewSet):
-    permission_classes = [IsStaffOrReadOnly]
     queryset = Puesto.objects.all()
     serializer_class = PuestoSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
@@ -96,7 +95,6 @@ class PuestoView(viewsets.ModelViewSet):
 
 
 class PatineteView(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     queryset = Patinete.objects.all()
     serializer_class = PatineteSerializer
     filter_backends = [DjangoFilterBackend]
@@ -170,13 +168,11 @@ class PagoView(viewsets.ModelViewSet):
 
 
 class ComunidadAutonomaView(viewsets.ModelViewSet):
-    permission_classes = [IsStaffOrReadOnly]
     queryset = ComunidadAutonoma.objects.all()
     serializer_class = ComunidadAutonomaSerializer
 
 
 class ProvinciaView(viewsets.ModelViewSet):
-    permission_classes = [IsStaffOrReadOnly]
     queryset = Provincia.objects.all()
     serializer_class = ProvinciaSerializer
 

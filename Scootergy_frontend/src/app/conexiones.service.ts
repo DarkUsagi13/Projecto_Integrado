@@ -19,7 +19,7 @@ export class ConexionesService {
 
   getConexionesActivas(userId: string): Observable<any> {
     const params = new HttpParams().set('usuario', userId).set('finalizada', 'false');
-    return this.http.get(this.url + 'conexion/', { params });
+    return this.http.get(this.url + 'conexion/', { params, observe : 'response' });
   }
 
   getConexionesFinalizadas(userId: string, orden: string, propiedad: string): Observable<any> {
@@ -28,7 +28,7 @@ export class ConexionesService {
   }
 
   postConexion(conexion: any): Observable<any> {
-    return this.http.post<any>(this.url+`conexion/`, conexion);
+    return this.http.post<any>(this.url+`conexion/`, conexion, {observe: 'response'});
   }
 
   getConexionActual(usuario: string, puesto: string): Observable<any>{

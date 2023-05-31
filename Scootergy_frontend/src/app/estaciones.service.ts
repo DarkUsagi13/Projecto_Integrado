@@ -13,15 +13,15 @@ export class EstacionesService {
   constructor(private http: HttpClient) { }
 
   getEstaciones(): Observable<any> {
-    return this.http.get(this.url+`estacion`, {observe: 'response'});
+    return this.http.get(this.url+`estacion/?ordering=nombre`, {observe: 'response'});
   }
 
   getPuestos(estacion: string|null): Observable<any> {
-    return  this.http.get(this.url+`puesto/?estacion=${estacion}&ordering=id`);
+    return  this.http.get(this.url+`puesto/?estacion=${estacion}&ordering=id`, {observe: 'response'});
   }
 
   updatePuesto(idPuesto: string|null, puesto: any): Observable<any> {
-    return this.http.put(this.url+`puesto/${idPuesto}/`, puesto);
+    return this.http.put(this.url+`puesto/${idPuesto}/`, puesto, {observe : 'response'});
   }
 
   estadisticas_estaciones(): Observable<any> {

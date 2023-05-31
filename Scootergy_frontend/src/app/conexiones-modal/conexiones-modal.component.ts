@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ConexionesService} from "../conexiones.service";
@@ -29,6 +29,8 @@ export class ConexionesModalComponent implements OnInit, OnDestroy {
   confirmarPago: boolean = false;
   cargarDatos: boolean = false;
 
+  @Output() actualizarPuestos: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   constructor(
     public activeModal: NgbActiveModal,
     private fb: FormBuilder,
@@ -51,7 +53,6 @@ export class ConexionesModalComponent implements OnInit, OnDestroy {
 
     if (!this.puesto.disponible) {
       this.conexionesService.getConexionActual(this.id_usuario, this.puesto.id).subscribe(conexion => {
-        console.log(conexion)
         if (conexion.status == 200) {
           let conexionId = conexion.body.id;
           localStorage.setItem('conexion', conexionId)
@@ -88,17 +89,29 @@ export class ConexionesModalComponent implements OnInit, OnDestroy {
       0,
       false,
     );
-    this.conexionesService.postConexion(this.crearConexion).subscribe((response: any) => {
-      this.puesto.disponible = false;
-      this.estacionService.updatePuesto(this.puesto.id, this.puesto).subscribe();
-      this.patineteService.setPatineteSeleccionado(this.patinete);
-      this.conexionesService.getConexionesActivas(this.id_usuario.id).subscribe(conexiones => {
-        this.conexionesService.conexionesActivas = conexiones;
-      });
-
-      if (response.status == 201) {
+    this.conexionesService.postConexion(this.crearConexion).subscribe((post: any) => {
+      if (post.status != 201) {
+        return;
       }
+
+      this.puesto.disponible = false;
+      this.estacionService.updatePuesto(this.puesto.id, this.puesto).subscribe(update => {
+        if (update.status != 200) {
+          return;
+        }
+
+        this.patineteService.setPatineteSeleccionado(this.patinete);
+        this.conexionesService.getConexionesActivas(this.id_usuario).subscribe(conexiones => {
+
+          if (conexiones.status == 200) {
+
+            this.conexionesService.conexionesActivas = conexiones.body;
+            this.actualizarPuestos.emit(true)
+          }
+        });
+      });
     });
+
     this.activeModal.close()
   }
 

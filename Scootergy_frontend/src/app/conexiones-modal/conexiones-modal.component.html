@@ -48,7 +48,7 @@
 
           <ng-template #botonPayPal>
             <ng-container *ngIf="approvalUrl; else cargando">
-              <div [class.slide-in-top]="approvalUrl">
+              <div>
                 <h6>Puedes realizar el pago a través de PayPal</h6>
                 <div class="payment-buttons p-2">
                   <a href="{{ approvalUrl }}" class="paypal-button">
