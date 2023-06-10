@@ -42,7 +42,6 @@ export class RegistroComponent {
 
   registrarUsuario(formData: any) {
     if (this.formulario.invalid) {
-      console.log('Alguna validación ha fallado')
     } else {
       this.autenticarService.nuevoUsuario(this.formulario.value).subscribe({
         next: (data) => {

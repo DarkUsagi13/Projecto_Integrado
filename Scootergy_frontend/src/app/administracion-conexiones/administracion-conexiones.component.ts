@@ -56,7 +56,8 @@ export class AdministracionConexionesComponent {
 
   ngOnInit() {
 
-    this.formularioBusquedas.valueChanges.subscribe(() => {
+    this.formularioBusquedas.valueChanges.subscribe((data) => {
+      console.log(data)
       this.buscarConexiones()
     })
 
@@ -68,16 +69,16 @@ export class AdministracionConexionesComponent {
     const valor = this.formularioBusquedas.get('barraBusqueda')?.value;
     const orden = this.formularioBusquedas.get('ordenBusqueda')?.value;
     const filtro = this.formularioBusquedas.get('filtroBusqueda')?.value;
-    this.busquedaService
-      .buscarConexiones('', valor, orden, filtro)
-      .subscribe(response => {
-        if (response.status == 200) {
-          this.listaConexiones = response.body;
-          this.totalConexiones = response.body.length;
-          this.conexionesPaginadas = realizarPaginacion(response.body, this.paginaActual, this.itemsPorPagina);
-          this.mostrarAnimacion = false;
-        }
-      });
+    // this.busquedaService
+    //   .buscarConexiones('', valor, orden, filtro)
+    //   .subscribe(response => {
+    //     if (response.status == 200) {
+    //       this.listaConexiones = response.body;
+    //       this.totalConexiones = response.body.length;
+    //       this.conexionesPaginadas = realizarPaginacion(response.body, this.paginaActual, this.itemsPorPagina);
+    //       this.mostrarAnimacion = false;
+    //     }
+    //   });
   }
 
 }

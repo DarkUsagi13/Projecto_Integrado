@@ -115,9 +115,9 @@ class PatineteSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ConexionSerializer(serializers.HyperlinkedModelSerializer):
-    datosPuesto = PuestoSerializer(source='puesto', read_only=True)
-    datosPatinete = PatineteSerializer(source='patinete', read_only=True)
     patineteNombre = serializers.SerializerMethodField()
+    estacionNombre = serializers.SerializerMethodField()
+    puestoId = serializers.SerializerMethodField()
 
     class Meta:
         model = Conexion
@@ -133,12 +133,18 @@ class ConexionSerializer(serializers.HyperlinkedModelSerializer):
             'consumo',
             'finalizada',
             'patineteNombre',
-            'datosPuesto',
-            'datosPatinete',
+            'estacionNombre',
+            'puestoId',
         ]
 
     def get_patineteNombre(self, obj):
         return "{} {}".format(obj.patinete.marca, obj.patinete.modelo)
+
+    def get_estacionNombre(self, obj):
+        return obj.puesto.estacion.nombre
+
+    def get_puestoId(self, obj):
+        return obj.puesto.id
 
 
 class PagoSerializer(serializers.HyperlinkedModelSerializer):

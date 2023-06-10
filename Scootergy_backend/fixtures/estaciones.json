@@ -13,7 +13,7 @@
     "pk": 2,
     "fields": {
       "nombre": "Polígono Sur",
-      "direccion": "C. Esclava del Señor",
+      "direccion": "C. Esclava del Se±or",
       "provincia": 8
     }
   },
@@ -22,7 +22,7 @@
     "pk": 3,
     "fields": {
       "nombre": "Santa Justa",
-      "direccion": "C. Joaquin Morales y Torres",
+      "direccion": "Avenida José Laguillo",
       "provincia": 8
     }
   },
@@ -42,6 +42,42 @@
       "nombre": "Torre Sevilla",
       "direccion": "Plaza Alcalde Sánchez Monteseirín",
       "provincia": 8
+    }
+  },
+  {
+    "model": "main.estacion",
+    "pk": 6,
+    "fields": {
+      "nombre": "Casco Antiguo",
+      "direccion": "Plaza de San Juan de Dios",
+      "provincia": 2
+    }
+  },
+  {
+    "model": "main.estacion",
+    "pk": 7,
+    "fields": {
+      "nombre": "Paseo Marítimo",
+      "direccion": "Avenida Cayetano del Toro",
+      "provincia": 2
+    }
+  },
+  {
+    "model": "main.estacion",
+    "pk": 8,
+    "fields": {
+      "nombre": "Plaza del Triunfo",
+      "direccion": "Plaza del Triunfo",
+      "provincia": 3
+    }
+  },
+  {
+    "model": "main.estacion",
+    "pk": 9,
+    "fields": {
+      "nombre": "Alcázar de los Reyes Cristianos",
+      "direccion": "Avenida del Alcázar",
+      "provincia": 3
     }
   }
 ]

@@ -49,9 +49,6 @@
               </div>
             </ng-container>
           </div>
-          <div class="row mt-5">
-            <iframe [src]="getGoogleMapsUrl()" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen></iframe>
-          </div>
         </ng-container>
         <ng-template #Cargar>
           <div class="loading-container d-flex justify-content-center align-content-center">
@@ -62,7 +59,7 @@
 
       </div>
       <div class="text-center mt-5" *ngIf="!estacionSeleccionada">
-        <h2><span></span> No has seleccionado ninguna estación</h2>
+        <h2><span></span> No se ha seleccionado una estación</h2>
       </div>
     </div>
     <div class="container p-5" *ngIf="!mostrarDatos">

@@ -14,9 +14,9 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.db.models.functions import ExtractMonth
 
-from main.permissions import IsOwnerOrReadOnly, IsStaffOrReadOnly
+from main.permissions import IsStaffOrReadOnly
 from main.serializers import *
-from main.utils import _calcular_importe, _calcular_gasto_y_consumo_total
+from main.utils import _calcular_importe, _calcular_gasto_y_consumo_total, FiltrarConexionesFechas
 
 
 # Create your views here.
@@ -103,7 +103,7 @@ class PatineteView(viewsets.ModelViewSet):
 
 class ConexionView(viewsets.ModelViewSet):
     serializer_class = ConexionSerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, FiltrarConexionesFechas]
     search_fields = ['patinete__marca', 'patinete__modelo', 'puesto__estacion__nombre', 'consumo',
                      'importe']
     ordering_fields = ['id', 'patinete__modelo', 'puesto', 'consumo', 'horaConexion', 'horaDesconexion', 'importe']
@@ -153,11 +153,23 @@ class ConexionView(viewsets.ModelViewSet):
         queryset = Conexion.objects.all()
         usuario_id = self.request.query_params.get('usuario')
         mes = self.request.query_params.get('mes')
+        patinete = self.request.query_params.get('patinete')
+        estacion = self.request.query_params.get('estacion')
 
         if usuario_id:
             queryset = queryset.filter(usuario=usuario_id)
+
         if mes:
             queryset = queryset.annotate(mes=ExtractMonth('horaConexion')).filter(mes=mes)
+
+        if patinete:
+            queryset = queryset.filter(
+                Q(patinete__marca__icontains=patinete) |
+                Q(patinete__modelo__icontains=patinete)
+            )
+
+        if estacion:
+            queryset = queryset.filter(puesto__estacion__nombre__icontains=estacion)
 
         return queryset
 

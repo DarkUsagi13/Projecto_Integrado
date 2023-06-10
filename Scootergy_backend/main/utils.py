@@ -1,14 +1,14 @@
 import math
+from datetime import datetime
 
 from _decimal import ROUND_HALF_UP
-from asgiref.sync import async_to_sync
-from channels.layers import get_channel_layer
-from django.db.models import Sum
+from django.db.models import Sum, Q
 from django.utils import timezone
 from rest_framework.generics import get_object_or_404
 
-from main.models import Conexion, Puesto
+from main.models import Conexion
 from decimal import Decimal
+from rest_framework import filters
 
 
 def _calcular_horas_utilizadas(conexion):
@@ -24,19 +24,14 @@ def _calcular_importe(conexion_id):
     consumo_por_hora = conexion.patinete.consumo
     horas_utilizadas = _calcular_horas_utilizadas(conexion)
 
-    # Tarifa combinada
-    tarifa_base = Decimal('0.50')  # Tarifa de $0.50 por cada 30 minutos
-    tarifa_consumo = Decimal('0.15')  # Tarifa adicional de $0.15 por kWh
+    tarifa_consumo = Decimal('0.15')
 
     consumo_total = consumo_por_hora * Decimal(horas_utilizadas)
-    minutos_utilizados = horas_utilizadas * 60
-    bloques_30min = math.ceil(minutos_utilizados / 30)  # Cálculo de bloques de 30 minutos redondeando hacia arriba
-    importe_tiempo = tarifa_base * bloques_30min
-    importe_combinado = importe_tiempo + (tarifa_consumo * consumo_total)
+    importe = tarifa_consumo * consumo_total + Decimal(0.1)
 
     # Agregar IVA
     iva = Decimal('0.21')  # IVA del 21%
-    importe_con_iva = importe_combinado * (1 + iva)
+    importe_con_iva = importe * (1 + iva)
 
     conexion.consumo = consumo_total
     conexion.importe = importe_con_iva.quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
@@ -50,3 +45,20 @@ def _calcular_gasto_y_consumo_total(usuario_id=None):
     gasto_total = queryset.aggregate(total_gasto=Sum('importe'))['total_gasto'] or 0
     consumo_total = queryset.aggregate(total_consumo=Sum('consumo'))['total_consumo'] or 0
     return gasto_total, consumo_total
+
+
+class FiltrarConexionesFechas(filters.BaseFilterBackend):
+    def filter_queryset(self, request, queryset, view):
+        fecha_inicio = request.query_params.get('fecha_inicio')
+        fecha_fin = request.query_params.get('fecha_fin')
+
+        if fecha_inicio and fecha_fin:
+            queryset = queryset.filter(
+                Q(horaConexion__date__range=[fecha_inicio, fecha_fin])
+            )
+        elif fecha_inicio:
+            queryset = queryset.filter(horaConexion__date__gte=fecha_inicio)
+        elif fecha_fin:
+            queryset = queryset.filter(horaConexion__date__lt=fecha_fin)
+
+        return queryset

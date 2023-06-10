@@ -8,7 +8,7 @@ import {HomeComponent} from "./home/home.component";
 import {GestionPatinetesComponent} from "./registrar_patinete/gestion-patinetes.component";
 import {DetallesPerfilComponent} from "./detalles_perfil/datos-perfil.component";
 import {ResumenPagoComponent} from "./resumen-pago/resumen-pago.component";
-import {HistorialConexionesComponent} from "./historial-conexiones/historial-conexiones.component";
+import {HistorialConexionesComponent} from "./historial-cargas/historial-conexiones.component";
 import {ResumenPagoGuard} from "./resumen-pago.guard";
 import {ListadoPatinetesComponent} from "./listado-patinetes/listado-patinetes.component";
 import {DetallesConexionComponent} from "./detalles-conexion/detalles-conexion.component";

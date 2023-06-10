@@ -13,10 +13,14 @@
             <div class="container-fluid">
               <ul class="navbar-nav">
                 <li class="nav-item">
-                  <a class="enlace_main" [routerLink]="['/administracion']">Crear nueva estación</a>
+<!--                  <a class="enlace_main" [routerLink]="['/administracion']">-->
+                    <span>Crear nueva estación</span>
+<!--                  </a>-->
                 </li>
                 <li class="nav-item">
-                  <a class="enlace_main" [routerLink]="['/administracion/usuarios']">Crear puestos para una estación</a>
+                  <!--                  <a class="enlace_main" [routerLink]="['/administracion']">-->
+                  <span>Crear puestos para una estación</span>
+                  <!--                  </a>-->
                 </li>
               </ul>
             </div>
@@ -74,10 +78,10 @@
                 <td>{{estacion.direccion}}</td>
                 <td>{{estacion.datosProvincia.nombre}}</td>
                 <td class="d-flex justify-content-center align-items-center">
-                  <a class="btn btn-link mr-1"
-                     [routerLink]="['/perfil/listado_patinetes/detalles_patinete', estacion.id]">
+<!--                  <a class="btn btn-link mr-1"-->
+<!--                     [routerLink]="['/perfil/listado_patinetes/detalles_patinete', estacion.id]">-->
                     <span class="material-symbols-outlined">page_info</span>
-                  </a>
+<!--                  </a>-->
                   <!--                            <a class="btn btn-link" (click)="open(patinete)">-->
                   <!--                              <span class="material-symbols-outlined">delete</span>-->
                   <!--                            </a>-->

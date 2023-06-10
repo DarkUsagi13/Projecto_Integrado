@@ -19,7 +19,7 @@ export class PatinetesService {
   }
 
   patinetes(userId: string|null): Observable<any> {
-    return  this.http.get(this.url+`patinete/?usuario=${userId}`);
+    return  this.http.get(this.url+`patinete/?usuario=${userId}`, {observe: 'response'});
   }
 
   patinete(patinete_id: string):Observable<any> {

@@ -40,9 +40,9 @@
 
         <div class="col-auto">
           <mat-form-field appearance="outline">
-            <mat-label>Consumo</mat-label>
+            <mat-label>Consumo kWh</mat-label>
             <div style="display: flex; flex-direction: row; align-items: flex-start;">
-              <input id="consumo" matInput formControlName="consumo" type="number" placeholder="consumo">
+              <input id="consumo" matInput formControlName="consumo" type="number" placeholder="Consumo kWh">
               <ng-container *ngIf="formulario.get('consumo')?.invalid && (formulario.get('consumo')?.touched && formulario.get('marca')?.dirty)">
                 <ng-container *ngIf="formulario.get('consumo')?.hasError('min')">
                   <div style="position: relative; margin-left: 10px;">
