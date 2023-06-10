@@ -50,6 +50,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import { ConexionesActivasComponent } from './conexiones-activas/conexiones-activas.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     AdministracionDetallesUsuarioComponent,
     AdministracionEstacionesCargaComponent,
     AdministracionConexionesComponent,
+    ConexionesActivasComponent,
   ],
   imports: [
     BrowserModule,
@@ -107,7 +109,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
-    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
+    {provide: MAT_DATE_LOCALE, useValue: 'es-ES'}
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA,

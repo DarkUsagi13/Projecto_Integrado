@@ -110,6 +110,26 @@ class ConexionView(viewsets.ModelViewSet):
     filterset_fields = ['id', 'usuario', 'puesto', 'finalizada']
 
     @action(detail=False, methods=['get'])
+    def conexiones_activas(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        # Filtra solo las conexiones no finalizadas
+        queryset = queryset.filter(finalizada=False)
+        # Calcula el importe para cada conexión en el queryset
+        for conexion in queryset:
+            conexion_actualizada = _calcular_importe(conexion.id)
+            conexion.importe = conexion_actualizada.importe
+            conexion.consumo = conexion_actualizada.consumo
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=['get'])
     def conexion_actual(self, request):
         usuario_id = self.request.query_params.get('usuario')
         puesto_id = self.request.query_params.get('puesto')

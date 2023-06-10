@@ -1,19 +1,19 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { UsuariosService } from '../usuarios.service';
-import { ConexionesService } from '../conexiones.service';
-import { BusquedasService } from '../busquedas.service';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import {Component, ViewChild} from '@angular/core';
+import {UsuariosService} from "../usuarios.service";
+import {BusquedasService} from "../busquedas.service";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
+import {ConexionesService} from "../conexiones.service";
 import {formatearFecha} from "../utils";
 
 @Component({
-  selector: 'app-historial-conexiones',
-  templateUrl: './historial-conexiones.component.html',
-  styleUrls: ['./historial-conexiones.component.scss'],
+  selector: 'app-conexiones-activas',
+  templateUrl: './conexiones-activas.component.html',
+  styleUrls: ['./conexiones-activas.component.scss']
 })
-export class HistorialConexionesComponent implements OnInit {
+export class ConexionesActivasComponent {
 
   formulario!: FormGroup;
 
@@ -24,7 +24,6 @@ export class HistorialConexionesComponent implements OnInit {
     'estacionNombre',
     'puestoId',
     'horaConexion',
-    'horaDesconexion',
     'consumo',
     'importe',
   ];
@@ -47,16 +46,21 @@ export class HistorialConexionesComponent implements OnInit {
       desde: new FormControl(''),
       hasta: new FormControl(''),
     })
+
   }
 
   ngOnInit() {
-    this.buscarConexionesPersonales();
-    this.formulario.valueChanges.subscribe(valores => {
-      this.buscarConexionesPersonales();
+
+    this.obtenerConexionesActivas()
+
+    this.formulario.valueChanges.subscribe(() => {
+      this.obtenerConexionesActivas()
     })
+
   }
 
-  buscarConexionesPersonales() {
+  obtenerConexionesActivas() {
+
     const userId = this.usuariosService.obtenerIdUsuario();
 
     const patinete = this.formulario.get('patinete')?.value;
@@ -64,7 +68,7 @@ export class HistorialConexionesComponent implements OnInit {
     const fecha_inicio: string = formatearFecha(this.formulario.get('desde')?.value);
     const fecha_fin: string = formatearFecha(this.formulario.get('hasta')?.value);
 
-    this.busquedaService.buscarConexiones(userId, 'true', patinete, estacion, fecha_inicio.toString(), fecha_fin).subscribe((response) => {
+    this.busquedaService.buscarConexionesActivas(userId, patinete, estacion, fecha_inicio.toString(), fecha_fin).subscribe((response) => {
       if (response.status === 200) {
         this.dataSource = new MatTableDataSource(response.body);
         this.dataSource.paginator = this.paginator;
@@ -72,5 +76,6 @@ export class HistorialConexionesComponent implements OnInit {
       }
     });
   }
+
 
 }

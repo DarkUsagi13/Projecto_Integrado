@@ -20,6 +20,7 @@ import {
   AdministracionEstacionesCargaComponent
 } from "./administracion-estaciones-carga/administracion-estaciones-carga.component";
 import {AdministracionConexionesComponent} from "./administracion-conexiones/administracion-conexiones.component";
+import {ConexionesActivasComponent} from "./conexiones-activas/conexiones-activas.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -28,6 +29,7 @@ const routes: Routes = [
   {path: 'perfil', component: ResumenPerfilComponent, canActivate: [AuthGuard]},
   {path: 'perfil/editar_perfil', component: DetallesPerfilComponent, canActivate: [AuthGuard]},
   {path: 'patinetes', component: GestionPatinetesComponent, canActivate: [AuthGuard]},
+  {path: 'perfil/cargas_activas', component: ConexionesActivasComponent, canActivate: [AuthGuard]},
   {path: 'perfil/registrar_patinete', component: GestionPatinetesComponent, canActivate: [AuthGuard]},
   {path: 'perfil/listado_patinetes', component: ListadoPatinetesComponent, canActivate: [AuthGuard]},
   {path: 'perfil/listado_patinetes/detalles_patinete/:id', component: DetallesPatineteComponent, canActivate: [AuthGuard]},
