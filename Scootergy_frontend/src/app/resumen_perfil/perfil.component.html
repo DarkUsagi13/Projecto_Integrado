@@ -1,8 +1,8 @@
 <app-plantilla-perfil>
-  <div class="container-fluid p-3 slide-in-top">
+  <div class="container-fluid p-3 slide-in-top" style="overflow-x: scroll;">
     <div class="row mt-5">
-      <div class="col-6">
-        <h1>Mis datos</h1>
+      <div class="col-12 col-md-6">
+        <h1 class="text-center text-md-start">Mis datos</h1>
         <ul class="list-group list-group-flush rounded-3">
           <li class="list-group-item">Nombre de usuario: <h4 class="text-center">{{perfilUsuario.username}}</h4></li>
           <li class="list-group-item">Correo electrónico: <h4 class="text-center">{{perfilUsuario.email}}</h4></li>
@@ -10,8 +10,10 @@
             class="text-center">{{perfilUsuario.date_joined | date:'dd/MM/yyyy' }}</h4></li>
         </ul>
       </div>
-      <div class="col-6">
-        <h1>Resumen de uso</h1>
+      <div class="col-12 col-md-6 pt-5 pt-md-0">
+        <hr class="d-md-none">
+
+        <h1 class="text-center text-md-start">Resumen de uso</h1>
         <ul class="list-group list-group-flush rounded-3">
           <li class="list-group-item">Conexiones este mes: <h4 class="text-center">{{conexiones_mes}}</h4></li>
           <li class="list-group-item">Consumo este mes: <h4 class="text-center">{{consumo_mes}} kw/H</h4></li>
@@ -21,29 +23,38 @@
     </div>
     <div class="row mt-5 mb-5">
       <div class="rounded-3">
-        <table class="table text-center">
-          <caption style="caption-side: top" class="fs-1">
-            Últimas cargas
-          </caption>
-          <thead>
-            <tr>
-              <th scope="col">Patinete</th>
-              <th scope="col">Consumo</th>
-              <th scope="col">Fecha y hora</th>
-              <th scope="col">Importe</th>
-            </tr>
-          </thead>
-          <ng-container *ngIf="listaUltimasConexiones.length > 0">
-            <tbody *ngFor="let conexion of listaUltimasConexiones">
-              <tr>
-                  <td>{{conexion.patineteNombre}}</td>
-                  <td>{{conexion.consumo}}</td>
-                  <td>{{conexion.horaConexion | date: 'dd/MM/yyyy HH:mm' }}</td>
-                  <td>{{conexion.importe}}</td>
-              </tr>
-            </tbody>
-          </ng-container>
-        </table>
+        <hr class="d-md-none">
+
+        <div>
+          <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="patineteNombre">
+              <th mat-header-cell *matHeaderCellDef>
+                Patinete
+              </th>
+              <td mat-cell *matCellDef="let conexion">{{ conexion.patineteNombre }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="horaConexion">
+              <th mat-header-cell *matHeaderCellDef>Hora de conexión</th>
+              <td mat-cell *matCellDef="let conexion">{{ conexion.horaConexion | date: 'dd/MM/yyyy HH:mm' }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="consumo">
+              <th mat-header-cell *matHeaderCellDef>Consumo kw/H</th>
+              <td mat-cell *matCellDef="let conexion">{{ conexion.consumo }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="importe">
+              <th mat-header-cell *matHeaderCellDef>Importe</th>
+              <td mat-cell *matCellDef="let conexion">{{ conexion.importe }}€</td>
+            </ng-container>
+
+            <tr class="custom-header" mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+
+          </table>
+        </div>
+
         <div class="d-flex justify-content-center">
           <a class="enlace_main" [routerLink]="['historial_conexiones']">Ver todas las cargas...</a>
         </div>

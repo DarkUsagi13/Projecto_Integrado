@@ -1,97 +1,113 @@
 <app-plantilla-administracion>
-  <ng-container *ngIf="mostrarAnimacion; else noMostrar">
-    <div class="loading-container d-flex justify-content-center align-content-center">
-      <div class="loading"></div>
-      <div id="loading-text">Cargando...</div>
-    </div>
-  </ng-container>
-  <ng-template #noMostrar>
-    <div [class.slide-in-top]="!mostrarAnimacion" class="container-fluid">
-      <div class="d-flex">
-        <div>
-          <nav class="navbar">
-            <div class="container-fluid">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-<!--                  <a class="enlace_main" [routerLink]="['/administracion']">-->
-                    <span>Crear nueva estación</span>
-<!--                  </a>-->
-                </li>
-                <li class="nav-item">
-                  <!--                  <a class="enlace_main" [routerLink]="['/administracion']">-->
-                  <span>Crear puestos para una estación</span>
-                  <!--                  </a>-->
-                </li>
-              </ul>
+  <div class="container-fluid slide-in-top" style="overflow-x: scroll;">
+    <div>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title class="fw-bolder">Acciones de Estaciones de Carga</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="button-container mt-4">
+            <div class="button-group">
+              <button class="m-3" mat-raised-button color="primary" (click)="openRegistroEstacion()">Agregar una nueva estación</button>
             </div>
-          </nav>
-        </div>
-        <div>
-          1
-        </div>
-      </div>
-      <div>
-        <h1 class="text-center p-5">Estaciones de carga</h1>
-        <div>
-          <div>
-            <form [formGroup]="formularioBusquedas" class="row align-items-center">
-              <form [formGroup]="formularioBusquedas">
-                <mat-form-field class="p-3" appearance="fill">
-                  <mat-label>Buscar</mat-label>
-                  <input formControlName="barraBusqueda" type="search" matInput placeholder="Buscar"
-                         aria-label="Search"/>
-                </mat-form-field>
-
-                <mat-form-field class="p-3" appearance="fill">
-                  <mat-label>Filtrar por:</mat-label>
-                  <mat-select formControlName="filtroBusqueda">
-                    <mat-option *ngFor="let valor of filtroBusqueda | keyvalue" [value]="valor.key">
-                      {{ valor.value }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-
-                <mat-form-field class="p-3" appearance="fill">
-                  <mat-label>Ordenar por:</mat-label>
-                  <mat-select formControlName="ordenBusqueda">
-                    <mat-option *ngFor="let valor of ordenBusqueda | keyvalue" [value]="valor.key">
-                      {{ valor.value }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </form>
-            </form>
           </div>
-          <table class="table text-center">
-            <thead>
-            <tr>
-              <th scope="col">Nombre</th>
-              <th scope="col">Dirección</th>
-              <th scope="col">Provincia</th>
-              <th scope="col">Acciones</th>
-            </tr>
-            </thead>
-            <ng-container *ngIf="listadoEstaciones.length > 0">
-              <tbody *ngFor="let estacion of listadoEstaciones">
-              <tr>
-                <td>{{estacion.nombre}}</td>
-                <td>{{estacion.direccion}}</td>
-                <td>{{estacion.datosProvincia.nombre}}</td>
-                <td class="d-flex justify-content-center align-items-center">
-<!--                  <a class="btn btn-link mr-1"-->
-<!--                     [routerLink]="['/perfil/listado_patinetes/detalles_patinete', estacion.id]">-->
-                    <span class="material-symbols-outlined">page_info</span>
-<!--                  </a>-->
-                  <!--                            <a class="btn btn-link" (click)="open(patinete)">-->
-                  <!--                              <span class="material-symbols-outlined">delete</span>-->
-                  <!--                            </a>-->
-                </td>
-              </tr>
-              </tbody>
-            </ng-container>
-          </table>
-        </div>
-      </div>
+        </mat-card-content>
+      </mat-card>
+
     </div>
-  </ng-template>
+    <div>
+
+      <h1 class="text-center p-5">Estaciones de carga</h1>
+
+      <form [formGroup]="formulario">
+
+        <div class="d-flex">
+          <div class="p-2">
+            <mat-form-field appearance="fill">
+              <mat-label>Buscar estación</mat-label>
+              <input formControlName="estacion" matInput placeholder="Buscar estación">
+            </mat-form-field>
+          </div>
+
+          <div class="p-2">
+            <mat-form-field appearance="fill">
+              <mat-label>Buscar dirección</mat-label>
+              <input formControlName="direccion" matInput placeholder="Buscar dirección">
+            </mat-form-field>
+          </div>
+
+          <div class="p-2">
+            <mat-form-field appearance="fill">
+              <mat-label>Buscar provincia</mat-label>
+              <input formControlName="provincia" matInput placeholder="Buscar provincia">
+            </mat-form-field>
+          </div>
+
+          <div class="p-2">
+            <mat-form-field appearance="fill">
+              <mat-label>Buscar comunidad</mat-label>
+              <input formControlName="comunidad" matInput placeholder="Buscar comunidad">
+            </mat-form-field>
+          </div>
+        </div>
+
+      </form>
+
+      <div>
+        <table style="width: 1500px" mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Estación
+            </th>
+            <td mat-cell *matCellDef="let estacion">{{ estacion.nombre }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="direccion">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Dirección</th>
+            <td mat-cell *matCellDef="let estacion">{{ estacion.direccion }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="provinciaNombre">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Provincia</th>
+            <td mat-cell *matCellDef="let estacion">{{ estacion.provinciaNombre }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="comunidadNombre">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Comunidad</th>
+            <td mat-cell *matCellDef="let estacion">{{ estacion.comunidadNombre }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="total_puestos">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Puestos totales</th>
+            <td mat-cell *matCellDef="let estacion">{{ estacion.total_puestos }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="editar">
+            <th mat-header-cell *matHeaderCellDef>Editar</th>
+            <td mat-cell *matCellDef="let estacion">
+              <a class="btn" (click)="open(estacion)">
+                <i class="fa-solid fa-pen-to-square fa-xl" style="color: #0077cc;"></i>
+              </a>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="add_puestos">
+            <th mat-header-cell *matHeaderCellDef>Agregar puestos</th>
+            <td mat-cell *matCellDef="let estacion">
+              <a class="btn" (click)="openAgregarPuestos(estacion)">
+                <i class="fa-solid fa-plus fa-xl" style="color: #0077cc;"></i>
+              </a>
+            </td>
+          </ng-container>
+
+          <tr class="custom-header" mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+          <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+
+        </table>
+      </div>
+
+      <mat-paginator [pageSize]="itemsPerPage" [pageSizeOptions]="[10, 25, 50, 100]"
+                     showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
 </app-plantilla-administracion>

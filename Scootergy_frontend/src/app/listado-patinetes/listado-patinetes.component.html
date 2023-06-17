@@ -1,55 +1,59 @@
 <app-plantilla-perfil>
-  <ng-container>
-    <div class="container-fluid slide-in-top">
-      <h1 class="text-center p-5">Tus patinetes</h1>
-      <div>
-        <div>
-          <form [formGroup]="valoresForm" class="row align-items-center">
-            <div class="form-group col-3 p-4">
-              <label for="filtros">Filtrar por:</label>
-              <select id="filtros" formControlName="filtros" class="form-control">
-                <option *ngFor="let valor of filtros | keyvalue" [ngValue]="valor.key">{{valor.value}}</option>
-              </select>
-            </div>
-            <div class="form-group col-2 p-4">
-              <label for="orden">Ordenar por:</label>
-              <select id="orden" formControlName="orden" class="form-control">
-                <option selected>Ascendente</option>
-                <option>Descendente</option>
-              </select>
-            </div>
-          </form>
-        </div>
-        <table class="table text-center">
-          <thead>
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Marca</th>
-            <th scope="col">Modelo</th>
-            <th scope="col">Consumo</th>
-            <th scope="col" colspan="2">Acciones</th>
-          </tr>
-          </thead>
-          <ng-container *ngIf="listaPatinetes.length > 0">
-            <tbody *ngFor="let patinete of listaPatinetes">
-            <tr>
-              <td>{{patinete.id}}</td>
-              <td>{{patinete.marca}}</td>
-              <td>{{patinete.modelo}}</td>
-              <td>{{patinete.consumo}}</td>
-              <td class="d-flex justify-content-center align-items-center">
-                <a class="btn btn-link mr-1" [routerLink]="['/perfil/listado_patinetes/detalles_patinete', patinete.id]">
-                  <span class="material-symbols-outlined">page_info</span>
-                </a>
-                <a class="btn btn-link" (click)="open(patinete)">
-                  <span class="material-symbols-outlined">delete</span>
-                </a>
-              </td>
-            </tr>
-            </tbody>
-          </ng-container>
-        </table>
+  <ng-container *ngIf="animacion; else mostrarTabla">
+    <div class="container-fluid">
+      <div class="loading-container d-flex justify-content-center align-content-center">
+        <div class="loading"></div>
+        <div id="loading-text">Cargando...</div>
       </div>
     </div>
   </ng-container>
+  <ng-template #mostrarTabla>
+    <div class="container-fluid slide-in-top" style="overflow-x: scroll;">
+      <h1 class="text-center p-5">Patinetes registrados</h1>
+
+      <form [formGroup]="formulario">
+
+        <div class="d-flex">
+          <div class="p-2">
+            <mat-form-field appearance="fill">
+              <mat-label>Marca/modelo</mat-label>
+              <input formControlName="patinete" matInput placeholder="Marca/modelo">
+            </mat-form-field>
+          </div>
+        </div>
+
+      </form>
+
+      <table mat-table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="patineteNombre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Marca del patinete
+          </th>
+          <td mat-cell *matCellDef="let patinete">{{ patinete.patineteNombre }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="consumo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Consumo</th>
+          <td mat-cell *matCellDef="let patinete">{{ patinete.consumo }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="detalles">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let patinete">
+            <button type="button" class="btn" (click)="open(patinete)">
+              <i class="fa-regular fa-trash-can fa-xl" style="color: #f44336;"></i>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr class="custom-header" mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+
+      </table>
+
+      <mat-paginator [pageSize]="itemsPerPage" [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+
+    </div>
+  </ng-template>
 </app-plantilla-perfil>

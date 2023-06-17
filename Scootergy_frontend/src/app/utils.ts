@@ -13,7 +13,7 @@ export function calcular_tiempo(conexion: any) {
   const horas = Math.floor(diferenciaEnMilisegundos / 3600000); // 1 hora = 3600000 milisegundos
   const minutos = Math.floor((diferenciaEnMilisegundos % 3600000) / 60000); // 1 minuto = 60000 milisegundos
 
-  return { horas, minutos };
+  return `${horas}h ${minutos}m`;
 }
 
 export function formatearFecha(fechaInicial: Date) {

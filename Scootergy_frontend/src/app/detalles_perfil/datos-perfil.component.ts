@@ -15,7 +15,6 @@ export class DetallesPerfilComponent {
   idUsuario: string = "";
   datosPerfil!: any;
   formulario!: FormGroup;
-
   submitted: any;
 
   public usernameInvalid = 'El nombre de usuario debe incluir: al menos una letra, y puede incluir letras, números, puntos, ' +
@@ -64,7 +63,7 @@ export class DetallesPerfilComponent {
   putPerfil() {
     this.submitted = true; // Establecer submitted en true al intentar enviar el formulario
     if (this.formulario.invalid) {
-
+      console.log(this.formulario.errors)
     } else {
       this.perfilService.putPerfil(this.idUsuario, this.formulario.value).subscribe(response => {
         if (response.status == 200) {
@@ -73,7 +72,6 @@ export class DetallesPerfilComponent {
         }
       });
     }
-
   }
 
 }

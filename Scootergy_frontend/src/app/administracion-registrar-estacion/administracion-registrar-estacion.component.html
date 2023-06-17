@@ -1,0 +1,73 @@
+<mat-dialog-content>
+  <h1  class="text-center" mat-dialog-title>Registrar estación</h1>
+  <p mat-dialog-title>Rellena el formulario e introduce el número de puestos que quieres crear para la nueva estación.</p>
+</mat-dialog-content>
+
+<mat-dialog-content class="text-center">
+  <form [formGroup]="formulario" class="d-flex flex-column align-items-center" (ngSubmit)="registrarEstacion()">
+    <div class="col-auto">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre de la estación</mat-label>
+        <div style="display: flex; flex-direction: row; align-items: flex-start;">
+          <input id="nombre" matInput formControlName="nombre" type="text" placeholder="Nombre de la estación">
+        </div>
+      </mat-form-field>
+    </div>
+
+    <div class="col-auto">
+      <mat-form-field appearance="outline">
+        <mat-label>Dirección</mat-label>
+        <div style="display: flex; flex-direction: row; align-items: flex-start;">
+          <input id="direccion" matInput formControlName="direccion" type="text" placeholder="Dirección">
+        </div>
+      </mat-form-field>
+    </div>
+
+    <div class="col-auto">
+      <mat-form-field appearance="outline">
+        <mat-label>Comunidad Autónoma</mat-label>
+        <mat-select formControlName="comunidad" placeholder="Comunidad Autónoma">
+          <mat-option *ngFor="let comunidad of comunidades" [value]="comunidad"
+                      (click)="getProvincias()">{{comunidad.nombre}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-auto">
+      <mat-form-field appearance="outline">
+        <mat-label>Provincia</mat-label>
+        <mat-select formControlName="provincia" placeholder="Provincia">
+          <mat-option *ngFor="let provincia of provincias" [value]="provincia">{{provincia.nombre}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-auto">
+      <mat-form-field appearance="outline">
+        <mat-label>Número de puestos</mat-label>
+        <div style="display: flex; flex-direction: row; align-items: flex-start;">
+          <input id="num_puestos" matInput formControlName="num_puestos" type="number" placeholder="Número de puestos">
+          <ng-container
+            *ngIf="formulario.get('num_puestos')?.invalid && (formulario.get('num_puestos')?.touched && formulario.get('num_puestos')?.dirty)">
+            <ng-container *ngIf="formulario.get('num_puestos')?.hasError('pattern')">
+              <div style="position: relative; margin-left: 10px;">
+                <mat-icon matTooltip="El número debe ser mayor a cero" matTooltipPosition="after">warning</mat-icon>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <span>* Campos obligatorios</span>
+    </div>
+    <div class="text-center mt-3">
+      <button mat-raised-button color="primary">Registrar estación</button>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="justify-content-center">
+  <button mat-button mat-dialog-close>Cancelar</button>
+</mat-dialog-actions>

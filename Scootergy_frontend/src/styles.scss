@@ -55,6 +55,11 @@ a {
   text-decoration: none;
 }
 
+.custom-primary-button {
+  background-color: #0077CC; /* Color rojo personalizado */
+  color: #ffffff; /* Color del texto */
+}
+
 .enlace_main {
   background-image: linear-gradient(
       to right,
@@ -119,6 +124,13 @@ body {
   color: black;
   background-color: #0077CC;
 }
+
+.custom-header {
+  background: #E0E0E0 !important; /* Color de fondo */
+  /* Otros estilos que desees aplicar */
+
+}
+
 
 /* Estilos para los botones */
 .butn,

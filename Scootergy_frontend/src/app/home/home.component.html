@@ -1,71 +1,111 @@
 <app-template>
-  <div class="container-fluid">
-    <div class="container h-100 p-5 h-75" *ngIf="mostrarDatos">
+  <div class="d-flex">
+    <div class="container-fluid col-2 py-5 slide-in-top">
       <div>
-        <form [formGroup]="formulario">
-          <div class="form-group">
-            <label for="estaciones">Seleccione una estación:</label>
-            <select id="estaciones" formControlName="estaciones" class="form-control mt-3" (change)="mostrarPuestos()">
-              <option selected>Seleccione...</option>
-              <option *ngFor="let estacion of estaciones" [value]="estacion.id">{{ estacion.nombre }}
-                , {{estacion.direccion}}</option>
-            </select>
-          </div>
-        </form>
+        <h4 class="pb-3 text-center">Tienes cargas activas en:</h4>
       </div>
-      <div *ngIf="estacionSeleccionada" [class.slide-in-top]="!animacionCarga">
-        <ng-container>
-          <div class="text-center fs-1">
-            <h3 class="p-5">
-              Estación de carga: <span class="fw-bolder">{{estacionSeleccionada.nombre}}</span>
-            </h3>
-          </div>
+      <div class="container">
+        <ng-container *ngIf="conexionesActivas.length >= 1; else sinConexiones">
+          <ng-container *ngFor="let conexion of conexionesActivas">
+            <div class="col-auto">
+              <nav class="navbar">
+                <div class="container-fluid">
+                  <ul class="navbar-nav">
+                    <li class="nav-item">
+                      <a class="enlace_main" style="cursor: pointer"
+                         (click)="seleccionarEstacion(conexion)">{{conexion.estacionNombre}}</a>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+            </div>
+          </ng-container>
         </ng-container>
-        <ng-container *ngIf="!animacionCarga; else Cargar">
-          <div class="row">
-            <ng-container *ngFor="let puesto of puestos">
-              <div class="col-3 d-flex justify-content-center align-items-center">
-                <div class="row w-100">
-                  <div class="col-12 d-block mt-3 banner d-flex flex-column justify-content-center">
-                    <ng-container *ngIf="puesto.disponible; else noDisponible">
-                      <button class="d-block w-100 btn py-5 butn butn__new flex-grow-1" (click)="open(puesto)">
-                        Disponible
-                      </button>
-                    </ng-container>
-                    <ng-template #noDisponible>
-                      <ng-container *ngIf="!puesto.disponible && puesto.perteneceUsuario; else noPertenece">
-                        <button class="d-block w-100 btn py-5 butn butn__new flex-grow-1 personal"
-                                (click)="open(puesto)">Utilizado por ti
-                        </button>
-                      </ng-container>
-                      <ng-template #noPertenece>
-                        <button class="d-block w-100 btn py-5 butn butn__new flex-grow-1 disabled text-sm"
-                                style="background: #FFCCCC" (click)="open(puesto)">No disponible
-                        </button>
-                      </ng-template>
-                    </ng-template>
-                  </div>
+        <ng-template #sinConexiones>
+          <div class="text-center">
+            <div class="d-flex align-items-center justify-content-center">
+              <div class="card w-100">
+                <div class="card-body d-flex align-items-center">
+                  <p class="mb-0">No tienes conexiones activas</p>
+                  <span class="mr-2"><mat-icon class="icono-aviso">info</mat-icon></span>
                 </div>
               </div>
-            </ng-container>
-          </div>
-        </ng-container>
-        <ng-template #Cargar>
-          <div class="loading-container d-flex justify-content-center align-content-center">
-            <div class="loading"></div>
-            <div id="loading-text">Cargando...</div>
+            </div>
           </div>
         </ng-template>
-
-      </div>
-      <div class="text-center mt-5" *ngIf="!estacionSeleccionada">
-        <h2><span></span> No se ha seleccionado una estación</h2>
       </div>
     </div>
-    <div class="container p-5" *ngIf="!mostrarDatos">
-      <h3 class="text-center">No tienes ningún patinete, ¡Agrega uno!</h3>
-      <div class="container d-flex justify-content-center">
-        <a [routerLink]='["perfil/registrar_patinete"]' type="button" class="btn btn-success p-1">Agregar</a>
+
+    <div class="container-fluid col-10">
+      <div class="container h-100 p-5 h-75" *ngIf="mostrarDatos">
+        <div>
+          <form [formGroup]="formulario">
+            <div class="form-group">
+              <label for="estaciones">Seleccione una estación:</label>
+              <select id="estaciones" formControlName="estaciones" class="form-control mt-3"
+                      (change)="mostrarPuestos()">
+                <option selected>Seleccione...</option>
+                <option *ngFor="let estacion of estaciones" [value]="estacion.id">{{ estacion.nombre }}
+                  , {{estacion.direccion}}</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div *ngIf="estacionSeleccionada" [class.slide-in-top]="!animacionCarga">
+          <ng-container>
+            <div class="text-center fs-1">
+              <h3 class="p-5">
+                Estación de carga: <span class="fw-bolder">{{estacionSeleccionada.nombre}}</span>
+              </h3>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="!animacionCarga; else Cargar">
+            <div class="row">
+              <ng-container *ngFor="let puesto of puestos">
+                <div class="col-12 col-xl-3 col-md-6 d-flex justify-content-center align-items-center">
+                  <div class="row w-100">
+                    <div class="col-12 d-block mt-3 banner d-flex flex-column justify-content-center">
+                      <ng-container *ngIf="puesto.disponible; else noDisponible">
+                        <button class="d-block w-100 btn py-3 py-md-5 butn butn__new flex-grow-1"
+                                (click)="open(puesto)">
+                          Disponible
+                        </button>
+                      </ng-container>
+                      <ng-template #noDisponible>
+                        <ng-container *ngIf="!puesto.disponible && puesto.perteneceUsuario; else noPertenece">
+                          <button class="d-block w-100 btn py-3 py-md-5 butn butn__new flex-grow-1 personal"
+                                  (click)="open(puesto)">Utilizado por ti
+                          </button>
+                        </ng-container>
+                        <ng-template #noPertenece>
+                          <button class="d-block w-100 btn py-3 py-md-5 butn butn__new flex-grow-1 disabled text-sm"
+                                  style="background: #FFCCCC" (click)="open(puesto)">No disponible
+                          </button>
+                        </ng-template>
+                      </ng-template>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </ng-container>
+          <ng-template #Cargar>
+            <div class="loading-container d-flex justify-content-center align-content-center">
+              <div class="loading"></div>
+              <div id="loading-text">Cargando...</div>
+            </div>
+          </ng-template>
+
+        </div>
+        <div class="text-center mt-5" *ngIf="!estacionSeleccionada">
+          <h2><span></span> No se ha seleccionado una estación</h2>
+        </div>
+      </div>
+      <div class="container p-5" *ngIf="!mostrarDatos">
+        <h3 class="text-center">No tienes ningún patinete, ¡Agrega uno!</h3>
+        <div class="container d-flex justify-content-center">
+          <a [routerLink]='["perfil/registrar_patinete"]' type="button" class="btn btn-primary p-1">Agregar</a>
+        </div>
       </div>
     </div>
   </div>

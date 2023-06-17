@@ -10,15 +10,14 @@ export class BusquedasService {
 
   url = url()
 
-  totalUsuario: any;
-
   constructor(
     private http: HttpClient,
   ) {
   }
 
-  buscarUsuarios(valor: string, orden: string, filtro: string): Observable<any> {
-    return this.http.get(this.url + `usuario/?ordering=${orden}${filtro}&search=${valor}`, {observe: 'response'})
+  buscarUsuarios(usuario: string, email: string, fecha_inicio: string, fecha_fin: string): Observable<any> {
+    const params = new HttpParams().set('usuario', usuario).set('email', email).set('fecha_inicio', fecha_inicio).set('fecha_fin', fecha_fin)
+    return this.http.get(this.url + `usuario/`, {params, observe: 'response'})
   }
 
   buscarConexiones(userId: string, finalizada: string, patinete: string, estacion: string, fecha_inicio: string, fecha_fin: string): Observable<any> {
@@ -31,8 +30,8 @@ export class BusquedasService {
     return this.http.get<any>(this.url + `conexion/conexiones_activas`, {params, observe: 'response'})
   }
 
-  buscarEstaciones(orden: string, filtro: string, valor: string): Observable<any> {
-    const params = new HttpParams().set('ordering', orden + filtro).set('search', valor);
+  buscarEstaciones(estacion: string, direccion: string, provincia: string, comunidad: string): Observable<any> {
+    const params = new HttpParams().set('estacion', estacion).set('direccion', direccion).set('provincia', provincia).set('comunidad', comunidad);
     return this.http.get(this.url + `estacion/`, {params, observe: 'response'})
   }
 

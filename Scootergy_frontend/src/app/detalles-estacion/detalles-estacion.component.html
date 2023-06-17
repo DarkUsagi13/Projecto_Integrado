@@ -1,0 +1,59 @@
+<mat-dialog-content class="text-center">
+  <h1 mat-dialog-title>Editar estación</h1>
+</mat-dialog-content>
+<mat-dialog-content>
+  <p>Comunidad autónoma: {{estacion?.comunidadNombre}}</p>
+  <p>Provincia: {{estacion?.provinciaNombre}}</p>
+</mat-dialog-content>
+
+<mat-dialog-content class="text-center">
+  <form [formGroup]="formulario" class="d-flex flex-column align-items-center" (ngSubmit)="editarEstacion()">
+    <div class="col-auto">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre de la estación</mat-label>
+        <div style="display: flex; flex-direction: row; align-items: flex-start;">
+          <input id="nombre" matInput formControlName="nombre" type="text" placeholder="Nombre de la estación">
+        </div>
+      </mat-form-field>
+    </div>
+
+    <div class="col-auto">
+      <mat-form-field appearance="outline">
+        <mat-label>Dirección</mat-label>
+        <div style="display: flex; flex-direction: row; align-items: flex-start;">
+          <input id="direccion" matInput formControlName="direccion" type="text" placeholder="Dirección">
+        </div>
+      </mat-form-field>
+    </div>
+
+    <div class="col-auto">
+      <mat-form-field appearance="outline">
+        <mat-label>Comunidad Autónoma</mat-label>
+        <mat-select formControlName="comunidad" placeholder="Comunidad Autónoma">
+          <mat-option *ngFor="let comunidad of comunidades" [value]="comunidad"
+                      (click)="getProvincias()">{{comunidad?.nombre}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-auto">
+      <mat-form-field appearance="outline">
+        <mat-label>Provincia</mat-label>
+        <mat-select formControlName="provincia" placeholder="Provincia">
+          <mat-option *ngFor="let provincia of provincias" [value]="provincia">{{provincia?.nombre}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <span>* Campos obligatorios</span>
+    </div>
+    <div class="text-center mt-3">
+      <button mat-raised-button color="primary">Editar datos</button>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="justify-content-center">
+  <button mat-button mat-dialog-close>Cancelar</button>
+</mat-dialog-actions>

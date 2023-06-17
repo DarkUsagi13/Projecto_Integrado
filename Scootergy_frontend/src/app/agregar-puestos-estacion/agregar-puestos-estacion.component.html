@@ -1,0 +1,50 @@
+<mat-dialog-content class="text-center">
+  <h1 mat-dialog-title>Estación:</h1>
+</mat-dialog-content>
+<mat-dialog-content>
+  <p>Comunidad autónoma: {{estacion?.comunidadNombre}}</p>
+  <p>Provincia: {{estacion?.provinciaNombre}}</p>
+  <p>Nombre: {{estacion.nombre}}</p>
+  <p>Dirección: {{estacion.direccion}}</p>
+  <p>Númnero de puestos actuales: {{estacion.total_puestos}}</p>
+</mat-dialog-content>
+
+<mat-dialog-content class="text-center">
+  <mat-card>
+    <mat-card-header class="mb-3">
+      <mat-card-title>Añadir puestos</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="formulario" class="d-flex flex-column align-items-center" (ngSubmit)="addPuestos()">
+        <div class="col-auto">
+          <mat-form-field appearance="outline">
+            <mat-label>Número de puestos</mat-label>
+            <div style="display: flex; flex-direction: row; align-items: flex-start;">
+              <input id="num_puestos" matInput formControlName="num_puestos" type="number"
+                     placeholder="Número de puestos">
+              <ng-container
+                *ngIf="formulario.get('num_puestos')?.invalid && (formulario.get('num_puestos')?.touched && formulario.get('num_puestos')?.dirty)">
+                <ng-container *ngIf="formulario.get('num_puestos')?.hasError('pattern')">
+                  <div style="position: relative; margin-left: 10px;">
+                    <mat-icon matTooltip="El número debe ser mayor a cero" matTooltipPosition="after">warning</mat-icon>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
+          </mat-form-field>
+        </div>
+        <div>
+          <span>* Campo obligatorio</span>
+        </div>
+        <div class="text-center mt-3">
+          <button mat-raised-button color="primary">Añadir puestos</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+</mat-dialog-content>
+
+<mat-dialog-actions class="justify-content-center">
+  <button mat-button mat-dialog-close>Cancelar</button>
+</mat-dialog-actions>

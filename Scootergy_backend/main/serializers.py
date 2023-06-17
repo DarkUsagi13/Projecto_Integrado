@@ -1,7 +1,6 @@
 import string
 import re
 
-
 from rest_framework import serializers
 
 from main.models import *
@@ -72,7 +71,9 @@ class RegistroSerializer(serializers.ModelSerializer):
 
 
 class EstacionSerializer(serializers.HyperlinkedModelSerializer):
-    datosProvincia = ProvinciaSerializer(source='provincia', read_only=True)
+    provinciaNombre = serializers.SerializerMethodField()
+    comunidadNombre = serializers.SerializerMethodField()
+    total_puestos = serializers.SerializerMethodField()
 
     class Meta:
         model = Estacion
@@ -82,13 +83,23 @@ class EstacionSerializer(serializers.HyperlinkedModelSerializer):
             'nombre',
             'direccion',
             'provincia',
-            'datosProvincia',
+            'provinciaNombre',
+            'comunidadNombre',
+            'total_puestos',
         ]
+
+    def get_total_puestos(self, estacion):
+        return Puesto.objects.filter(estacion=estacion).count()
+
+    def get_provinciaNombre(self, obj):
+        return "{}".format(obj.provincia.nombre)
+
+    def get_comunidadNombre(self, obj):
+        return "{}".format(obj.provincia.comunidad_autonoma.nombre)
 
 
 class PuestoSerializer(serializers.HyperlinkedModelSerializer):
-    # puesto = serializers.CharField(source='puesto', read_only=True)
-    datosEstacion = EstacionSerializer(source='estacion', read_only=True)
+    identificador = serializers.SerializerMethodField()
 
     class Meta:
         model = Puesto
@@ -97,27 +108,64 @@ class PuestoSerializer(serializers.HyperlinkedModelSerializer):
             'id',
             'estacion',
             'disponible',
-            'datosEstacion',
+            'identificador',
+        ]
+
+    def get_identificador(self, obj):
+        return "{}".format(obj.id)
+
+
+class MarcaSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Marca
+        fields = [
+            'url',
+            'id',
+            'nombre',
+        ]
+
+
+class ModeloSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Modelo
+        fields = [
+            'url',
+            'id',
+            'nombre',
+            'consumo',
+            'marca',
         ]
 
 
 class PatineteSerializer(serializers.HyperlinkedModelSerializer):
+    patineteNombre = serializers.SerializerMethodField()
+    consumo = serializers.SerializerMethodField()
+
     class Meta:
         model = Patinete
         fields = [
             'url',
             'id',
-            'marca',
             'modelo',
-            'consumo',
             'usuario',
+            'disponible',
+            'patineteNombre',
+            'consumo',
         ]
+
+    def get_patineteNombre(self, obj):
+        return "{} {}".format(obj.modelo.marca.nombre, obj.modelo.nombre)
+
+    def get_consumo(self, obj):
+        return "{}".format(obj.modelo.consumo)
 
 
 class ConexionSerializer(serializers.HyperlinkedModelSerializer):
     patineteNombre = serializers.SerializerMethodField()
     estacionNombre = serializers.SerializerMethodField()
     puestoId = serializers.SerializerMethodField()
+    estacionId = serializers.SerializerMethodField()
+    username = serializers.SerializerMethodField()
 
     class Meta:
         model = Conexion
@@ -135,16 +183,24 @@ class ConexionSerializer(serializers.HyperlinkedModelSerializer):
             'patineteNombre',
             'estacionNombre',
             'puestoId',
+            'estacionId',
+            'username',
         ]
 
     def get_patineteNombre(self, obj):
-        return "{} {}".format(obj.patinete.marca, obj.patinete.modelo)
+        return "{} {}".format(obj.patinete.modelo.marca.nombre, obj.patinete.modelo.nombre)
+
+    def get_username(self, obj):
+        return obj.usuario.username
 
     def get_estacionNombre(self, obj):
         return obj.puesto.estacion.nombre
 
     def get_puestoId(self, obj):
         return obj.puesto.id
+
+    def get_estacionId(self, obj):
+        return obj.puesto.estacion.id
 
 
 class PagoSerializer(serializers.HyperlinkedModelSerializer):
@@ -160,5 +216,3 @@ class PagoSerializer(serializers.HyperlinkedModelSerializer):
             'fecha',
             'id_transaccion_paypal'
         ]
-
-

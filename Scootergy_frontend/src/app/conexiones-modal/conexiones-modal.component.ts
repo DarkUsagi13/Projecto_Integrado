@@ -22,12 +22,14 @@ export class ConexionesModalComponent implements OnInit, OnDestroy {
   id_usuario: any;
   formulario!: FormGroup;
   @Input() puesto: any;
-  patinete: any;
-  @Input() patinetesList: any;
+  patinete_id: any;
+  @Input() patinetesList: any[] = [];
+  patinetesDisponibles: any[] = [];
   @Input() estacion: any;
   approvalUrl: any;
   confirmarPago: boolean = false;
   cargarDatos: boolean = false;
+  activarSelect: boolean = false;
 
   @Output() actualizarPuestos: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -40,19 +42,26 @@ export class ConexionesModalComponent implements OnInit, OnDestroy {
     private patineteService: PatinetesService,
     private paypalService: PaypalService,
     private modalService: NgbModal,
-  ) {
-
-  }
+  ) {}
 
   ngOnInit() {
+    for (const patinete of this.patinetesList) {
+      if (patinete.disponible) {
+        this.patinetesDisponibles.push(patinete)
+      }
+    }
+
+    let comprobar = false;
+    if (this.patinetesDisponibles.length == 0) {
+      comprobar = true;
+    }
+    this.activarSelect = comprobar;
     this.formulario = this.fb.group({
-      patinetesList: new FormControl('', Validators.required)
+      patinetesList: new FormControl({value: '', disabled: this.activarSelect}, Validators.required)
     })
-
     this.id_usuario = this.perfilService.obtenerIdUsuario()
-
-    if (!this.puesto.disponible) {
-      this.conexionesService.getConexionActual(this.id_usuario, this.puesto.id).subscribe(conexion => {
+    if (!this.puesto?.disponible) {
+      this.conexionesService.getConexionActual(this.id_usuario, this.puesto?.id).subscribe(conexion => {
         if (conexion.status == 200) {
           let conexionId = conexion.body.id;
           localStorage.setItem('conexion', conexionId)
@@ -67,7 +76,6 @@ export class ConexionesModalComponent implements OnInit, OnDestroy {
         }
       });
     }
-
   }
 
   crearPago() {
@@ -79,36 +87,29 @@ export class ConexionesModalComponent implements OnInit, OnDestroy {
   }
 
   setConexion() {
-    this.patinete = this.formulario.get('patinetesList')!.value;
+    this.patinete_id = this.formulario.get('patinetesList')!.value;
     this.crearConexion = new Conexion(
       `http://127.0.0.1:8000/puesto/${this.puesto.id}/`,
-      `http://127.0.0.1:8000/patinete/${this.patinete}/`,
+      `http://127.0.0.1:8000/patinete/${this.patinete_id}/`,
       `http://127.0.0.1:8000/usuario/${this.id_usuario}/`,
       null,
       0,
       0,
       false,
     );
-    this.conexionesService.postConexion(this.crearConexion).subscribe((post: any) => {
+    this.conexionesService.postConexion(this.crearConexion, this.puesto.id, this.patinete_id).subscribe((post: any) => {
       if (post.status != 201) {
         return;
       }
 
-      this.puesto.disponible = false;
-      this.estacionService.updatePuesto(this.puesto.id, this.puesto).subscribe(update => {
-        if (update.status != 200) {
-          return;
+      this.patineteService.setPatineteSeleccionado(this.patinete_id);
+      this.conexionesService.getConexionesActivas(this.id_usuario).subscribe(conexiones => {
+
+        if (conexiones.status == 200) {
+
+          this.conexionesService.conexionesActivas = conexiones.body;
+          this.actualizarPuestos.emit(true)
         }
-
-        this.patineteService.setPatineteSeleccionado(this.patinete);
-        this.conexionesService.getConexionesActivas(this.id_usuario).subscribe(conexiones => {
-
-          if (conexiones.status == 200) {
-
-            this.conexionesService.conexionesActivas = conexiones.body;
-            this.actualizarPuestos.emit(true)
-          }
-        });
       });
     });
 

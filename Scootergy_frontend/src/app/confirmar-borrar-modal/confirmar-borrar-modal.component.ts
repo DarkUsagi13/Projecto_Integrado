@@ -1,7 +1,5 @@
 import {Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
-import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {PatinetesService} from "../patinetes.service";
-import {UsuariosService} from "../usuarios.service";
 
 @Component({
   selector: 'app-confirmar-borrar-modal',
@@ -10,13 +8,11 @@ import {UsuariosService} from "../usuarios.service";
 })
 export class ConfirmarBorrarModalComponent implements OnInit{
 
-  @Input() patinete: any;
-  @Output() response: EventEmitter<any> = new EventEmitter<any>();
+  @Input() patinete?: any;
+  @Output() actualizar: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
-    public activeModal: NgbActiveModal,
     private patinetesService: PatinetesService,
-    private perfilService: UsuariosService,
   ) {
   }
 
@@ -24,8 +20,11 @@ export class ConfirmarBorrarModalComponent implements OnInit{
   }
 
   eliminarPatinete() {
-    const usuario_id = this.perfilService.obtenerIdUsuario();
-    this.patinetesService.eliminarPatinete(usuario_id, this.patinete.id).subscribe();
+    this.patinetesService.eliminarPatinete(this.patinete?.id).subscribe(response => {
+      if (response.status == 204) {
+        this.actualizar.emit(true)
+      }
+    });
   }
 
 }

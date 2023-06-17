@@ -32,7 +32,7 @@
                           Patinete:
                         </div>
                         <div class="p-3">
-                          {{conexion?.datosPatinete?.marca}}, {{conexion.datosPatinete?.modelo}}
+                          {{conexion?.patineteNombre}}
                         </div>
                       </div>
                       <div class="d-flex">
@@ -40,7 +40,7 @@
                           ID Puesto / Estación:
                         </div>
                         <div class="p-3">
-                          {{conexion.datosPuesto?.id}}, {{conexion.datosPuesto?.datosEstacion?.nombre}}
+                          {{conexion.estacionNombre}}, {{conexion.puestoId}}
                         </div>
                       </div>
                       <div class="d-flex">
@@ -72,7 +72,7 @@
                           Tiempo de conexión total:
                         </div>
                         <div class="p-3">
-                          {{tiempoTotal?.horas}}:{{tiempoTotal?.minutos}}
+                          {{tiempoTotal}}
                         </div>
                       </div>
                       <div class="d-flex">

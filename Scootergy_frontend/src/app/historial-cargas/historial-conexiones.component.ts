@@ -1,12 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { UsuariosService } from '../usuarios.service';
-import { ConexionesService } from '../conexiones.service';
-import { BusquedasService } from '../busquedas.service';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {UsuariosService} from '../usuarios.service';
+import {ConexionesService} from '../conexiones.service';
+import {BusquedasService} from '../busquedas.service';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {formatearFecha} from "../utils";
+import {calcular_tiempo, formatearFecha} from "../utils";
+import {ConexionMasTiempo} from "../conexion";
 
 @Component({
   selector: 'app-historial-conexiones',
@@ -19,14 +20,19 @@ export class HistorialConexionesComponent implements OnInit {
 
   dataSource!: MatTableDataSource<any>;
 
+  conexiones: ConexionMasTiempo[] = [];
+
+
   columnsToDisplay: string[] = [
     'patineteNombre',
     'estacionNombre',
     'puestoId',
     'horaConexion',
     'horaDesconexion',
+    'tiempoTotal',
     'consumo',
     'importe',
+    'detalles',
   ];
 
   itemsPerPage = 10;
@@ -44,14 +50,14 @@ export class HistorialConexionesComponent implements OnInit {
     this.formulario = this.fb.group({
       patinete: new FormControl(''),
       estacion: new FormControl(''),
-      desde: new FormControl(''),
-      hasta: new FormControl(''),
+      desde: new FormControl({value: '', disabled: true}),
+      hasta: new FormControl({value: '', disabled: true}),
     })
   }
 
   ngOnInit() {
     this.buscarConexionesPersonales();
-    this.formulario.valueChanges.subscribe(valores => {
+    this.formulario.valueChanges.subscribe(() => {
       this.buscarConexionesPersonales();
     })
   }
@@ -66,8 +72,14 @@ export class HistorialConexionesComponent implements OnInit {
 
     this.busquedaService.buscarConexiones(userId, 'true', patinete, estacion, fecha_inicio.toString(), fecha_fin).subscribe((response) => {
       if (response.status === 200) {
-        this.dataSource = new MatTableDataSource(response.body);
+        this.conexiones = [];
+        for (const c of response.body) {
+          c.tiempoTotal = calcular_tiempo(c)
+          this.conexiones.push(c)
+        }
+        this.dataSource = new MatTableDataSource(this.conexiones);
         this.dataSource.paginator = this.paginator;
+        this.paginator._intl.itemsPerPageLabel = 'Items por página';
         this.dataSource.sort = this.sort;
       }
     });

@@ -55,14 +55,29 @@ class Puesto(models.Model):
         return 'Puesto :' + str(self.id) + ', Estación: ' + str(self.estacion)
 
 
-class Patinete(models.Model):
-    marca = models.CharField(max_length=50)
-    modelo = models.CharField(max_length=50)
-    consumo = models.DecimalField(max_digits=10, decimal_places=2)
-    usuario = models.ForeignKey(Usuario, on_delete=models.RESTRICT)
+class Marca(models.Model):
+    nombre = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.modelo + ', ' + self.marca
+        return self.nombre
+
+
+class Modelo(models.Model):
+    nombre = models.CharField(max_length=50)
+    marca = models.ForeignKey(Marca, on_delete=models.RESTRICT)
+    consumo = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return self.nombre
+
+
+class Patinete(models.Model):
+    modelo = models.ForeignKey(Modelo, on_delete=models.RESTRICT)
+    usuario = models.ForeignKey(Usuario, on_delete=models.RESTRICT)
+    disponible = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.modelo.marca.nombre + ' ,' + self.modelo.nombre
 
 
 class Conexion(models.Model):

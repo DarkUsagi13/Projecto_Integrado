@@ -19,7 +19,7 @@ export class TemplateComponent implements OnInit {
 
   ngOnInit() {
 
-    this.usuario = JSON.parse(localStorage.getItem('userData')!).username
+    this.usuario = JSON.parse(localStorage.getItem('userData')!)?.username
 
     this.isStaff()
 
@@ -31,7 +31,7 @@ export class TemplateComponent implements OnInit {
   }
 
   isStaff() {
-    const usuario_id = JSON.parse(localStorage.getItem('userData')!).id
+    const usuario_id = JSON.parse(localStorage.getItem('userData')!)?.id
 
     this.usuariosService.perfil(usuario_id).subscribe(usuario => {
       if (usuario.is_staff) {

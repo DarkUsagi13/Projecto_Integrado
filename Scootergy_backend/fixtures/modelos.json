@@ -1,0 +1,443 @@
+[
+  {
+    "model": "main.modelo",
+    "pk": 1,
+    "fields": {
+      "nombre": "Pro",
+      "marca": 1,
+      "consumo": "8.40"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 2,
+    "fields": {
+      "nombre": "Citybug 2",
+      "marca": 2,
+      "consumo": "5.50"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 3,
+    "fields": {
+      "nombre": "Thunder",
+      "marca": 3,
+      "consumo": "4.00"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 4,
+    "fields": {
+      "nombre": "Booster V",
+      "marca": 4,
+      "consumo": "4.00"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 5,
+    "fields": {
+      "nombre": "EGRET-TEN V3",
+      "marca": 5,
+      "consumo": "6.00"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 6,
+    "fields": {
+      "nombre": "M5",
+      "marca": 6,
+      "consumo": "3.60"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 7,
+    "fields": {
+      "nombre": "Dolly",
+      "marca": 7,
+      "consumo": "4.90"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 8,
+    "fields": {
+      "nombre": "GXL V2",
+      "marca": 8,
+      "consumo": "9.00"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 9,
+    "fields": {
+      "nombre": "MAX V2",
+      "marca": 9,
+      "consumo": "7.80"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 10,
+    "fields": {
+      "nombre": "Quick 3",
+      "marca": 10,
+      "consumo": "5.00"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 11,
+    "fields": {
+      "nombre": "i8",
+      "marca": 11,
+      "consumo": "8.00"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 12,
+    "fields": {
+      "nombre": "V3",
+      "marca": 12,
+      "consumo": "5.60"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 13,
+    "fields": {
+      "nombre": "X5S",
+      "marca": 13,
+      "consumo": "3.00"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 14,
+    "fields": {
+      "nombre": "Wolf Warrior 11",
+      "marca": 14,
+      "consumo": "9.00"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 15,
+    "fields": {
+      "nombre": "M4 Pro",
+      "marca": 15,
+      "consumo": "5.00"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 16,
+    "fields": {
+      "nombre": "Plus",
+      "marca": 16,
+      "consumo": "7.00"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 17,
+    "fields": {
+      "nombre": "Lime-S",
+      "marca": 17,
+      "consumo": "4.00"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 18,
+    "fields": {
+      "nombre": "MX1",
+      "marca": 18,
+      "consumo": "6.90"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 19,
+    "fields": {
+      "nombre": "Mantis Pro",
+      "marca": 19,
+      "consumo": "8.80"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 20,
+    "fields": {
+      "nombre": "X Pro",
+      "marca": 20,
+      "consumo": "6.70"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 21,
+    "fields": {
+      "nombre": "Widewheel Pro",
+      "marca": 21,
+      "consumo": "6.20"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 22,
+    "fields": {
+      "nombre": "Falcon X3",
+      "marca": 22,
+      "consumo": "5.00"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 23,
+    "fields": {
+      "nombre": "Speedway 5",
+      "marca": 23,
+      "consumo": "8.00"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 24,
+    "fields": {
+      "nombre": "D4+",
+      "marca": 24,
+      "consumo": "10.00"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 25,
+    "fields": {
+      "nombre": "MAX G30",
+      "marca": 25,
+      "consumo": "4.40"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 26,
+    "fields": {
+      "nombre": "NQi GT Pro",
+      "marca": 26,
+      "consumo": "7.30"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 27,
+    "fields": {
+      "nombre": "Maxx",
+      "marca": 27,
+      "consumo": "5.90"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 28,
+    "fields": {
+      "nombre": "Town 9 EF V2",
+      "marca": 28,
+      "consumo": "3.30"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 29,
+    "fields": {
+      "nombre": "Air Pro",
+      "marca": 29,
+      "consumo": "9.70"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 30,
+    "fields": {
+      "nombre": "Q1 Hummer",
+      "marca": 30,
+      "consumo": "6.10"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 31,
+    "fields": {
+      "nombre": "E300",
+      "marca": 31,
+      "consumo": "4.00"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 32,
+    "fields": {
+      "nombre": "RE90",
+      "marca": 32,
+      "consumo": "8.00"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 33,
+    "fields": {
+      "nombre": "Ninebot ES4",
+      "marca": 33,
+      "consumo": "7.00"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 34,
+    "fields": {
+      "nombre": "SK Urban 2.0",
+      "marca": 34,
+      "consumo": "6.00"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 35,
+    "fields": {
+      "nombre": "Balance Scooter 350",
+      "marca": 35,
+      "consumo": "5.60"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 36,
+    "fields": {
+      "nombre": "Scooterson X",
+      "marca": 36,
+      "consumo": "9.00"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 37,
+    "fields": {
+      "nombre": "Mini 4 Pro",
+      "marca": 37,
+      "consumo": "3.60"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 38,
+    "fields": {
+      "nombre": "Leger",
+      "marca": 38,
+      "consumo": "7.40"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 39,
+    "fields": {
+      "nombre": "Super73-S1",
+      "marca": 39,
+      "consumo": "8.00"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 40,
+    "fields": {
+      "nombre": "Tarsa T5",
+      "marca": 40,
+      "consumo": "3.00"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 41,
+    "fields": {
+      "nombre": "Dark Road",
+      "marca": 41,
+      "consumo": "6.00"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 42,
+    "fields": {
+      "nombre": "X7 Pro",
+      "marca": 42,
+      "consumo": "4.00"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 43,
+    "fields": {
+      "nombre": "Model One",
+      "marca": 43,
+      "consumo": "5.60"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 44,
+    "fields": {
+      "nombre": "Booster GT",
+      "marca": 44,
+      "consumo": "5.90"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 45,
+    "fields": {
+      "nombre": "Vsett 10+",
+      "marca": 46,
+      "consumo": "9.70"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 46,
+    "fields": {
+      "nombre": "GT50E",
+      "marca": 46,
+      "consumo": "8.50"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 47,
+    "fields": {
+      "nombre": "Wheels S3",
+      "marca": 47,
+      "consumo": "3.70"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 48,
+    "fields": {
+      "nombre": "WideWheel Pro",
+      "marca": 48,
+      "consumo": "6.60"
+    }
+  },
+  {
+    "model": "main.modelo",
+    "pk": 49,
+    "fields": {
+      "nombre": "Mi Electric Scooter Pro 2",
+      "marca": 49,
+      "consumo": "7.00"
+    }
+  }
+]

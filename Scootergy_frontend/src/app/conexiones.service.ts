@@ -27,8 +27,13 @@ export class ConexionesService {
     return this.http.get<any>(this.url+`conexion/`, {params});
   }
 
-  postConexion(conexion: any): Observable<any> {
-    return this.http.post<any>(this.url+`conexion/`, conexion, {observe: 'response'});
+  postConexion(conexion: any, puesto_id: string, patinete_id: string): Observable<any> {
+    const body = {
+      ...conexion,
+      puesto_id: puesto_id,
+      patinete_id: patinete_id
+    };
+    return this.http.post<any>(this.url+`conexion/`, body, {observe: 'response'});
   }
 
   getConexionActual(usuario: string, puesto: string): Observable<any>{

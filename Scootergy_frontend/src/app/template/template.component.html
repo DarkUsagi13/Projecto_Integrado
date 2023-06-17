@@ -9,48 +9,82 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
 <header class="header">
-  <div class="container-fluid mx-0 px-0 ">
-    <div class="d-flex align-items-center">
-      <div class="col-4">
-            <a class="p-5" [routerLink]="['/']">
-              <img src="assets/logo/logo.png" width="300px">
-            </a>
-      </div>
-      <div class="col-4 d-flex justify-content-center">
-        <h3 class="tracking-in-expandd">Bienvenid@ {{usuario}}</h3>
-      </div>
-      <div class="col-4 d-flex justify-content-end pe-5">
-        <nav class="navbar navbar-expand-lg">
-          <div class="container-fluid">
-            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav ms-auto">
+  <!--  <div class="container-fluid mx-0 px-0 ">-->
+  <!--    <div class="d-flex align-items-center">-->
+  <!--      <div class="col-4">-->
+  <!--        <a class="p-5" [routerLink]="['/']">-->
+  <!--          <img src="assets/logo/logo.png" width="300px">-->
+  <!--        </a>-->
+  <!--      </div>-->
+  <!--      <div class="col-4 d-flex justify-content-center">-->
+  <!--        <h3 class="tracking-in-expand d-none d-lg-block">Bienvenid@ {{usuario}}</h3>-->
+  <!--      </div>-->
+  <!--      <div class="col-4 d-flex justify-content-end pe-5">-->
+  <!--        <nav class="navbar navbar-expand-lg">-->
+  <!--          <div class="container-fluid">-->
+  <!--            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"-->
+  <!--                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">-->
+  <!--              <span class="navbar-toggler-icon"></span>-->
+  <!--            </button>-->
+  <!--            <div class="collapse navbar-collapse" id="navbarNav">-->
+  <!--              <ul class="navbar-nav ms-auto">-->
+  <!--                <li class="nav-item">-->
+  <!--                  <a class="enlace_main p-2" [routerLink]="['/']">Inicio</a>-->
+  <!--                </li>-->
+  <!--                <li class="nav-item">-->
+  <!--                  <a class="enlace_main p-2" [routerLink]="['/perfil']">Perfil</a>-->
+  <!--                </li>-->
+  <!--                <ng-container *ngIf="staff">-->
+  <!--                  <li class="nav-item">-->
+  <!--                    <a class="enlace_main p-2" [routerLink]="['/administracion']" href="#">Administración</a>-->
+  <!--                  </li>-->
+  <!--                </ng-container>-->
+  <!--                <li>-->
+  <!--                  <a class="enlace_main p-2" (click)="logOut()" href="#">Cerrar sesión</a>-->
+  <!--                </li>-->
+  <!--              </ul>-->
+  <!--            </div>-->
+  <!--          </div>-->
+  <!--        </nav>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--    <hr class="mb-4 p-0">-->
+  <!--  </div>-->
+  <div>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="" [routerLink]="['/']">
+          <img src="assets/logo/logo.png" width="300px">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="enlace_main p-2" [routerLink]="['/']">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="enlace_main p-2" [routerLink]="['/perfil']">Perfil</a>
+            </li>
+            <li class="nav-item dropdown">
+              <ng-container *ngIf="staff">
                 <li class="nav-item">
-                  <a class="enlace_main p-2" [routerLink]="['/']">Inicio</a>
+                  <a class="enlace_main p-2" [routerLink]="['/administracion']">Administración</a>
                 </li>
-                <li class="nav-item">
-                  <a class="enlace_main p-2" [routerLink]="['/perfil']">Perfil</a>
-                </li>
-                <ng-container *ngIf="staff">
-                  <li class="nav-item">
-                    <a class="enlace_main p-2" [routerLink]="['/administracion']" href="#">Administración</a>
-                  </li>
-                </ng-container>
-                <li>
-                  <a class="enlace_main p-2" (click)="logOut()" href="#">Cerrar sesión</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
+              </ng-container>
+            </li>
+            <li>
+              <a class="enlace_main p-2" (click)="logOut()" href="#">Cerrar sesión</a>
+            </li>
+          </ul>
+          <h3 class="tracking-in-expand d-none d-lg-block">Bienvenid@ {{usuario}}</h3>
+        </div>
       </div>
-    </div>
+    </nav>
     <hr class="mb-4 p-0">
   </div>
-
 </header>
 <main class="">
   <div class="container-fluid mx-0 px-0">

@@ -7,6 +7,9 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {ConexionesService} from "../conexiones.service";
 import {formatearFecha} from "../utils";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {ConexionesModalComponent} from "../conexiones-modal/conexiones-modal.component";
+import {EstacionesService} from "../estaciones.service";
 
 @Component({
   selector: 'app-conexiones-activas',
@@ -26,6 +29,7 @@ export class ConexionesActivasComponent {
     'horaConexion',
     'consumo',
     'importe',
+    'detalles',
   ];
 
   itemsPerPage = 10;
@@ -38,13 +42,15 @@ export class ConexionesActivasComponent {
     private conexionesService: ConexionesService,
     private busquedaService: BusquedasService,
     private fb: FormBuilder,
+    private modalService: NgbModal,
+    private estacionesService: EstacionesService,
   ) {
 
     this.formulario = this.fb.group({
       patinete: new FormControl(''),
       estacion: new FormControl(''),
-      desde: new FormControl(''),
-      hasta: new FormControl(''),
+      desde: new FormControl({ value: '', disabled: true }),
+      hasta: new FormControl({ value: '', disabled: true }),
     })
 
   }
@@ -73,6 +79,15 @@ export class ConexionesActivasComponent {
         this.dataSource = new MatTableDataSource(response.body);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+      }
+    });
+  }
+
+  open(conexion: any) {
+    this.estacionesService.getPuesto(conexion.puestoId).subscribe(response => {
+      if (response.status == 200) {
+        const modalRef = this.modalService.open(ConexionesModalComponent);
+        modalRef.componentInstance.puesto = response.body[0];
       }
     });
   }

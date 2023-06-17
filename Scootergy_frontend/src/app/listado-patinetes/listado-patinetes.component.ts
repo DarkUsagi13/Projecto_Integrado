@@ -1,10 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {PatinetesService} from "../patinetes.service";
 import {UsuariosService} from "../usuarios.service";
-import {Patinete} from "../patinete";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import { realizarPaginacion } from "../../utils/paginar-utils";
+import { MatDialog } from '@angular/material/dialog';
+import {MatTableDataSource} from "@angular/material/table";
+import { MatSort } from '@angular/material/sort';
+import {MatPaginator} from "@angular/material/paginator";
 import {ConfirmarBorrarModalComponent} from "../confirmar-borrar-modal/confirmar-borrar-modal.component";
 
 @Component({
@@ -14,64 +15,92 @@ import {ConfirmarBorrarModalComponent} from "../confirmar-borrar-modal/confirmar
 })
 export class ListadoPatinetesComponent implements OnInit{
 
-  listaPatinetes: Patinete[] = [];
-  valoresForm!: FormGroup;
-  filtros: any = {};
-  orden: any = {};
-  propiedadSeleccionada: string = '';
-  ordenSeleccionado: string = '';
-  listaPaginada: any[] = [];
-  paginaActual = 1; // Página actual
-  itemsPorPagina = 10; // Cantidad de elementos por página
+  formulario!: FormGroup;
+
+  dataSource!: MatTableDataSource<any>;
+
+  animacion = true;
+
+  columnsToDisplay: string[] = [
+    'patineteNombre',
+    'consumo',
+    'detalles',
+  ];
+
+  itemsPerPage = 10;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private usuariosService: UsuariosService,
     private patinetesServices: PatinetesService,
     private fb: FormBuilder,
-    private modalService: NgbModal,
+    public dialog: MatDialog,
   ) {
-    this.filtros = {
-      1: 'ID',
-      2: 'Marca',
-      3: 'Modelo',
-      4: 'Consumo',
-    };
-    this.orden = {
-      '': 'Ascendente',
-      '-': 'Descendente'
-    };
+
+    this.formulario = this.fb.group({
+      patinete: new FormControl(''),
+      consumo: new FormControl(''),
+    });
+
+
   }
 
   ngOnInit() {
-
-    this.valoresForm = this.fb.group({
-      filtros: new FormControl('1'),
-      orden: new FormControl(''),
-    });
-
-    this.propiedadSeleccionada = this.valoresForm.get('filtros')?.value;
-    this.ordenSeleccionado = this.valoresForm.get('orden')?.value;
-
-    this.valoresForm.valueChanges.subscribe(() => {
-      this.propiedadSeleccionada = this.valoresForm.get('filtros')?.value
-      this.ordenSeleccionado = this.valoresForm.get('orden')?.value
-      this.obtenerPatinetes()
+    this.formulario.valueChanges.subscribe(() => {
+      this.buscarPatinetes();
     })
-    this.obtenerPatinetes();
-
+    this.buscarPatinetes();
   }
 
-  obtenerPatinetes() {
+  buscarPatinetes() {
+
     const userId = this.usuariosService.obtenerIdUsuario()
-    this.patinetesServices.patinetes(userId).subscribe(patinetes => {
-      this.listaPatinetes = patinetes;
-      this.listaPaginada = realizarPaginacion(patinetes, this.paginaActual, this.itemsPorPagina);
+    const patinete = this.formulario.get('patinete')?.value;
+
+    this.patinetesServices.patinetes(userId, patinete).subscribe(response => {
+     if (response.status == 200) {
+       setTimeout(() => {
+         this.dataSource = new MatTableDataSource(response.body)
+         this.dataSource.sort = this.sort;
+         this.dataSource.paginator = this.paginator;
+         this.animacion = false;
+       }, 500)
+     }
     })
   }
 
   open(patinete: any) {
-    let modalRef = this.modalService.open(ConfirmarBorrarModalComponent)
-    modalRef.componentInstance.patinete = patinete;
+    if (patinete) {
+      let modalRef = this.dialog.open(ConfirmarBorrarModalComponent)
+      modalRef.componentInstance.patinete = patinete;
+
+      modalRef.componentInstance.actualizar.subscribe(value => {
+        if (value) {
+          this.animacion = true;
+          setTimeout(() => {
+            this.buscarPatinetes()
+          }, 500)
+        }
+        this.animacion = false;
+        modalRef.close()
+      })
+    }
   }
+
+  // open(patinete: any) {
+  //   const dialogRef = this.dialog.open(DetallesPatineteComponent, {
+  //     width: '500px', // Personaliza el ancho del modal según tus necesidades
+  //     // Puedes agregar más opciones de configuración según tus requerimientos
+  //   });
+  //
+  //   dialogRef.componentInstance.patinete = patinete;
+  //
+  //   // Opcionalmente, puedes suscribirte al evento 'afterClosed' para realizar acciones después de que se cierre el modal
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     // Lógica después de cerrar el modal
+  //   });
+  // }
 
 }

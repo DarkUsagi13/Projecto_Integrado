@@ -1,11 +1,14 @@
-import {Component} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {Component, ViewChild} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {BusquedasService} from "../busquedas.service";
-import {realizarPaginacion} from "../../utils/paginar-utils";
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {
   AdministracionDetallesUsuarioComponent
 } from "../administracion-detalles-usuario/administracion-detalles-usuario.component";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
+import {formatearFecha} from "../utils";
 
 @Component({
   selector: 'app-administracion-usuarios',
@@ -13,69 +16,60 @@ import {
   styleUrls: ['./administracion-usuarios.component.scss']
 })
 export class AdministracionUsuariosComponent {
-  formularioBusquedas!: FormGroup;
-  valorBusqueda: string = '';
-  filtroBusqueda: any = '';
-  ordenBusqueda: any = '';
-  usuarios: any = {}
 
-  usuariosPaginados: any[] = [];
+  formulario!: FormGroup;
 
+  dataSource!: MatTableDataSource<any>;
 
-  paginaActual = 1; // Página actual
-  itemsPorPagina = 10; // Cantidad de elementos por página
-  totalUsuarios = 0; // Total de conexiones
+  columnsToDisplay: string[] = [
+    'username',
+    'email',
+    'dated_joined',
+    'is_staff',
+    'editar',
+  ];
 
-  animacionCargando = true;
-  usuarioEditadoId: string = '';
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  itemsPerPage = 10;
+
 
   constructor(
     private busquedaService: BusquedasService,
     private fb: FormBuilder,
     private modalService: NgbModal,
   ) {
-
-    this.filtroBusqueda = {
-      'username': 'Nombre de usuario',
-      'date_joined': 'Fecha de alta',
-    }
-
-    this.ordenBusqueda = {
-      '': 'Ascendiente',
-      '-': 'Descendiente',
-    }
-
-    this.formularioBusquedas = this.fb.group({
-      barraBusqueda: [''],
-      filtroBusqueda: ['id'],
-      ordenBusqueda: [' '],
+    this.formulario = this.fb.group({
+      username: new FormControl(''),
+      email: new FormControl(''),
+      desde: new FormControl({value: '', disabled: true}),
+      hasta: new FormControl({value: '', disabled: true}),
     })
   }
 
   ngOnInit() {
-
-    this.formularioBusquedas.valueChanges.subscribe(valores => {
-        this.valorBusqueda = valores;
+    this.buscarUsuarios();
+    this.formulario.valueChanges.subscribe(() => {
         this.buscarUsuarios();
       }
     )
-
-    this.buscarUsuarios();
-
   }
 
   buscarUsuarios() {
-    const valor = this.formularioBusquedas.get('barraBusqueda')?.value
-    const orden = this.formularioBusquedas.get('ordenBusqueda')?.value
-    const filtro = this.formularioBusquedas.get('filtroBusqueda')?.value
-    this.busquedaService.buscarUsuarios(valor, orden, filtro).subscribe(usuarios => {
+    const usuario = this.formulario.get('username')?.value;
+    const email = this.formulario.get('email')?.value;
+    const fecha_inicio: string = formatearFecha(this.formulario.get('desde')?.value);
+    const fecha_fin: string = formatearFecha(this.formulario.get('hasta')?.value);
+    this.busquedaService.buscarUsuarios(usuario, email, fecha_inicio, fecha_fin).subscribe(usuarios => {
       if (usuarios.status == 200) {
-        this.usuarios = usuarios.body;
-        this.totalUsuarios = usuarios.body.length;
-        this.usuariosPaginados = realizarPaginacion(this.usuarios, this.paginaActual, this.itemsPorPagina);
-        this.animacionCargando = false;
+          this.dataSource = new MatTableDataSource(usuarios.body);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.paginator._intl.itemsPerPageLabel = 'Items por página';
       }
     })
+
   }
 
   open(usuario: any) {
@@ -83,16 +77,10 @@ export class AdministracionUsuariosComponent {
     modalRef.componentInstance.usuario = usuario;
 
     modalRef.componentInstance.usuarioActualizado.subscribe((data: boolean) => {
-      this.animacionCargando = true;
       if (data) {
-        setTimeout(() => {
           this.buscarUsuarios();
-          this.animacionCargando = false;
-          this.usuarioEditadoId = usuario.id;
-        }, 1000)
       }
     });
-
   }
 
 }

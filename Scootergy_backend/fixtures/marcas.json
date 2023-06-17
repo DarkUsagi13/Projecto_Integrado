@@ -1,0 +1,345 @@
+[
+  {
+    "model": "main.marca",
+    "pk": 1,
+    "fields": {
+      "nombre": "Apollo"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 2,
+    "fields": {
+      "nombre": "Citybug"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 3,
+    "fields": {
+      "nombre": "Dualtron"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 4,
+    "fields": {
+      "nombre": "E-TWOW"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 5,
+    "fields": {
+      "nombre": "EGRET"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 6,
+    "fields": {
+      "nombre": "EcoReco"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 7,
+    "fields": {
+      "nombre": "Glion"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 8,
+    "fields": {
+      "nombre": "GoTrax"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 9,
+    "fields": {
+      "nombre": "Hiboy"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 10,
+    "fields": {
+      "nombre": "Inokim"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 11,
+    "fields": {
+      "nombre": "Iwatboard"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 12,
+    "fields": {
+      "nombre": "JackHot"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 13,
+    "fields": {
+      "nombre": "Joyor"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 14,
+    "fields": {
+      "nombre": "Kaabo"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 15,
+    "fields": {
+      "nombre": "Kugoo"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 16,
+    "fields": {
+      "nombre": "Levy"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 17,
+    "fields": {
+      "nombre": "Lime"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 18,
+    "fields": {
+      "nombre": "Macwheel"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 19,
+    "fields": {
+      "nombre": "Mantis"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 20,
+    "fields": {
+      "nombre": "Mearth"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 21,
+    "fields": {
+      "nombre": "Mercane"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 22,
+    "fields": {
+      "nombre": "Micro"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 23,
+    "fields": {
+      "nombre": "Minimotors"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 24,
+    "fields": {
+      "nombre": "Nanrobot"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 25,
+    "fields": {
+      "nombre": "Ninebot"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 26,
+    "fields": {
+      "nombre": "Niu"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 27,
+    "fields": {
+      "nombre": "Outstorm"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 28,
+    "fields": {
+      "nombre": "Oxelo"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 29,
+    "fields": {
+      "nombre": "Pure"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 30,
+    "fields": {
+      "nombre": "Qiewa"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 31,
+    "fields": {
+      "nombre": "Razor"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 32,
+    "fields": {
+      "nombre": "Rion"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 33,
+    "fields": {
+      "nombre": "Segway"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 34,
+    "fields": {
+      "nombre": "Skateflash"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 35,
+    "fields": {
+      "nombre": "Skatey"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 36,
+    "fields": {
+      "nombre": "Scooterson"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 37,
+    "fields": {
+      "nombre": "Speedual"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 38,
+    "fields": {
+      "nombre": "Speedway"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 39,
+    "fields": {
+      "nombre": "Super73"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 40,
+    "fields": {
+      "nombre": "Tarsa"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 41,
+    "fields": {
+      "nombre": "Thunder"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 42,
+    "fields": {
+      "nombre": "Turboant"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 43,
+    "fields": {
+      "nombre": "Unagi"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 44,
+    "fields": {
+      "nombre": "Uscooter"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 45,
+    "fields": {
+      "nombre": "Vsett"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 46,
+    "fields": {
+      "nombre": "Weped"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 47,
+    "fields": {
+      "nombre": "Wheels"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 48,
+    "fields": {
+      "nombre": "WideWheel"
+    }
+  },
+  {
+    "model": "main.marca",
+    "pk": 49,
+    "fields": {
+      "nombre": "Xiaomi"
+    }
+  }
+]

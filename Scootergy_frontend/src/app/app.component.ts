@@ -8,8 +8,4 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Scootergy';
 
-  public onActivate(event: any) {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
 }

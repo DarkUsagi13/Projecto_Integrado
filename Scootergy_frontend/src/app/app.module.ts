@@ -13,7 +13,7 @@ import {NgOptimizedImage} from "@angular/common";
 import {HomeComponent} from './home/home.component';
 import {GestionPatinetesComponent} from './registrar_patinete/gestion-patinetes.component';
 import {DetallesPerfilComponent} from './detalles_perfil/datos-perfil.component';
-import {NgbModule, NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgbActiveModal, NgbModule, NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ConexionesModalComponent} from './conexiones-modal/conexiones-modal.component';
 import {PlantillaPerfilComponent} from './plantilla-perfil/plantilla-perfil.component';
@@ -34,7 +34,6 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {ConfirmarBorrarModalComponent} from './confirmar-borrar-modal/confirmar-borrar-modal.component';
 import {ConfirmarPagoModalComponent} from './confirmar-pago-modal/confirmar-pago-modal.component';
-import {DetallesPatineteComponent} from './detalles-patinete/detalles-patinete.component';
 import {AdministradorComponent} from './administrador/administrador.component';
 import {AdministracionUsuariosComponent} from './administracion-usuarios/administracion-usuarios.component';
 import {PlantillaAdministracionComponent} from './plantilla-administracion/plantilla-administracion.component';
@@ -50,7 +49,13 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
 import {MatDatepickerModule} from "@angular/material/datepicker";
-import { ConexionesActivasComponent } from './conexiones-activas/conexiones-activas.component';
+import {ConexionesActivasComponent} from './conexiones-activas/conexiones-activas.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {DetallesEstacionComponent} from './detalles-estacion/detalles-estacion.component';
+import {
+  AdministracionRegistrarEstacionComponent
+} from './administracion-registrar-estacion/administracion-registrar-estacion.component';
+import { AgregarPuestosEstacionComponent } from './agregar-puestos-estacion/agregar-puestos-estacion.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +75,6 @@ import { ConexionesActivasComponent } from './conexiones-activas/conexiones-acti
     DetallesConexionComponent,
     ConfirmarBorrarModalComponent,
     ConfirmarPagoModalComponent,
-    DetallesPatineteComponent,
     AdministradorComponent,
     AdministracionUsuariosComponent,
     PlantillaAdministracionComponent,
@@ -78,6 +82,9 @@ import { ConexionesActivasComponent } from './conexiones-activas/conexiones-acti
     AdministracionEstacionesCargaComponent,
     AdministracionConexionesComponent,
     ConexionesActivasComponent,
+    DetallesEstacionComponent,
+    AdministracionRegistrarEstacionComponent,
+    AgregarPuestosEstacionComponent,
   ],
   imports: [
     BrowserModule,
@@ -106,6 +113,7 @@ import { ConexionesActivasComponent } from './conexiones-activas/conexiones-acti
     MatSortModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDialogModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},

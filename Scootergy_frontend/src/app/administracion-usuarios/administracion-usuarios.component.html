@@ -1,80 +1,87 @@
 <app-plantilla-administracion>
+    <div class="container-fluid slide-in-top" style="overflow-x: scroll;">
+        <form [formGroup]="formulario">
+          <div class="d-flex">
+            <div class="p-2">
+              <mat-form-field appearance="fill">
+                <mat-label>Buscar usuario</mat-label>
+                <input formControlName="username" matInput placeholder="Buscar usuario">
+              </mat-form-field>
+            </div>
 
-  <ng-container *ngIf="animacionCargando; else cargado">
-    <div class="loading-container d-flex justify-content-center align-content-center">
-      <div class="loading"></div>
-      <div id="loading-text">Cargando...</div>
-    </div>
-  </ng-container>
-  <ng-template #cargado>
-    <div class="container-fluid slide-in-top">
-      <form [formGroup]="formularioBusquedas">
-        <mat-form-field class="p-3" appearance="fill">
-          <mat-label>Buscar usuarios</mat-label>
-          <input formControlName="barraBusqueda" type="search" matInput placeholder="Buscar usuarios" aria-label="Search"/>
-        </mat-form-field>
+            <div class="p-2">
+              <mat-form-field appearance="fill">
+                <mat-label>Buscar correo</mat-label>
+                <input formControlName="email" matInput placeholder="Buscar por correo">
+              </mat-form-field>
+            </div>
 
-        <mat-form-field class="p-3" appearance="fill">
-          <mat-label>Filtrar por:</mat-label>
-          <mat-select formControlName="filtroBusqueda">
-            <mat-option *ngFor="let valor of filtroBusqueda | keyvalue" [value]="valor.key">
-              {{ valor.value }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+            <div class="p-2">
+              <mat-form-field>
+                <mat-label>Desde</mat-label>
+                <input matInput [matDatepicker]="desdePicker" formControlName="desde">
+                <mat-datepicker-toggle matSuffix [for]="desdePicker"></mat-datepicker-toggle>
+                <mat-datepicker #desdePicker disabled="false"></mat-datepicker>
+              </mat-form-field>
+            </div>
 
-        <mat-form-field class="p-3" appearance="fill">
-          <mat-label>Ordenar por:</mat-label>
-          <mat-select formControlName="ordenBusqueda">
-            <mat-option *ngFor="let valor of ordenBusqueda | keyvalue" [value]="valor.key">
-              {{ valor.value }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </form>
+            <div class="p-2">
+              <mat-form-field>
+                <mat-label>Hasta</mat-label>
+                <input matInput [matDatepicker]="hastaPicker" formControlName="hasta">
+                <mat-datepicker-toggle matIconSuffix [for]="hastaPicker"></mat-datepicker-toggle>
+                <mat-datepicker #hastaPicker disabled="false"></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+        </form>
       <div>
-        <table class="table text-center align-middle">
-          <thead>
-          <tr>
-            <th scope="col">Nombre de usuario</th>
-            <th scope="col">Correo</th>
-            <th scope="col">Fecha de alta</th>
-            <th scope="col">Staff</th>
-            <th scope="col" colspan="2">Acciones</th>
-          </tr>
-          </thead>
-          <ng-container *ngIf="usuarios.length > 0">
-            <tbody *ngFor="let usuario of usuariosPaginados">
-            <tr [class.bg-pan-left]="usuarioEditadoId == usuario.id">
-              <td>{{usuario.username}}</td>
-              <td>{{usuario.email}}</td>
-              <td>{{usuario.date_joined | date: 'dd/MM/yyyy HH:mm'}}</td>
+        <table style="width: 1500px" mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="username">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Nombre de usuario
+            </th>
+            <td mat-cell *matCellDef="let usuario">{{ usuario.username }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+            <td mat-cell *matCellDef="let usuario">{{ usuario.email }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="dated_joined">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de alta</th>
+            <td mat-cell *matCellDef="let usuario">{{ usuario.date_joined | date: 'dd/MM/yyyy HH:mm' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="is_staff">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Staff</th>
+            <td mat-cell *matCellDef="let usuario">
               <ng-container *ngIf="usuario.is_staff; else noStaff">
-                <td>Sí</td>
+                <p>Sí</p>
               </ng-container>
               <ng-template #noStaff>
-                <td>No</td>
+                <p>No</p>
               </ng-template>
-              <td class="d-flex justify-content-center align-items-center">
-                <a class="btn btn-link mr-1" (click)="open(usuario)">
-                  <span class="material-symbols-outlined">page_info</span>
-                </a>
-              </td>
-            </tr>
-            </tbody>
+            </td>
           </ng-container>
+
+          <ng-container matColumnDef="editar">
+            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+            <td mat-cell *matCellDef="let usuario">
+              <button type="button" class="btn" (click)="open(usuario)">
+                <i class="fa-solid fa-user-pen fa-xl" style="color: #0077cc;"></i>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr class="custom-header" mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+          <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+
         </table>
       </div>
-      <div class="text-center d-flex justify-content-center">
-        <ngb-pagination
-          [(page)]="paginaActual"
-          [pageSize]="itemsPorPagina"
-          [collectionSize]="usuarios.length"
-          (pageChange)="buscarUsuarios()"
-        ></ngb-pagination>
-      </div>
+      <mat-paginator [pageSize]="itemsPerPage" [pageSizeOptions]="[10, 25, 50, 100]"
+                     showFirstLastButtons></mat-paginator>
     </div>
-  </ng-template>
-
-
 </app-plantilla-administracion>

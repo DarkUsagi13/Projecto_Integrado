@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
 
   // Variables necesarias para el componente
   patinetes: Patinete[] = [];
+  num_patinetes: any = 0;
   estaciones: Estacion[] = [];
   puestos: Puesto[] = [];
   estacion!: any;
@@ -28,6 +29,7 @@ export class HomeComponent implements OnInit {
   mostrarDatos = false;
   mostrarAnimacion: boolean = false;
   usuario: any;
+  conexionesActivas: any = [];
 
   animacionCarga: boolean = true;
 
@@ -39,28 +41,48 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private modalService: NgbModal,
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     //Se obtiene el ID del usuario autenticado
     this.usuario = this.usuariosService.obtenerIdUsuario();
+
+    //Formulario para mostrar las estaciones
+    this.formulario = this.fb.group({
+      estaciones: ['Seleccione...', Validators.required],
+    });
+    this.getPatinetes()
+    this.getConexionesActivas()
+
+  }
+
+  getPatinetes() {
     //Se obtienen los patinetes del usuario autenticado y llama a la función mostrarEstaciones()
-    this.patinetesService.patinetes(this.usuario).subscribe((response) => {
+    this.patinetesService.patinetes(this.usuario, '').subscribe((response) => {
       if (response.status == 200) {
+        this.num_patinetes = response.body.length
         this.patinetes = response.body;
         this.mostrarEstaciones();
         this.animacionCarga = false;
       }
     });
-    //Formulario para mostrar las estaciones
-    this.formulario = this.fb.group({
-      estaciones: ['Seleccione...', Validators.required],
-    });
+  }
+
+  getConexionesActivas() {
     //Se obtienen las conexiones activas del usuario autenticado
     this.conexionesService.getConexionesActivas(this.usuario).subscribe(conexiones => {
       this.conexionesService.conexionesActivas = conexiones.body; // Almacenar los resultados en un array
-    });
 
+      for (const c of conexiones.body) {
+        const existe = this.conexionesActivas.some((obj: {
+          estacionNombre: any;
+        }) => obj.estacionNombre === c.estacionNombre);
+        if (!existe) {
+          this.conexionesActivas.push(c);
+        }
+      }
+    });
   }
 
   //Función para mostrar los puestos de una determinada estación
@@ -80,7 +102,6 @@ export class HomeComponent implements OnInit {
       //Obtenemos los puestos de la estación seleccionada utilizando su ID
       this.estacionesService.getPuestos(this.estacion).subscribe((puestos: any) => {
         if (puestos.status == 200) {
-
           setTimeout(() => {
             for (const puesto of puestos.body) {
               let c = this.conexionesService.conexionesActivas.find((conexion: {
@@ -95,7 +116,6 @@ export class HomeComponent implements OnInit {
             this.animacionCarga = false;
           }, 200)
         }
-
       });
     }
   }
@@ -103,7 +123,7 @@ export class HomeComponent implements OnInit {
   //Función para mostrar las estaciones
   mostrarEstaciones() {
     //Primero comprobamos que la lista de patinetes no está vacía
-    if (this.patinetes.length > 0) {
+    if (this.num_patinetes > 0) {
       //Si existe al menos 1 patinete, obtenemos las estaciones para mostrarlas
       this.estacionesService.getEstaciones().subscribe(response => {
         if (response.status == 200) {
@@ -126,10 +146,18 @@ export class HomeComponent implements OnInit {
 
     modalRef.componentInstance.actualizarPuestos.subscribe((valor: boolean) => {
       if (valor) {
+        this.getPatinetes()
+        this.getConexionesActivas()
         this.mostrarPuestos()
       }
     })
+  }
 
+  seleccionarEstacion(conexion: any) {
+    this.formulario.patchValue({
+      estaciones: [conexion.estacionId],
+    })
+    this.mostrarPuestos()
   }
 
 }

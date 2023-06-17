@@ -21,19 +21,19 @@ def _calcular_horas_utilizadas(conexion):
 
 def _calcular_importe(conexion_id):
     conexion = get_object_or_404(Conexion, id=conexion_id)
-    consumo_por_hora = conexion.patinete.consumo
+    consumo_por_hora = conexion.patinete.modelo.consumo
     horas_utilizadas = _calcular_horas_utilizadas(conexion)
 
     tarifa_consumo = Decimal('0.15')
 
     consumo_total = consumo_por_hora * Decimal(horas_utilizadas)
-    importe = tarifa_consumo * consumo_total + Decimal(0.1)
+    importe = tarifa_consumo * consumo_total + Decimal(0.01)
 
     # Agregar IVA
     iva = Decimal('0.21')  # IVA del 21%
     importe_con_iva = importe * (1 + iva)
 
-    conexion.consumo = consumo_total
+    conexion.consumo = consumo_total + Decimal(0.01)
     conexion.importe = importe_con_iva.quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
     return conexion
 
@@ -59,6 +59,23 @@ class FiltrarConexionesFechas(filters.BaseFilterBackend):
         elif fecha_inicio:
             queryset = queryset.filter(horaConexion__date__gte=fecha_inicio)
         elif fecha_fin:
-            queryset = queryset.filter(horaConexion__date__lt=fecha_fin)
+            queryset = queryset.filter(horaConexion__date__lte=fecha_fin)
+
+        return queryset
+
+
+class FiltrarUsuariosFechas(filters.BaseFilterBackend):
+    def filter_queryset(self, request, queryset, view):
+        fecha_inicio = request.query_params.get('fecha_inicio')
+        fecha_fin = request.query_params.get('fecha_fin')
+
+        if fecha_inicio and fecha_fin:
+            queryset = queryset.filter(
+                Q(date_joined__date__range=[fecha_inicio, fecha_fin])
+            )
+        elif fecha_inicio:
+            queryset = queryset.filter(date_joined__date__gte=fecha_inicio)
+        elif fecha_fin:
+            queryset = queryset.filter(date_joined__date__lte=fecha_fin)
 
         return queryset

@@ -14,12 +14,22 @@ export class PatinetesService {
 
   constructor(private http: HttpClient) { }
 
+  getMarcas(): Observable<any> {
+    return this.http.get<any>(this.url + `marca/`, {observe: 'response'})
+  }
+
+  getModelos(marca_id: string): Observable<any> {
+    const params =  new HttpParams().set('marca', marca_id)
+    return this.http.get<any>(this.url + `modelo/`, {params, observe: 'response'})
+  }
+
   setPatineteSeleccionado(patinete: any) {
     return this.patineteSeleccionado = patinete;
   }
 
-  patinetes(userId: string|null): Observable<any> {
-    return  this.http.get(this.url+`patinete/?usuario=${userId}`, {observe: 'response'});
+  patinetes(userId: string, patinete: string): Observable<any> {
+    const params = new HttpParams().set('usuario', userId).set('patinete', patinete)
+    return  this.http.get(this.url+`patinete/`, {params, observe: 'response'});
   }
 
   patinete(patinete_id: string):Observable<any> {
@@ -28,16 +38,15 @@ export class PatinetesService {
   }
 
   registrarPatinete(patinete: Patinete): Observable<any> {
-    return this.http.post<any>(this.url+'patinete/', patinete);
+    return this.http.post<any>(this.url+'patinete/', patinete, {observe: 'response'});
   }
 
   puttPatinete(patinete_id: any, patinete: Patinete): Observable<any> {
-    return this.http.put<any>(this.url+`patinete/${patinete_id}/`, patinete);
+    return this.http.put<any>(this.url+`patinete/${patinete_id}/`, patinete, {observe: 'response'});
   }
 
-  eliminarPatinete(usuario_id: string, patinete_id: string): Observable<any> {
-    // const params = new HttpParams().set('id', patinete_id);
-    return this.http.delete<any>(this.url+`patinete/${patinete_id}`)
+  eliminarPatinete(patinete_id: string): Observable<any> {
+    return this.http.delete<any>(this.url+`patinete/${patinete_id}`, {observe: 'response'})
   }
 
 }
