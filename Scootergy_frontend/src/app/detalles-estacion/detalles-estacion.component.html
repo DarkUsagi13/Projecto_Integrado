@@ -30,7 +30,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Comunidad Autónoma</mat-label>
         <mat-select formControlName="comunidad" placeholder="Comunidad Autónoma">
-          <mat-option *ngFor="let comunidad of comunidades" [value]="comunidad"
+          <mat-option *ngFor="let comunidad of andalucia" [value]="comunidad"
                       (click)="getProvincias()">{{comunidad?.nombre}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -40,7 +40,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Provincia</mat-label>
         <mat-select formControlName="provincia" placeholder="Provincia">
-          <mat-option *ngFor="let provincia of provincias" [value]="provincia">{{provincia?.nombre}}</mat-option>
+          <mat-option *ngFor="let provincia of sevilla" [value]="provincia">{{provincia?.nombre}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>

@@ -15,6 +15,8 @@ export class DetallesEstacionComponent {
 
   provincias: any[] = [];
   comunidades: any[] = [];
+  andalucia: any[] = [];
+  sevilla: any[] = [];
 
   public formulario!: FormGroup;
 
@@ -47,6 +49,11 @@ export class DetallesEstacionComponent {
     this.provinciasService.getComunidades().subscribe(response => {
       if (response.status == 200) {
         this.comunidades = response.body;
+        for (const c of this.comunidades) {
+          if (c.id == 1) {
+            this.andalucia.push(c)
+          }
+        }
       }
     })
   }
@@ -58,6 +65,11 @@ export class DetallesEstacionComponent {
     this.provinciasService.getProvincias(comunidad_id).subscribe(response => {
       if (response.status == 200) {
         this.provincias = response.body
+        for (const p of this.provincias) {
+          if (p.id == 8) {
+            this.sevilla.push(p)
+          }
+        }
       }
     })
   }

@@ -2,7 +2,7 @@
 export function url() {
   let PRE = "http://localhost:8000/"
   let PRO = "http://44.213.255.189/"
-  return PRE
+  return PRO
 }
 
 export function calcular_tiempo(conexion: any) {
