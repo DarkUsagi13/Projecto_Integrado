@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {UsuariosService} from "../usuarios.service";
+import {UsuariosService} from "../usuario.service";
 import {BusquedasService} from "../busquedas.service";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {MatTableDataSource} from "@angular/material/table";

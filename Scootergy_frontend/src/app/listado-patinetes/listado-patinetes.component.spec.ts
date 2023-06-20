@@ -35,7 +35,35 @@ describe('ListadoPatinetesComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ ListadoPatinetesComponent, PlantillaPerfilComponent, TemplateComponent ],
-
+      imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgOptimizedImage,
+        NgbModule,
+        BrowserAnimationsModule,
+        RouterModule,
+        NgbPaginationModule,
+        MatInputModule,
+        MatSelectModule,
+        MatIconModule,
+        MatButtonModule,
+        MatTableModule,
+        MatCardModule,
+        MatListModule,
+        MatLineModule,
+        MatSidenavModule,
+        MatTooltipModule,
+        NgxDatatableModule,
+        NgxPaginationModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatDialogModule,
+      ],
     })
     .compileComponents();
 
@@ -47,4 +75,7 @@ describe('ListadoPatinetesComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
+
 });

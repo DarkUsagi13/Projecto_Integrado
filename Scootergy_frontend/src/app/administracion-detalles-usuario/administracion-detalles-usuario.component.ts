@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {UsuariosService} from "../usuarios.service";
+import {UsuariosService} from "../usuario.service";
 
 @Component({
   selector: 'app-administracion-detalles-usuario',

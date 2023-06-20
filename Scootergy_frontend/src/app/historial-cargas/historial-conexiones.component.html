@@ -70,23 +70,28 @@
         </ng-container>
 
         <ng-container matColumnDef="tiempoTotal">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Tiempo total</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            <span>Tiempo total</span>
+            <mat-icon matTooltipClass="custom-tooltip" matTooltip="Tiempo total = Hora de conexión - Hora de desconexión">info
+            </mat-icon>
+          </th>
           <td mat-cell *matCellDef="let conexion">{{ conexion.tiempoTotal }}</td>
         </ng-container>
 
         <ng-container matColumnDef="consumo">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Consumo kw/H</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            <span>Consumo kW/h</span>
+            <mat-icon matTooltipClass="custom-tooltip" matTooltip="Consumo kW/h = Consumo del patinete por kW/h * Tiempo total">info
+            </mat-icon>
+          </th>
           <td mat-cell *matCellDef="let conexion">{{ conexion.consumo }}</td>
         </ng-container>
 
         <ng-container matColumnDef="importe">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>
             <span>Importe</span>
-            <mat-icon matTooltipClass="custom-tooltip" matTooltip="Operación de cálculo:
-                                  Consumo total = Consumo del patinete * Tiempo de carga
-                                  Importe sin IVA = Consumo total * Precio kWh
-                                  Importe con IVA = Consumo total * Precio kWh * IVA
-                                  ">info
+            <mat-icon matTooltipClass="custom-tooltip" matTooltip="Importe =
+                                  Tarifa consumo ('0.15') * Consumo kW/h">info
             </mat-icon>
           </th>
           <td mat-cell *matCellDef="let conexion">{{ conexion.importe }}€</td>

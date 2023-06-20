@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {UsuariosService} from "../usuarios.service";
+import {UsuariosService} from "../usuario.service";
 import {ConexionesService} from "../conexiones.service";
 import {ActivatedRoute} from "@angular/router";
 import {calcular_tiempo} from "../utils";
+import html2canvas from "html2canvas";
+import {jsPDF} from "jspdf";
 
 @Component({
   selector: 'app-detalles-conexion',
@@ -39,6 +41,19 @@ export class DetallesConexionComponent implements OnInit {
 
   ngOnInit() {
     this.usuario = this.perfilService.obtenerIdUsuario();
+  }
+
+  openPDF(): void {
+    let DATA: any = document.getElementById('miTarjeta');
+    html2canvas(DATA).then((canvas) => {
+      let fileWidth = 208;
+      let fileHeight = (canvas.height * fileWidth) / canvas.width;
+      const FILEURI = canvas.toDataURL('image/png');
+      let PDF = new jsPDF('p', 'mm', 'a4');
+      let position = 0;
+      PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+      PDF.save('resumen_pago.pdf');
+    });
   }
 
 }

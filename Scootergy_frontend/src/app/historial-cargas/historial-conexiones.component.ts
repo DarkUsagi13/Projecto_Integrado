@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {UsuariosService} from '../usuarios.service';
+import {UsuariosService} from '../usuario.service';
 import {ConexionesService} from '../conexiones.service';
 import {BusquedasService} from '../busquedas.service';
 import {MatTableDataSource} from '@angular/material/table';

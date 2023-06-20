@@ -1,9 +1,7 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {UsuariosService} from "../usuarios.service";
+import {Component, OnInit} from '@angular/core';
+import {UsuariosService} from "../usuario.service";
 import {ConexionesService} from "../conexiones.service";
 import {MatTableDataSource} from "@angular/material/table";
-import {MatPaginator} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-perfil',
@@ -47,14 +45,20 @@ export class ResumenPerfilComponent implements OnInit {
     });
 
     this.conexionesService.getConexionesFinalizadas(this.usuarioId, '-', '').subscribe(conexiones => {
-      this.conexiones_mes = conexiones.length;
-      conexiones.sort((a: { horaConexion: string; }, b: { horaConexion: string; }) => {
-        const fechaA = new Date(a.horaConexion)
-        const fechaB = new Date(b.horaConexion)
-        return fechaB.getTime() - fechaA.getTime()
-      })
-      // Seleccionar las últimas 5 conexiones
-      this.dataSource = conexiones.slice(0, 5);
+      if (Array.isArray(conexiones)) {
+        this.conexiones_mes = conexiones.length;
+        conexiones.sort((a: { horaConexion: string }, b: { horaConexion: string }) => {
+          const fechaA = new Date(a.horaConexion);
+          const fechaB = new Date(b.horaConexion);
+          return fechaB.getTime() - fechaA.getTime();
+        });
+        // Seleccionar las últimas 5 conexiones
+        this.dataSource = new MatTableDataSource<any>(conexiones.slice(0, 5));
+      } else {
+        // Manejar el caso en el que no se devuelvan conexiones
+        this.conexiones_mes = 0;
+        this.dataSource = new MatTableDataSource<any>([]);
+      }
     });
 
   }

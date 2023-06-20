@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {UsuariosService} from '../usuarios.service';
+import {UsuariosService} from '../usuario.service';
 import {perfilUsuario} from "../perfil";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {validarPassword} from "../../utils/validators-utils";

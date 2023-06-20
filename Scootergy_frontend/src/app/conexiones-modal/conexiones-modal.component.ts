@@ -4,7 +4,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ConexionesService} from "../conexiones.service";
 import {Conexion} from "../conexion";
 import {EstacionesService} from "../estaciones.service";
-import {UsuariosService} from "../usuarios.service";
+import {UsuariosService} from "../usuario.service";
 import {PatinetesService} from "../patinetes.service";
 import {PaypalService} from "../paypal.service";
 import {ConfirmarPagoModalComponent} from "../confirmar-pago-modal/confirmar-pago-modal.component";

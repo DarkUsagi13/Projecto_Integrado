@@ -1,0 +1,1352 @@
+[
+  {
+    "model": "main.patinete",
+    "pk": 1,
+    "fields": {
+      "modelo": 2,
+      "usuario": 1,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 2,
+    "fields": {
+      "modelo": 46,
+      "usuario": 1,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 3,
+    "fields": {
+      "modelo": 44,
+      "usuario": 2,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 4,
+    "fields": {
+      "modelo": 21,
+      "usuario": 2,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 5,
+    "fields": {
+      "modelo": 9,
+      "usuario": 2,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 6,
+    "fields": {
+      "modelo": 39,
+      "usuario": 3,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 7,
+    "fields": {
+      "modelo": 45,
+      "usuario": 3,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 8,
+    "fields": {
+      "modelo": 5,
+      "usuario": 3,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 9,
+    "fields": {
+      "modelo": 21,
+      "usuario": 4,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 10,
+    "fields": {
+      "modelo": 32,
+      "usuario": 4,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 11,
+    "fields": {
+      "modelo": 49,
+      "usuario": 4,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 12,
+    "fields": {
+      "modelo": 31,
+      "usuario": 5,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 13,
+    "fields": {
+      "modelo": 38,
+      "usuario": 5,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 14,
+    "fields": {
+      "modelo": 36,
+      "usuario": 6,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 15,
+    "fields": {
+      "modelo": 11,
+      "usuario": 6,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 16,
+    "fields": {
+      "modelo": 35,
+      "usuario": 6,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 17,
+    "fields": {
+      "modelo": 22,
+      "usuario": 7,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 18,
+    "fields": {
+      "modelo": 34,
+      "usuario": 7,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 19,
+    "fields": {
+      "modelo": 33,
+      "usuario": 8,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 20,
+    "fields": {
+      "modelo": 36,
+      "usuario": 8,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 21,
+    "fields": {
+      "modelo": 26,
+      "usuario": 8,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 22,
+    "fields": {
+      "modelo": 22,
+      "usuario": 9,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 23,
+    "fields": {
+      "modelo": 31,
+      "usuario": 9,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 24,
+    "fields": {
+      "modelo": 1,
+      "usuario": 10,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 25,
+    "fields": {
+      "modelo": 45,
+      "usuario": 11,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 26,
+    "fields": {
+      "modelo": 20,
+      "usuario": 11,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 27,
+    "fields": {
+      "modelo": 35,
+      "usuario": 11,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 28,
+    "fields": {
+      "modelo": 35,
+      "usuario": 11,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 29,
+    "fields": {
+      "modelo": 29,
+      "usuario": 11,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 30,
+    "fields": {
+      "modelo": 34,
+      "usuario": 12,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 31,
+    "fields": {
+      "modelo": 43,
+      "usuario": 12,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 32,
+    "fields": {
+      "modelo": 31,
+      "usuario": 12,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 33,
+    "fields": {
+      "modelo": 37,
+      "usuario": 13,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 34,
+    "fields": {
+      "modelo": 6,
+      "usuario": 14,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 35,
+    "fields": {
+      "modelo": 26,
+      "usuario": 14,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 36,
+    "fields": {
+      "modelo": 11,
+      "usuario": 15,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 37,
+    "fields": {
+      "modelo": 26,
+      "usuario": 16,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 38,
+    "fields": {
+      "modelo": 44,
+      "usuario": 16,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 39,
+    "fields": {
+      "modelo": 17,
+      "usuario": 17,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 40,
+    "fields": {
+      "modelo": 28,
+      "usuario": 17,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 41,
+    "fields": {
+      "modelo": 29,
+      "usuario": 18,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 42,
+    "fields": {
+      "modelo": 6,
+      "usuario": 18,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 43,
+    "fields": {
+      "modelo": 5,
+      "usuario": 18,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 44,
+    "fields": {
+      "modelo": 40,
+      "usuario": 19,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 45,
+    "fields": {
+      "modelo": 47,
+      "usuario": 19,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 46,
+    "fields": {
+      "modelo": 31,
+      "usuario": 19,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 47,
+    "fields": {
+      "modelo": 9,
+      "usuario": 20,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 48,
+    "fields": {
+      "modelo": 1,
+      "usuario": 20,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 49,
+    "fields": {
+      "modelo": 16,
+      "usuario": 20,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 50,
+    "fields": {
+      "modelo": 8,
+      "usuario": 21,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 51,
+    "fields": {
+      "modelo": 7,
+      "usuario": 21,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 52,
+    "fields": {
+      "modelo": 24,
+      "usuario": 22,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 53,
+    "fields": {
+      "modelo": 7,
+      "usuario": 22,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 54,
+    "fields": {
+      "modelo": 36,
+      "usuario": 23,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 55,
+    "fields": {
+      "modelo": 6,
+      "usuario": 23,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 56,
+    "fields": {
+      "modelo": 23,
+      "usuario": 23,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 57,
+    "fields": {
+      "modelo": 14,
+      "usuario": 24,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 58,
+    "fields": {
+      "modelo": 44,
+      "usuario": 24,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 59,
+    "fields": {
+      "modelo": 45,
+      "usuario": 24,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 60,
+    "fields": {
+      "modelo": 43,
+      "usuario": 24,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 61,
+    "fields": {
+      "modelo": 45,
+      "usuario": 24,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 62,
+    "fields": {
+      "modelo": 44,
+      "usuario": 24,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 63,
+    "fields": {
+      "modelo": 45,
+      "usuario": 24,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 64,
+    "fields": {
+      "modelo": 12,
+      "usuario": 25,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 65,
+    "fields": {
+      "modelo": 2,
+      "usuario": 25,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 66,
+    "fields": {
+      "modelo": 17,
+      "usuario": 25,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 67,
+    "fields": {
+      "modelo": 10,
+      "usuario": 25,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 68,
+    "fields": {
+      "modelo": 19,
+      "usuario": 25,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 69,
+    "fields": {
+      "modelo": 35,
+      "usuario": 25,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 70,
+    "fields": {
+      "modelo": 29,
+      "usuario": 25,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 71,
+    "fields": {
+      "modelo": 33,
+      "usuario": 25,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 72,
+    "fields": {
+      "modelo": 8,
+      "usuario": 26,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 73,
+    "fields": {
+      "modelo": 34,
+      "usuario": 26,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 74,
+    "fields": {
+      "modelo": 31,
+      "usuario": 27,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 75,
+    "fields": {
+      "modelo": 35,
+      "usuario": 27,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 76,
+    "fields": {
+      "modelo": 26,
+      "usuario": 27,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 77,
+    "fields": {
+      "modelo": 31,
+      "usuario": 27,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 78,
+    "fields": {
+      "modelo": 22,
+      "usuario": 28,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 79,
+    "fields": {
+      "modelo": 7,
+      "usuario": 29,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 80,
+    "fields": {
+      "modelo": 1,
+      "usuario": 29,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 81,
+    "fields": {
+      "modelo": 43,
+      "usuario": 30,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 82,
+    "fields": {
+      "modelo": 38,
+      "usuario": 30,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 83,
+    "fields": {
+      "modelo": 30,
+      "usuario": 30,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 84,
+    "fields": {
+      "modelo": 37,
+      "usuario": 30,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 85,
+    "fields": {
+      "modelo": 38,
+      "usuario": 31,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 86,
+    "fields": {
+      "modelo": 14,
+      "usuario": 31,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 87,
+    "fields": {
+      "modelo": 45,
+      "usuario": 31,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 88,
+    "fields": {
+      "modelo": 40,
+      "usuario": 31,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 89,
+    "fields": {
+      "modelo": 13,
+      "usuario": 31,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 90,
+    "fields": {
+      "modelo": 32,
+      "usuario": 32,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 91,
+    "fields": {
+      "modelo": 38,
+      "usuario": 32,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 92,
+    "fields": {
+      "modelo": 17,
+      "usuario": 33,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 93,
+    "fields": {
+      "modelo": 45,
+      "usuario": 34,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 94,
+    "fields": {
+      "modelo": 19,
+      "usuario": 34,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 95,
+    "fields": {
+      "modelo": 44,
+      "usuario": 35,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 96,
+    "fields": {
+      "modelo": 16,
+      "usuario": 35,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 97,
+    "fields": {
+      "modelo": 44,
+      "usuario": 36,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 98,
+    "fields": {
+      "modelo": 35,
+      "usuario": 36,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 99,
+    "fields": {
+      "modelo": 3,
+      "usuario": 36,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 100,
+    "fields": {
+      "modelo": 15,
+      "usuario": 36,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 101,
+    "fields": {
+      "modelo": 22,
+      "usuario": 37,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 102,
+    "fields": {
+      "modelo": 35,
+      "usuario": 37,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 103,
+    "fields": {
+      "modelo": 49,
+      "usuario": 37,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 104,
+    "fields": {
+      "modelo": 42,
+      "usuario": 37,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 105,
+    "fields": {
+      "modelo": 30,
+      "usuario": 38,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 106,
+    "fields": {
+      "modelo": 33,
+      "usuario": 38,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 107,
+    "fields": {
+      "modelo": 37,
+      "usuario": 38,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 108,
+    "fields": {
+      "modelo": 27,
+      "usuario": 39,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 109,
+    "fields": {
+      "modelo": 21,
+      "usuario": 39,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 110,
+    "fields": {
+      "modelo": 34,
+      "usuario": 39,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 111,
+    "fields": {
+      "modelo": 28,
+      "usuario": 39,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 112,
+    "fields": {
+      "modelo": 16,
+      "usuario": 39,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 113,
+    "fields": {
+      "modelo": 12,
+      "usuario": 40,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 114,
+    "fields": {
+      "modelo": 8,
+      "usuario": 40,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 115,
+    "fields": {
+      "modelo": 19,
+      "usuario": 40,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 116,
+    "fields": {
+      "modelo": 21,
+      "usuario": 41,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 117,
+    "fields": {
+      "modelo": 33,
+      "usuario": 41,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 118,
+    "fields": {
+      "modelo": 17,
+      "usuario": 41,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 119,
+    "fields": {
+      "modelo": 36,
+      "usuario": 41,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 120,
+    "fields": {
+      "modelo": 14,
+      "usuario": 41,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 121,
+    "fields": {
+      "modelo": 3,
+      "usuario": 42,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 122,
+    "fields": {
+      "modelo": 47,
+      "usuario": 42,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 123,
+    "fields": {
+      "modelo": 33,
+      "usuario": 42,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 124,
+    "fields": {
+      "modelo": 40,
+      "usuario": 42,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 125,
+    "fields": {
+      "modelo": 13,
+      "usuario": 43,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 126,
+    "fields": {
+      "modelo": 31,
+      "usuario": 43,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 127,
+    "fields": {
+      "modelo": 6,
+      "usuario": 44,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 128,
+    "fields": {
+      "modelo": 17,
+      "usuario": 44,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 129,
+    "fields": {
+      "modelo": 1,
+      "usuario": 44,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 130,
+    "fields": {
+      "modelo": 42,
+      "usuario": 45,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 131,
+    "fields": {
+      "modelo": 48,
+      "usuario": 45,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 132,
+    "fields": {
+      "modelo": 23,
+      "usuario": 45,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 133,
+    "fields": {
+      "modelo": 30,
+      "usuario": 46,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 134,
+    "fields": {
+      "modelo": 23,
+      "usuario": 46,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 135,
+    "fields": {
+      "modelo": 20,
+      "usuario": 46,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 136,
+    "fields": {
+      "modelo": 40,
+      "usuario": 46,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 137,
+    "fields": {
+      "modelo": 43,
+      "usuario": 47,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 138,
+    "fields": {
+      "modelo": 30,
+      "usuario": 47,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 139,
+    "fields": {
+      "modelo": 13,
+      "usuario": 48,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 140,
+    "fields": {
+      "modelo": 43,
+      "usuario": 48,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 141,
+    "fields": {
+      "modelo": 4,
+      "usuario": 48,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 142,
+    "fields": {
+      "modelo": 24,
+      "usuario": 49,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 143,
+    "fields": {
+      "modelo": 5,
+      "usuario": 49,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 144,
+    "fields": {
+      "modelo": 10,
+      "usuario": 49,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 145,
+    "fields": {
+      "modelo": 48,
+      "usuario": 49,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 146,
+    "fields": {
+      "modelo": 18,
+      "usuario": 49,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 147,
+    "fields": {
+      "modelo": 20,
+      "usuario": 49,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 148,
+    "fields": {
+      "modelo": 49,
+      "usuario": 49,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 149,
+    "fields": {
+      "modelo": 21,
+      "usuario": 50,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 150,
+    "fields": {
+      "modelo": 15,
+      "usuario": 50,
+      "disponible": true
+    }
+  }
+]

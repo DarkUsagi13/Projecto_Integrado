@@ -1,10 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {PatinetesService} from "../patinetes.service";
-import {UsuariosService} from "../usuarios.service";
+import {UsuariosService} from "../usuario.service";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import { MatDialog } from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import {MatTableDataSource} from "@angular/material/table";
-import { MatSort } from '@angular/material/sort';
+import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from "@angular/material/paginator";
 import {ConfirmarBorrarModalComponent} from "../confirmar-borrar-modal/confirmar-borrar-modal.component";
 
@@ -13,13 +13,11 @@ import {ConfirmarBorrarModalComponent} from "../confirmar-borrar-modal/confirmar
   templateUrl: './listado-patinetes.component.html',
   styleUrls: ['./listado-patinetes.component.scss']
 })
-export class ListadoPatinetesComponent implements OnInit{
+export class ListadoPatinetesComponent implements OnInit {
 
   formulario!: FormGroup;
 
   dataSource!: MatTableDataSource<any>;
-
-  animacion = true;
 
   columnsToDisplay: string[] = [
     'patineteNombre',
@@ -60,14 +58,11 @@ export class ListadoPatinetesComponent implements OnInit{
     const patinete = this.formulario.get('patinete')?.value;
 
     this.patinetesServices.patinetes(userId, patinete).subscribe(response => {
-     if (response.status == 200) {
-       setTimeout(() => {
-         this.dataSource = new MatTableDataSource(response.body)
-         this.dataSource.sort = this.sort;
-         this.dataSource.paginator = this.paginator;
-         this.animacion = false;
-       }, 500)
-     }
+      if (response.status == 200) {
+        this.dataSource = new MatTableDataSource(response.body)
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
     })
   }
 
@@ -78,29 +73,11 @@ export class ListadoPatinetesComponent implements OnInit{
 
       modalRef.componentInstance.actualizar.subscribe(value => {
         if (value) {
-          this.animacion = true;
-          setTimeout(() => {
-            this.buscarPatinetes()
-          }, 500)
+          this.buscarPatinetes()
         }
-        this.animacion = false;
         modalRef.close()
       })
     }
   }
-
-  // open(patinete: any) {
-  //   const dialogRef = this.dialog.open(DetallesPatineteComponent, {
-  //     width: '500px', // Personaliza el ancho del modal según tus necesidades
-  //     // Puedes agregar más opciones de configuración según tus requerimientos
-  //   });
-  //
-  //   dialogRef.componentInstance.patinete = patinete;
-  //
-  //   // Opcionalmente, puedes suscribirte al evento 'afterClosed' para realizar acciones después de que se cierre el modal
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     // Lógica después de cerrar el modal
-  //   });
-  // }
 
 }

@@ -11,7 +11,7 @@ import {validarPassword} from "../../utils/validators-utils";
 export class RegistroComponent {
 
   public formulario!: FormGroup;
-  public errores: any = {};
+  public errores: any;
 
   public usernameInvalid = 'El nombre de usuario debe incluir: al menos una letra, y puede incluir letras, números, puntos, ' +
     'guiones bajos y guiones medios. Además, debe tener una longitud de 5 a 16 caracteres.'

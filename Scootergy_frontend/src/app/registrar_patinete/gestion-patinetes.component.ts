@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from '@angular/router';
 import {PatinetesService} from "../patinetes.service";
-import {UsuariosService} from "../usuarios.service";
+import {UsuariosService} from "../usuario.service";
 import {Patinete} from "../patinete";
 
 @Component({

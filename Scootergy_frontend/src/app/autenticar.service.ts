@@ -12,7 +12,6 @@ import {url} from "./utils";
 export class AutenticarService {
 
   url: any= url()
-  mensajeErrores: string = '';
 
   constructor(private http: HttpClient, private router: Router) {
   }
@@ -38,13 +37,8 @@ export class AutenticarService {
       next: (data) => {
         this.setLoggedInUser(data);
         this.router.navigateByUrl(``);
-      },
-      error: (error) => {
-        this.mensajeErrores = error.error.non_field_errors[0];
       }
     });
   }
-
-
 
 }

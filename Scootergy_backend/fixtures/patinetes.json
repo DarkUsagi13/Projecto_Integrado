@@ -1,0 +1,47 @@
+[
+  {
+    "model": "main.patinete",
+    "pk": 1,
+    "fields": {
+      "modelo": 1,
+      "usuario": 2,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 2,
+    "fields": {
+      "modelo": 14,
+      "usuario": 2,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 3,
+    "fields": {
+      "modelo": 26,
+      "usuario": 2,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 4,
+    "fields": {
+      "modelo": 1,
+      "usuario": 3,
+      "disponible": true
+    }
+  },
+  {
+    "model": "main.patinete",
+    "pk": 5,
+    "fields": {
+      "modelo": 31,
+      "usuario": 3,
+      "disponible": true
+    }
+  }
+]

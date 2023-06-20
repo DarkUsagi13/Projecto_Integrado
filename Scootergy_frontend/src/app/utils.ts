@@ -18,7 +18,6 @@ export function calcular_tiempo(conexion: any) {
 
 export function formatearFecha(fechaInicial: Date) {
 
-
   if (fechaInicial) {
     const fecha = new Date(fechaInicial);
     const year = fecha.getUTCFullYear();

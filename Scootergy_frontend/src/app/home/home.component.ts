@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {Estacion} from '../estacion';
 import {EstacionesService} from '../estaciones.service';
 import {Patinete} from '../patinete';
-import {UsuariosService} from '../usuarios.service';
+import {UsuariosService} from '../usuario.service';
 import {Puesto} from '../puesto';
 import {PatinetesService} from "../patinetes.service";
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
     private usuariosService: UsuariosService,
     private patinetesService: PatinetesService,
     private estacionesService: EstacionesService,
-    private conexionesService: ConexionesService,
+    public conexionesService: ConexionesService,
     private router: Router,
     private fb: FormBuilder,
     private modalService: NgbModal,

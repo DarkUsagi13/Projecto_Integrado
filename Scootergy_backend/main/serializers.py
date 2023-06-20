@@ -48,6 +48,12 @@ class RegistroSerializer(serializers.ModelSerializer):
         fields = ("id", "username", "email", "password")
         extra_kwargs = {"password": {"write_only": True}}
 
+    def validate(self, attrs):
+        email = attrs.get("email")
+        if Usuario.objects.filter(email=email).exists():
+            raise serializers.ValidationError({'email': "El email ya está en uso."})
+        return attrs
+
     def validate_username(self, value):
         if not re.match(r'^[a-zA-Z0-9_.-]{5,16}$', value):
             raise serializers.ValidationError(

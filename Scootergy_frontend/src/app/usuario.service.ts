@@ -21,11 +21,9 @@ export class UsuariosService {
   }
 
   perfil(userId: string|null): Observable<any> {
-
     const headers = new HttpHeaders({
       'Authorization': 'Bearer ' + this.token
     });
-
     return this.http.get(this.url+`usuario/${userId}/`, { headers: headers });
   }
 

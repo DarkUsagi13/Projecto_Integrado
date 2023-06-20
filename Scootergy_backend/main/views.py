@@ -99,7 +99,6 @@ class EstacionView(viewsets.ModelViewSet):
 
                 response = super().create(request, *args, **kwargs)  # Crea la estación
                 estacion = Estacion.objects.get(id=response.data['id'])
-                print(estacion.nombre, estacion.direccion, estacion.provincia)
                 if response.status_code == status.HTTP_201_CREATED:
 
                     for i in range(num_puestos):
@@ -150,6 +149,7 @@ class EstacionView(viewsets.ModelViewSet):
 
 
 class PuestoView(viewsets.ModelViewSet):
+    permission_classes = [IsStaffOrReadOnly]
     queryset = Puesto.objects.all()
     serializer_class = PuestoSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
@@ -194,11 +194,13 @@ class PuestoView(viewsets.ModelViewSet):
 
 
 class MarcaView(viewsets.ModelViewSet):
+    permission_classes = [IsStaffOrReadOnly]
     queryset = Marca.objects.all()
     serializer_class = MarcaSerializer
 
 
 class ModeloView(viewsets.ModelViewSet):
+    permission_classes = [IsStaffOrReadOnly]
     queryset = Modelo.objects.all()
     serializer_class = ModeloSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
@@ -348,16 +350,19 @@ class ConexionView(viewsets.ModelViewSet):
 
 
 class PagoView(viewsets.ModelViewSet):
+    permission_classes = [IsStaffOrReadOnly]
     queryset = Pago.objects.all()
     serializer_class = PagoSerializer
 
 
 class ComunidadAutonomaView(viewsets.ModelViewSet):
+    permission_classes = [IsStaffOrReadOnly]
     queryset = ComunidadAutonoma.objects.all()
     serializer_class = ComunidadAutonomaSerializer
 
 
 class ProvinciaView(viewsets.ModelViewSet):
+    permission_classes = [IsStaffOrReadOnly]
     queryset = Provincia.objects.all()
     serializer_class = ProvinciaSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]

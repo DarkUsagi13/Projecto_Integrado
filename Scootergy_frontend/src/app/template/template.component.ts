@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {UsuariosService} from "../usuarios.service";
+import {UsuariosService} from "../usuario.service";
 
 @Component({
   selector: 'app-template',
@@ -27,15 +27,15 @@ export class TemplateComponent implements OnInit {
 
   logOut(): void {
     localStorage.removeItem("userData");
-    this.router.navigateByUrl("/login").then(r => {})
+    this.router.navigateByUrl("/login");
   }
 
   isStaff() {
     const usuario_id = JSON.parse(localStorage.getItem('userData')!)?.id
 
     this.usuariosService.perfil(usuario_id).subscribe(usuario => {
-      if (usuario.is_staff) {
-        this.staff = usuario.is_staff;
+      if (usuario?.is_staff) {
+        this.staff = usuario?.is_staff;
       }
     })
 

@@ -1,59 +1,55 @@
 <app-plantilla-perfil>
-  <ng-container *ngIf="animacion; else mostrarTabla">
-    <div class="container-fluid">
-      <div class="loading-container d-flex justify-content-center align-content-center">
-        <div class="loading"></div>
-        <div id="loading-text">Cargando...</div>
-      </div>
-    </div>
-  </ng-container>
-  <ng-template #mostrarTabla>
-    <div class="container-fluid slide-in-top" style="overflow-x: scroll;">
-      <h1 class="text-center p-5">Patinetes registrados</h1>
+  <div class="container-fluid slide-in-top" style="overflow-x: scroll;">
+    <h1 class="text-center p-5">Patinetes registrados</h1>
 
-      <form [formGroup]="formulario">
+    <form [formGroup]="formulario">
 
-        <div class="d-flex">
-          <div class="p-2">
-            <mat-form-field appearance="fill">
-              <mat-label>Marca/modelo</mat-label>
-              <input formControlName="patinete" matInput placeholder="Marca/modelo">
-            </mat-form-field>
-          </div>
+      <div class="d-flex">
+        <div class="p-2">
+          <mat-form-field appearance="fill">
+            <mat-label>Marca/modelo</mat-label>
+            <input formControlName="patinete" matInput placeholder="Marca/modelo">
+          </mat-form-field>
         </div>
+      </div>
 
-      </form>
+    </form>
 
-      <table mat-table [dataSource]="dataSource" matSort>
+    <table mat-table [dataSource]="dataSource" matSort>
 
-        <ng-container matColumnDef="patineteNombre">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            Marca del patinete
-          </th>
-          <td mat-cell *matCellDef="let patinete">{{ patinete.patineteNombre }}</td>
-        </ng-container>
+      <ng-container matColumnDef="patineteNombre">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Marca del patinete
+        </th>
+        <td mat-cell *matCellDef="let patinete">{{ patinete.patineteNombre }}</td>
+      </ng-container>
 
-        <ng-container matColumnDef="consumo">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Consumo</th>
-          <td mat-cell *matCellDef="let patinete">{{ patinete.consumo }}</td>
-        </ng-container>
+      <ng-container matColumnDef="consumo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Consumo kW/h</th>
+        <td mat-cell *matCellDef="let patinete">{{ patinete.consumo }}</td>
+      </ng-container>
 
-        <ng-container matColumnDef="detalles">
-          <th mat-header-cell *matHeaderCellDef>Acciones</th>
-          <td mat-cell *matCellDef="let patinete">
+      <ng-container matColumnDef="detalles">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let patinete">
+          <ng-container *ngIf="patinete.disponible; else sinAcciones">
             <button type="button" class="btn" (click)="open(patinete)">
               <i class="fa-regular fa-trash-can fa-xl" style="color: #f44336;"></i>
             </button>
-          </td>
-        </ng-container>
+          </ng-container>
+          <ng-template #sinAcciones>
+            <p>Patinete en uso, sin acciones disponibles.</p>
+          </ng-template>
+        </td>
+      </ng-container>
 
-        <tr class="custom-header" mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+      <tr class="custom-header" mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
 
-      </table>
+    </table>
 
-      <mat-paginator [pageSize]="itemsPerPage" [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+    <mat-paginator [pageSize]="itemsPerPage" [pageSizeOptions]="[10, 25, 50, 100]"
+                   showFirstLastButtons></mat-paginator>
 
-    </div>
-  </ng-template>
+  </div>
 </app-plantilla-perfil>
