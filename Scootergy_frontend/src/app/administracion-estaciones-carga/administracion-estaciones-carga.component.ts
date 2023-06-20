@@ -26,7 +26,6 @@ export class AdministracionEstacionesCargaComponent implements OnInit {
     'nombre',
     'direccion',
     'provinciaNombre',
-    'comunidadNombre',
     'total_puestos',
     'editar',
     'add_puestos',
@@ -70,7 +69,6 @@ export class AdministracionEstacionesCargaComponent implements OnInit {
 
     this.busquedasService.buscarEstaciones(estacion, direccion, provincia, comunidad).subscribe(response => {
       if (response.status == 200) {
-        console.log(response.body)
         this.dataSource = new MatTableDataSource(response.body);
         this.dataSource.paginator = this.paginator;
         this.paginator._intl.itemsPerPageLabel = 'Items por página';
@@ -95,7 +93,6 @@ export class AdministracionEstacionesCargaComponent implements OnInit {
     let modalRef2 = this.dialog.open(AdministracionRegistrarEstacionComponent, {width: '500px',})
 
     modalRef2.componentInstance.actualizar.subscribe(value => {
-      console.log(value)
       if (value) {
         this.buscarEstaciones()
       }

@@ -42,15 +42,7 @@
               <input formControlName="provincia" matInput placeholder="Buscar provincia">
             </mat-form-field>
           </div>
-
-          <div class="p-2">
-            <mat-form-field appearance="fill">
-              <mat-label>Buscar comunidad</mat-label>
-              <input formControlName="comunidad" matInput placeholder="Buscar comunidad">
-            </mat-form-field>
-          </div>
         </div>
-
       </form>
 
       <div>
@@ -70,11 +62,6 @@
           <ng-container matColumnDef="provinciaNombre">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Provincia</th>
             <td mat-cell *matCellDef="let estacion">{{ estacion.provinciaNombre }}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="comunidadNombre">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Comunidad</th>
-            <td mat-cell *matCellDef="let estacion">{{ estacion.comunidadNombre }}</td>
           </ng-container>
 
           <ng-container matColumnDef="total_puestos">
