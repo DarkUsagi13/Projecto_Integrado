@@ -5,7 +5,7 @@ _Proyecto integrado para el **Ciclo Formativo de Desarrollo de Aplicaciones Web*
 Consiste en una aplicación que permite la carga de patinetes eléctricos en estaciones de carga dedicadas para ello.
 
 _Autor_ 
-* **DarkUsagi13**  - [DarkUsagi13](https://github.com/DarkUsagi13)
+* **MartinezHU**  - [DarkUsagi13](https://github.com/DarkUsagi13)
 
 _Herramientas y lenguajes utilizados_
 * TypeScript
